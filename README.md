@@ -14,6 +14,38 @@ Nous proposons un système innovant et sécurisé à destinations des médecins,
 
 Notre système propose aux médecins de remplir une ordonnance numérique qui sera anonymisée puis stockée sur nos serveurs. Son ou sa patient(e) recevra ensuite un email contenant un code représentant cette ordonnance, qu'il ou elle pourra stocker dans une application mobile. Une fois arrivée à la pharmacie, il suffira de présenter le code que le ou la pharmacien(ne) pourra scanner afin d'obtenir le détail de l'ordonnance et délivrer les médicaments.
 
+
+
+## Installation
+
+#### Dépendances
+
+- Node 14.16.1
+
+- NPM 6.14.9
+
+#### Installation des librairies
+
+Commencez par cloner le repository GitHub disponible à [cette adresse](https://github.com/Samrhan/MedChain).
+
+Ensuite, placez vous à la racine du projet, puis exécutez les commandes suivantes (cela peut prendre un moment en fonction de votre connexion internet et de la rapidité de votre disque dur) :
+```Bash
+$ cd server
+$ npm install
+$ cd ../pharmacist
+$ npm install
+$ cd ../doctor
+$ npm install
+$ cd ../client
+$ npm install
+```
+
+#### Exécution
+
+Nous conseillons d'utiliser un IDE produit par JetBrains, dans le cas présent, Webstorm. En effet, nous avons laissé dans notre repository le dossier .idea/runConfigurations dans lequel nous avons inclus l'ensemble des commandes à taper pour lancer les diverses parties du projet. Il suffit d'utiliser le menu déroulant en haut à droite pour sélectionner une composante et la lancer.
+
+Autrement, nous avons également configuré les package.json de chaque application pour que la commande `npm start` exécute chaque programme. Cependant, il est nécessaire d'employer à la place la commande `npm build` pour les application *doctor* et *pharmacist* afin d'avoir l'expérience réelle de l'utilisateur. En effet, `npm start` ouvrira l'application dans le navigateur, pratique pour le développement, tandis que `npm build` ouvrira l'application dans Electron, pratique pour avoir une application de bureau.
+
 ## Delivery 
 Voici nos documents de réponse à l'appel d'offre
 
