@@ -20,8 +20,8 @@ const client = mysql.createPool({
     password: process.env.DB_PASSWORD
 });
 
-router.get("/login", (req, res) => require('./login.js')(req, res, client))
-router.get("/disconnect", (req, res) => require('./disconnect.js')(req, res, client))
-router.get("/me", (req, res) => require('./me.js')(req, res, client))
+router.post("/login", async (req, res) => require('./login.js')(req, res, client))
+router.post("/disconnect", (req, res) => require('./disconnect.js')(req, res, client))
+router.get("/me", async(req, res) => require('./me.js')(req, res, client))
 
 module.exports = router
