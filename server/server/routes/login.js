@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt')
 
+
 module.exports = async (req, res, client) => {
 
     const username = req.body.username;
@@ -25,18 +26,9 @@ module.exports = async (req, res, client) => {
     }
 
     var result = Object.values(JSON.parse(JSON.stringify(data[0])))[0]
-
-    console.log(result)
-    console.log(result.Password)
-    console.log(data[0].length)
-
     if (data[0].length === 1) {
-
         if (await bcrypt.compare(password, result.Password)) {
-            console.log("aaa")
-
             if(username){
-                console.log("cccc")
                 req.session.userId = result.Id_pharmacien;
                 req.session.TypeID = 0;
             }else if(rpps){

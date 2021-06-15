@@ -23,6 +23,9 @@ const client = mysql.createPool({
 router.post("/login", async (req, res) => require('./login.js')(req, res, client))
 router.post("/disconnect", (req, res) => require('./disconnect.js')(req, res, client))
 router.get("/me", async(req, res) => require('./me.js')(req, res, client))
-router.post("/ordonnance", async(req, res) => require('./ordonnance.js')(req, res, client))
-
+router.post("/add_prescription", async(req, res) => require('./add_prescription.js')(req, res, client))
+router.post("/token_state", async(req, res) => require('./token_state.js')(req, res, client))
+router.post("/get_prescription", async(req, res) => require('./get_prescription.js')(req, res, client))
+router.post("/use_prescription", async(req, res) => require('./use_prescription.js')(req, res, client))
+router.post("/note", async(req, res) => require('./note.js')(req, res, client))
 module.exports = router
