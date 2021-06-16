@@ -2,22 +2,19 @@
   <img class="main-logo" src="assets/logo.png" alt="logo">
   <form [formGroup]="loginForm" (submit)="login()">
     <div class="form-group">
-      <label for="inputUsername">Numéro RPPS :</label>
+      <label for="inputUsername">Identifiant :</label>
       <input formControlName="username" type="text" class="form-control"
-             [ngClass]="{'is-invalid' : missingId || passwdErr || badRpps}" id="inputUsername"
+             [ngClass]="{'is-invalid' : missingId || passwdErr}" id="inputUsername"
              aria-describedby="bddHelp"
              placeholder="Identifiant" required>
-      <div class="invalid-feedback" *ngIf="!passwdErr && !badRpps">
-        Indiquez votre numéro RPPS
-      </div>
-      <div class="invalid-feedback" *ngIf="badRpps">
-        Saisie incorrecte
+      <div class="invalid-feedback" *ngIf="!passwdErr">
+        Indiquez votre identifiant
       </div>
       <label for="inputPassword">Mot de Passe :</label>
       <input formControlName="password" class="form-control" [ngClass]="{'is-invalid' : missingPasswd || passwdErr}"
              id="inputPassword" placeholder="Mot de Passe"
              type="password" required>
-      <div class="invalid-feedback" *ngIf="!passwdErr && !badRpps">
+      <div class="invalid-feedback" *ngIf="!passwdErr">
         Indiquez votre mot de passe
       </div>
       <div class="invalid-feedback" *ngIf="passwdErr">

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {AuthenticatorService} from "../service/authenticator.service";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -17,9 +16,8 @@ export class LoginComponent implements OnInit {
   passwdErr = false;
   missingPasswd = false;
   missingId = false;
-  badRpps = false;
 
-  constructor(private authenticatorService: AuthenticatorService, public router: Router) {
+  constructor(private authenticatorService: AuthenticatorService) {
   }
 
   ngOnInit(): void {
@@ -30,15 +28,25 @@ export class LoginComponent implements OnInit {
     const username = this.loginForm.controls.username.value;
     this.missingPasswd = !passwd;
     this.missingId = !username;
-    this.badRpps = !username.match(/^[0-9]{11}$/g);
-    const validForm = !this.missingPasswd && !this.missingId && !this.badRpps;
+    const validForm = !this.missingPasswd && !this.missingId;
     if (validForm) {
-      await this.authenticatorService.login(username, passwd).subscribe(response => {
-        this.router.navigateByUrl('/form_ordonnance')
+      const res = await this.authenticatorService.login(username, passwd).subscribe(response => {
+        console.log(response)
       }, error => {
-        switch (error.status) {
+        switch (error.status){
+          case 403:
+            // Déjà connecté
+            console.log(403)
+            break;
           case 401:
-            this.passwdErr = true
+            // Le compte existe mais l'e-mail n'est pas validé
+            console.log(401)
+
+            break;
+          case 400:
+            // Mot de passe ou e-mail invalide
+            console.log(400)
+
             break;
           default:
             alert("Une erreur est survenue, veuillez rééssayer.")
