@@ -29,9 +29,10 @@ INSERT INTO Specialites VALUES ("Généraliste");
 INSERT INTO Specialites VALUES ("Cardiologue");
 INSERT INTO Specialites VALUES ("Dentiste");
 
+-- Password = azerty
 -- Nom_medecin, Prenom_medecin, Numero, Rue, Ville, CodePostal, Telephone, RPPS, Password, Droit_connexion, Specialite
-INSERT INTO Medecins(Nom_medecin, Prenom_medecin, Numero, Rue, Ville, CodePostal, Telephone, RPPS, Password, Droit_connexion, Specialite) VALUES ("Girard", "Adrien", "64", "Rue des Nations Unies", "Saint-Benoît", "97470", "0145875203", "00000000001", "", True, "Généraliste");
-INSERT INTO Medecins(Nom_medecin, Prenom_medecin, Numero, Rue, Ville, CodePostal, Telephone, RPPS, Password, Droit_connexion, Specialite) VALUES ("Courtemanche", "Yann", "76", "Rue Charles Corbeau", "Fécamp", "76400", "0147586932", "12345678910", "", True, "Généraliste");
+INSERT INTO Medecins(Nom_medecin, Prenom_medecin, Numero, Rue, Ville, CodePostal, Telephone, RPPS, Password, Droit_connexion, Specialite) VALUES ("Girard", "Adrien", "64", "Rue des Nations Unies", "Saint-Benoît", "97470", "0145875203", "00000000001", "$2b$10$bLtyV6/RHaVjUlmAw6.sCegr5WpCvGzBF4BVUdHaqRYAPjV3ime1q", True, "Généraliste");
+INSERT INTO Medecins(Nom_medecin, Prenom_medecin, Numero, Rue, Ville, CodePostal, Telephone, RPPS, Password, Droit_connexion, Specialite) VALUES ("Courtemanche", "Yann", "76", "Rue Charles Corbeau", "Fécamp", "76400", "0147586932", "12345678910", "$2b$10$bLtyV6/RHaVjUlmAw6.sCegr5WpCvGzBF4BVUdHaqRYAPjV3ime1q", True, "Généraliste");
 
 -- Numero, Rue, Ville, CodePostal, Telephone
 INSERT INTO Pharmacies(Numero, Rue, Ville, CodePostal, Telephone) VALUES ("41", "Avenue Anatole France", "Choisy-le-roi", "94600", "0148847477");
@@ -39,12 +40,12 @@ INSERT INTO Pharmacies(Numero, Rue, Ville, CodePostal, Telephone) VALUES ("3", "
 INSERT INTO Pharmacies(Numero, Rue, Ville, CodePostal, Telephone) VALUES ("2", "Avenue Lucien Français", "Vitry-sur-seine", "94400", "0146825321");
 
 -- Nom_pharmacien, Prenom_pharmacien, Numero, Rue, Ville, CodePostal, Telephone, Password, Username, Droit_connexion, Id_pharmacie
-INSERT INTO Pharmaciens(Nom_pharmacien, Prenom_pharmacien, Numero, Rue, Ville, CodePostal, Telephone, Password, Username, Droit_connexion, Id_pharmacie) VALUES ("Filangi", "Enzo", "30", "Avenue de la république", "Villejuif", "94800", "0102030405", "", "enzo.filangi", True, 1);
-INSERT INTO Pharmaciens(Nom_pharmacien, Prenom_pharmacien, Numero, Rue, Ville, CodePostal, Telephone, Password, Username, Droit_connexion, Id_pharmacie) VALUES ("Bader", "Samuel", "32", "Avenue de la république", "Villejuif", "94800", "0602030405", "", "samuel.bader", True, 2);
-INSERT INTO Pharmaciens(Nom_pharmacien, Prenom_pharmacien, Numero, Rue, Ville, CodePostal, Telephone, Password, Username, Droit_connexion, Id_pharmacie) VALUES ("Witt", "Jonathan", "15", "Rue Clement Marot", "Périgueux", "24000", "0195087238", "", "jonathan.witt", True, 3);
+INSERT INTO Pharmaciens(Nom_pharmacien, Prenom_pharmacien, Numero, Rue, Ville, CodePostal, Telephone, Password, Username, Droit_connexion, Id_pharmacie) VALUES ("Filangi", "Enzo", "30", "Avenue de la république", "Villejuif", "94800", "0102030405", "$2b$10$bLtyV6/RHaVjUlmAw6.sCegr5WpCvGzBF4BVUdHaqRYAPjV3ime1q", "enzo.filangi", True, 1);
+INSERT INTO Pharmaciens(Nom_pharmacien, Prenom_pharmacien, Numero, Rue, Ville, CodePostal, Telephone, Password, Username, Droit_connexion, Id_pharmacie) VALUES ("Bader", "Samuel", "32", "Avenue de la république", "Villejuif", "94800", "0602030405", "$2b$10$bLtyV6/RHaVjUlmAw6.sCegr5WpCvGzBF4BVUdHaqRYAPjV3ime1q", "samuel.bader", True, 2);
+INSERT INTO Pharmaciens(Nom_pharmacien, Prenom_pharmacien, Numero, Rue, Ville, CodePostal, Telephone, Password, Username, Droit_connexion, Id_pharmacie) VALUES ("Witt", "Jonathan", "15", "Rue Clement Marot", "Périgueux", "24000", "0195087238", "$2b$10$bLtyV6/RHaVjUlmAw6.sCegr5WpCvGzBF4BVUdHaqRYAPjV3ime1q", "jonathan.witt", True, 3);
 
 -- Id_ordonnance, Identifiant_patient, Renouvellements, Date_maximum, Date_prescription, Id_medecin
-INSERT INTO Ordonnances(Id_ordonnance, Identifiant_patient, Renouvellements, Date_maximum, Date_prescription, Id_medecin) VALUES ("483472b1-c9d7-4cf3-91c6-42530141c628", "", 1, "2022-06-12", "2021-06-12", 1);
+INSERT INTO Ordonnances(Id_ordonnance, Identifiant_patient, Renouvellements, Date_maximum, Date_prescription, Id_medecin) VALUES ("483472b1-c9d7-4cf3-91c6-42530141c628", "$2b$10$CQjCFWSKNkDon1dmi1DWGeX0BcaUCggxdEaQ1Dh45cyVHs7oRptTi", 1, "2022-06-12", "2021-06-12", 1);
 INSERT INTO Ordonnances(Id_ordonnance, Identifiant_patient, Renouvellements, Date_maximum, Date_prescription, Id_medecin) VALUES ("4ef7b9c8-c94d-4fa6-ae48-ec007eba8dc6", "", 3, "2022-05-20", "2021-05-20", 1);
 INSERT INTO Ordonnances(Id_ordonnance, Identifiant_patient, Renouvellements, Date_maximum, Date_prescription, Id_medecin) VALUES ("75f3e768-5853-446f-b739-d37f31dea755", "", 1, "2022-06-16", "2021-06-16", 1);
 INSERT INTO Ordonnances(Id_ordonnance, Identifiant_patient, Renouvellements, Date_maximum, Date_prescription, Id_medecin) VALUES ("a32b3105-44fe-47e0-b336-39d219c71856", "", 99999, "2021-12-04", "2021-06-04", 1);

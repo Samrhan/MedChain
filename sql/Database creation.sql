@@ -58,7 +58,7 @@ CREATE TABLE Medecins(
 
 CREATE TABLE Ordonnances(
         Id_ordonnance       Char(36) NOT NULL ,
-        Identifiant_patient TinyBlob NOT NULL ,
+        Identifiant_patient text NOT NULL ,
         Renouvellements     Int NOT NULL ,
         Date_maximum        Date NOT NULL ,
         Date_prescription   Datetime NOT NULL ,

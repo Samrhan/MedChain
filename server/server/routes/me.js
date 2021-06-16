@@ -1,18 +1,18 @@
 module.exports = async (req, res, client) => {
-    if(req.session.userId){
+    if (req.session.userId) {
         let sql;
-        if(req.session.TypeID === 0){
+        if (req.session.TypeID === 0) {
             sql = "SELECT username, nom_pharmacien, prenom_pharmacien FROM pharmaciens WHERE id_pharmacien=?"
-        }else{
+        } else {
             sql = "SELECT RPPS, nom_medecin, prenom_medecin FROM medecins WHERE id_medecin=?"
         }
-        let data = await client.query(sql,[req.session.userId])
+        let data = await client.query(sql, [req.session.userId])
         var result = Object.values(JSON.parse(JSON.stringify(data[0])))[0]
 
-        if(result){
-            if(req.session.TypeID === 0){
+        if (result) {
+            if (req.session.TypeID === 0) {
                 result.role = "pharmacien"
-            }else{
+            } else {
                 result.role = "medecin"
             }
             res.status(200).json(result);

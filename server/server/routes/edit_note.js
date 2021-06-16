@@ -20,17 +20,15 @@ module.exports = async (req, res, client) => {
 
         if (await bcrypt.compare(password, result.Identifiant_patient)) {
 
-            data2 = await client.query("SELECT * FROM notes WHERE id_ordonnance = ?", [id_ordonnance])
-            var result2 = Object.values(JSON.parse(JSON.stringify(data2[0])))
-            for (let i = 0; i < result2.length; i++) {
-                if (result2[i].Id_pharmacie == req.session.pharmacie) {
-                    res.status(403).json({message: 'Une note de cette pharmacie existe deja'})
-                    return;
-                }
+            data2 = await client.query("SELECT * FROM notes WHERE id_ordonnance = ? AND Id_pharmacie = ? ", [id_ordonnance, req.session.pharmacie])
+
+            if (data2[0].length === 1) {
+                sql = "UPDATE notes SET   Contenu = ?, Date_ecriture = ? WHERE id_ordonnance = ? AND Id_pharmacie = ? "
+                const result = await client.query(sql, [content, Date_ecriture, id_ordonnance, req.session.pharmacie])
+                res.status(200).json({message: "ok"});
+            } else {
+                res.status(403).json({message: "Aucune note de cette pharmacie existe"});
             }
-            sql = "INSERT INTO notes(Id_ordonnance, Id_pharmacie, Contenu, Date_ecriture) VALUES (?, ?, ?,?)"
-            const result = await client.query(sql, [id_ordonnance, req.session.pharmacie, content, Date_ecriture])
-            res.status(200).json({message: "ok"});
 
         } else {
             res.status(400).json({message: "bad request"});
@@ -38,6 +36,5 @@ module.exports = async (req, res, client) => {
     } else {
         res.status(400).json({message: "bad request"});
     }
-
 
 }

@@ -38,6 +38,10 @@ SELECT * FROM ordonnances
 NATURAL JOIN prescriptions
 NATURAL JOIN medecins;
 
+CREATE OR REPLACE VIEW info_ordonnance AS
+SELECT Renouvellements, Date_maximum, Date_prescription, nom_medecin, Numero, Rue, Ville, COdePostal, Telephone, Specialite, Id_ordonnance FROM ordonnances
+NATURAL JOIN medecins;
+
 CREATE OR REPLACE VIEW utilisations_ordonnance AS
 SELECT id_ordonnance, Renouvellements, Date_maximum, COUNT(*) AS Utilisations FROM Delivre NATURAL JOIN Ordonnances
 GROUP BY id_ordonnance;
