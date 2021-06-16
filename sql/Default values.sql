@@ -55,23 +55,23 @@ INSERT INTO Ordonnances(Id_ordonnance, Identifiant_patient, Renouvellements, Dat
 INSERT INTO Ordonnances(Id_ordonnance, Identifiant_patient, Renouvellements, Date_maximum, Date_prescription, Id_medecin) VALUES ("287c6493-b166-49d9-9b09-d629000f5c9d", "", 5, "2021-02-27", "2020-02-27", 2);
 INSERT INTO Ordonnances(Id_ordonnance, Identifiant_patient, Renouvellements, Date_maximum, Date_prescription, Id_medecin) VALUES ("eb4b84bb-e2f0-469b-9c69-495a3234957f", "", 99999, "2021-01-01", "2020-01-01", 2);
 
--- Id_ordonnance, Id_pharmacien, Date_delivrance
-INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance) VALUES ("483472b1-c9d7-4cf3-91c6-42530141c628", 1, "2021-06-12");
-INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance) VALUES ("483472b1-c9d7-4cf3-91c6-42530141c628", 2, "2021-06-12");
-INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance) VALUES ("4ef7b9c8-c94d-4fa6-ae48-ec007eba8dc6", 1, "2021-05-20");
-INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance) VALUES ("4ef7b9c8-c94d-4fa6-ae48-ec007eba8dc6", 2, "2021-06-20");
-INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance) VALUES ("75f3e768-5853-446f-b739-d37f31dea755", 1, "2021-06-17");
-INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance) VALUES ("a32b3105-44fe-47e0-b336-39d219c71856", 1, "2021-06-04");
-INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance) VALUES ("a32b3105-44fe-47e0-b336-39d219c71856", 2, "2021-07-04");
-INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance) VALUES ("a32b3105-44fe-47e0-b336-39d219c71856", 1, "2021-08-05");
-INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance) VALUES ("47753d54-c9d0-4f9c-bd73-973d9f359422", 2, "2020-10-12");
-INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance) VALUES ("eb924924-2bfe-445a-a013-8be34d8c1e12", 1, "2021-03-21");
-INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance) VALUES ("ce8aeb44-460d-4da0-81c2-4e3d01a981d5", 1, "2021-06-12");
-INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance) VALUES ("ce8aeb44-460d-4da0-81c2-4e3d01a981d5", 1, "2021-08-14");
-INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance) VALUES ("64be2240-105c-4c3b-8e93-2ab4ff35fade", 2, "2020-02-27");
-INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance) VALUES ("287c6493-b166-49d9-9b09-d629000f5c9d", 1, "2021-02-27");
-INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance) VALUES ("eb4b84bb-e2f0-469b-9c69-495a3234957f", 1, "2020-01-01");
-INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance) VALUES ("eb4b84bb-e2f0-469b-9c69-495a3234957f", 1, "2020-07-01");
+-- Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier
+INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("483472b1-c9d7-4cf3-91c6-42530141c628", 1, "2021-06-12", False);
+INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("483472b1-c9d7-4cf3-91c6-42530141c628", 2, "2021-06-12", True);
+INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("4ef7b9c8-c94d-4fa6-ae48-ec007eba8dc6", 1, "2021-05-20", True);
+INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("4ef7b9c8-c94d-4fa6-ae48-ec007eba8dc6", 2, "2021-06-20", True);
+INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("75f3e768-5853-446f-b739-d37f31dea755", 1, "2021-06-17", True);
+INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("a32b3105-44fe-47e0-b336-39d219c71856", 1, "2021-06-04", True);
+INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("a32b3105-44fe-47e0-b336-39d219c71856", 2, "2021-07-04", True);
+INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("a32b3105-44fe-47e0-b336-39d219c71856", 1, "2021-08-05", True);
+INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("47753d54-c9d0-4f9c-bd73-973d9f359422", 2, "2020-10-12", True);
+INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("eb924924-2bfe-445a-a013-8be34d8c1e12", 1, "2021-03-21", True);
+INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("ce8aeb44-460d-4da0-81c2-4e3d01a981d5", 1, "2021-06-12", True);
+INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("ce8aeb44-460d-4da0-81c2-4e3d01a981d5", 1, "2021-08-14", True);
+INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("64be2240-105c-4c3b-8e93-2ab4ff35fade", 2, "2020-02-27", True);
+INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("287c6493-b166-49d9-9b09-d629000f5c9d", 1, "2021-02-27", True);
+INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("eb4b84bb-e2f0-469b-9c69-495a3234957f", 1, "2020-01-01", True);
+INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("eb4b84bb-e2f0-469b-9c69-495a3234957f", 1, "2020-07-01", True);
 
 
 -- Id_ordonnance, Id_pharmacie, Contenu, Date_ecriture
