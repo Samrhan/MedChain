@@ -1,1 +1,25 @@
-<p>login-page works!</p>
+<div class="centered container-fluid width50 mt-5"*ngIf="!loggedIn; else logged_in_warning" id="login">
+  <img src="assets/Logo.png" class="mb-5">
+  <form [formGroup]="loginForm" (ngSubmit)="authenticate()" class="form-group">
+    <h4 class="text-left">Nom d'utilisateur</h4>
+    <input type="text" formControlName="email" required class="form-control text-field margin10">
+    <div *ngFor="let validation of validation_messages.email">
+      <p *ngIf="invalid_input('email', validation)" class="validation-alert">{{validation.message}}</p>
+    </div>
+    <h4 class="text-left">Mot de passe</h4>
+    <input type="password" formControlName="password" required class="form-control text-field margin10">
+    <div *ngFor="let validation of validation_messages.password">
+      <p *ngIf="invalid_input('password', validation)" class="validation-alert">{{validation.message}}</p>
+    </div>
+    <div *ngIf="wrong_credentials">
+      <p class="alert alert-danger centered width75">Nom d'utilisateur ou mot de passe incorrect !</p>
+    </div>
+    <button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary rounded-pill margin10 width25">Se connecter</button>
+  </form>
+</div>
+<ng-template #logged_in_warning>
+  <h2 class="alert alert-danger">Vous êtes déjà connecté.</h2>
+  <div class="centered">
+    <button class="btn btn-primary centered" [routerLink]="['/add_ordonnance']">Retourner à la page d'accueil</button>
+  </div>
+</ng-template>
