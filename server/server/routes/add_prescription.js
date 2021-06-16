@@ -1,61 +1,60 @@
 const bcrypt = require('bcrypt')
-const cryptoRandomString = require('crypto-random-string')
 const {v4: uuidv4} = require('uuid');
+
+
+let domain = process.env.DOMAIN;
+let apiKey = process.env.APIKEY;
+
 const mailgun = require('mailgun-js')({domain, apiKey, host: "api.eu.mailgun.net",})
 
 module.exports = async (req, res, client) => {
 
-    if(req.session.userId){
-        let sql;
-        if(req.session.TypeID === 0){
-            res.status(401).json({message: "les pharmaciens ne peuvent pas crée d'ordonnance"});
-        }else{
+    let sql;
 
-            let Id_ordonnance = uuidv4();
-            let num_secu = req.body.num_secu.toString();
-            let password = cryptoRandomString({length: 12});
-            let Identifiant_patient;
-            let Renouvellements = req.body.renouvellements;
-            let Date_maximum = req.body.date_maximum;
-            let Date_prescription  = Date.now()/1000.0;
-            let email  = req.body.email;
-            if(num_secu== null || Identifiant_patient == null || Date_maximum == null || Renouvellements == null ){
-                res.status(400).json({message: 'bad request - Missing properties'})
-                return;
-            }
-            if(num_secu.length ==! 15){
-                res.status(400).json({message: 'bad request - Error lenght password or numero de secu'})
-                return;
-            }
-            Identifiant_patient = num_secu +password;
-            await bcrypt.hash(Identifiant_patient, 10);
+    let Id_ordonnance = uuidv4();
+    let num_secu = req.body.num_secu;
+    let password = Math.random().toString().substr(2, 12);
+    let Identifiant_patient;
+    let Renouvellements = req.body.renewals;
+    let Date_maximum = req.body.max_date;
+    let Date_prescription = new Date();
+    let email = req.body.patient_email;
+    let prescription = JSON.parse(req.body.prescription)
 
-            sql = "INSERT INTO Ordonnances(Id_ordonnance, Identifiant_patient, Renouvellements, Date_maximum, Date_prescription, Id_medecin) VALUES (?, ?, ?, ?, ?, ?)"
-            await client.query(sql,[Id_ordonnance,Identifiant_patient,Renouvellements,Date_maximum,Date_prescription,req.session.userId])
-
-
-
-
-            /// envoie mail patient
-            //// Si non renvoie au medecin le code
-            if(email && email.includes('@')){
-
-                mailgun.messages().send({
-                    from: `noreply@myvirtue.fr`,
-                    to: email,
-                    subject: "Telecharger votre ordonnance",
-                    text: Id_ordonnance +password
-                })
-                res.status(200).json({message: "ok"});
-
-            }else{
-                res.status(200).json({message: "ok", code: Id_ordonnance +password});
-
-            }
-
-        }
-
-    } else {
-        res.status(401).json({message: "no user logged in."});
+    //Date_maximum = new Date();
+    if (num_secu == null || prescription == null || Date_maximum == null || Renouvellements == null || email == null) {
+        res.status(400).json({message: 'bad request - Missing properties'})
+        return;
     }
+    if (num_secu.length == !15) {
+        res.status(400).json({message: 'bad request - Error numero de secu'})
+        return;
+    }
+    for(let i =0; i< prescription.length;i++){
+        if (prescription[i].drug_name == null || prescription[i].dose == null || prescription[i].duration == null || prescription[i].takes_per_day == null) {
+            res.status(400).json({message: 'bad request - Error prescription'})
+            return;
+        }}
+
+    Identifiant_patient = num_secu + password;
+    await bcrypt.hash(Identifiant_patient, 10);
+
+    sql = "INSERT INTO ordonnances(Id_ordonnance, Identifiant_patient, Renouvellements, Date_maximum, Date_prescription, Id_medecin) VALUES (?, ?, ?, ?, ?, ?)"
+    await client.query(sql, [Id_ordonnance, Identifiant_patient, Renouvellements, Date_maximum, Date_prescription, req.session.userId])
+
+    for(let i =0; i< prescription.length;i++){
+
+        sql = "INSERT INTO prescriptions(Nom_medicament, Dosage, Duree, Prises_par_jour,Id_ordonnance) VALUES (?, ?, ?, ?, ?)"
+        await client.query(sql, [prescription[i].drug_name,prescription[i].dose,prescription[i].duration,prescription[i].takes_per_day,Id_ordonnance])
+    }
+
+    mailgun.messages().send({
+        from: `noreply@myvirtue.fr`,
+        to: email,
+        subject: "Telecharger votre ordonnance",
+        text: num_secu + password
+    })
+    res.status(200).json({message: "ok", id: num_secu + password});
+
+
 }
