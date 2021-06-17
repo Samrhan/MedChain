@@ -6,11 +6,13 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { OrdonnanceFormComponent } from './ordonnance-form/ordonnance-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    OrdonnanceFormComponent
   ],
   imports: [
     BrowserModule,
