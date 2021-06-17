@@ -71,7 +71,7 @@ describe('LoginPageComponent', () => {
     expect(nativeElement.querySelector("#wrongCredential")).toBeFalsy();
   })
 
-  it('should display "incorrect id" when getting 401 or 400', () => {
+  it('should display "incorrect id" when getting 401', () => {
     // Make the component believe it got 401
     mockAuthenticatorService.authenticate.and.returnValue(throwError({status: 401}));
     component.authenticate();
@@ -79,6 +79,26 @@ describe('LoginPageComponent', () => {
 
     const nativeElement: HTMLElement = fixture.nativeElement;
     expect(nativeElement.querySelector("#wrongCredential")).toBeTruthy();
+  })
+
+  it('should display "incorrect id" when getting 400', () => {
+    // Make the component believe it got 400
+    mockAuthenticatorService.authenticate.and.returnValue(throwError({status: 400}));
+    component.authenticate();
+    fixture.detectChanges();
+
+    const nativeElement: HTMLElement = fixture.nativeElement;
+    expect(nativeElement.querySelector("#wrongCredential")).toBeTruthy();
+  })
+
+  it('should display an alert when getting neither 400, 401, or 403', () => {
+    // Make the component believe it got 400
+    spyOn(window, "alert");
+    mockAuthenticatorService.authenticate.and.returnValue(throwError({status: 0}));
+    component.authenticate();
+    fixture.detectChanges();
+
+    expect(window.alert).toHaveBeenCalled();
   })
 
   // Already connected
@@ -104,5 +124,10 @@ describe('LoginPageComponent', () => {
     component.authenticate();
 
     expect(component.router.navigate).toHaveBeenCalledWith(['/scan_ordonnance']);
+  });
+
+  // Misc
+  it('invalid_input should return true if no control is present', () => {
+    expect(component.invalid_input("test", "required")).toBeTruthy();
   });
 });
