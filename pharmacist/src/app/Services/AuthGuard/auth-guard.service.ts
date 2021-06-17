@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Router, CanActivate } from '@angular/router';
 import { UserService } from "../User/user.service";
-import {Observable, of} from "rxjs";
+import {Observable} from "rxjs";
 import { map, catchError } from "rxjs/operators"
 
 /**
