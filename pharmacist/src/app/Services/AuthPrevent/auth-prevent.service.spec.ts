@@ -16,21 +16,30 @@ describe('AuthPreventService', () => {
       imports: [HttpClientTestingModule, RouterTestingModule]
     });
     service = TestBed.inject(AuthPreventService);
+    spyOn(service.router, 'navigateByUrl');
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return true when no user is connected', () => {
-    mockUserService.getConnectedUser.and.returnValue(throwError({status: 401}))
+  it('should return true when no user is connected', (done: DoneFn) => {
+    mockUserService.getConnectedUser.and.returnValue(throwError({status: 401}));
 
-    expect(service.canActivate()).toBeTruthy();
+    service.canActivate().subscribe(value => {
+      expect(value).toBeTruthy();
+      done();
+    }, fail);
   })
 
-  it('should throw error when a user is connected', () => {
-    mockUserService.getConnectedUser.and.returnValue(of({role: "pharmacien"}))
+  it('should return false and redirect when a user is connected', (done: DoneFn) => {
+    mockUserService.getConnectedUser.and.returnValue(of({username: "enzo.filangi", nom_pharmacien: "Filangi", prenom_pharmacien: "Enzo", role: "pharmacien"}))
 
-    expect(service.canActivate).toThrowError();
+    service.canActivate().subscribe(value => {
+      expect(value).toBeFalsy()
+      expect(service.router.navigateByUrl).toHaveBeenCalledWith('/scan_ordonnance');
+      done();
+    }, fail);
+
   })
 });
