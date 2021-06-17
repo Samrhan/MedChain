@@ -11,18 +11,9 @@ import {AuthenticatorService} from "../Services/Authenticator/authenticator.serv
 export class LoginPageComponent implements OnInit {
 
   loginForm:FormGroup = this.formBuilder.group({
-    email: new FormControl('', Validators.required),
+    username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
   });
-
-  validation_messages = {
-    email: [
-      {type: 'required', message: 'Nom d\'utilisateur requis'},
-    ],
-    password: [
-      {type: 'required', message: 'Mot de passe requis'}
-    ]
-  };
 
   loggedIn = false;
   wrong_credentials = false;
@@ -30,11 +21,11 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private authenticatorService: AuthenticatorService,
     private formBuilder: FormBuilder,
-    private router: Router,
-  ) { }
+    public router: Router,
+  ) {}
 
   authenticate() {
-    const email = this.loginForm.controls.email.value;
+    const email = this.loginForm.controls.username.value;
     const password = this.loginForm.controls.password.value;
     this.wrong_credentials = false;
     this.authenticatorService.authenticate(email, password).subscribe(response => {
@@ -49,12 +40,13 @@ export class LoginPageComponent implements OnInit {
           this.wrong_credentials = false;
           this.router.navigate(['/']);
           break;
+        case 400:
         case 401:
           // Mot de passe ou e-mail invalide
           this.wrong_credentials = true;
           this.loggedIn = false;
           break;
-        default: // On ignore l'erreur 400 car normalement elle ne peut pas se produire vu qu'on envoie toujours les mêmes champs
+        default:
           alert("Une erreur est survenue, veuillez rééssayer.")
       }
     })
@@ -66,7 +58,7 @@ export class LoginPageComponent implements OnInit {
   invalid_input(name: string, validation: any) {
     let control: AbstractControl | null = this.loginForm.get(name);
     if (control){
-      return control.hasError(validation.type) && (control.dirty || control.touched)
+      return control.hasError(validation) && (control.dirty || control.touched)
     } else {
       return true;
     }
