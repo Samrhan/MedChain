@@ -129,9 +129,10 @@ CREATE TABLE Pharmaciens(
 #------------------------------------------------------------
 
 CREATE TABLE Delivre(
-        Id_ordonnance   Char(36) NOT NULL ,
-        Id_pharmacien   Int NOT NULL ,
-        Date_delivrance Datetime NOT NULL
+        Id_ordonnance     Char(36) NOT NULL ,
+        Id_pharmacien     Int NOT NULL ,
+        Date_delivrance   Datetime NOT NULL ,
+		Delivre_en_entier Bool NOT NULL DEFAULT False
 	,CONSTRAINT Delivre_PK PRIMARY KEY (Id_ordonnance,Id_pharmacien,Date_delivrance)
 
 	,CONSTRAINT Delivre_Ordonnances_FK FOREIGN KEY (Id_ordonnance) REFERENCES Ordonnances(Id_ordonnance)
