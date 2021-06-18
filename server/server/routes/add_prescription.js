@@ -1,5 +1,3 @@
-// noinspection JSUnresolvedVariable
-
 const bcrypt = require('bcrypt')
 const {v4: uuidv4} = require('uuid');
 const bwipjs = require('bwip-js');

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,16 @@ export class AuthenticatorService {
   }
 
   disconnect(){
-    return this.http.post(environment.api_url + '/disconnect', null, {withCredentials: true});
+    this.http.post(environment.api_url + '/disconnect', null, {withCredentials: true}).subscribe(() => {
+      this.router.navigate(['/login']);
+    }, () => {
+      alert("Une erreur est survenue lors de la déconnexion");
+      this.router.navigate(['/login']);
+    });
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
 }

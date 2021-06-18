@@ -52,11 +52,6 @@ describe('AuthenticatorService', () => {
   it('should POST disconnect in the right format', () => {
     const expected_response = new HttpResponse({status: 200, statusText: 'OK'});
 
-    service.disconnect().subscribe(
-      () => {},
-      fail
-    )
-
     const req = httpMock.expectOne(environment.api_url + '/disconnect');
     expect(req.request.method).toEqual("POST");
 
