@@ -12,7 +12,7 @@
     <div *ngIf="wrong_credentials">
       <p id="wrongCredential" class="alert alert-danger centered width75">Nom d'utilisateur ou mot de passe incorrect !</p>
     </div>
-    <button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary rounded-pill margin10 width25">Se connecter</button>
+    <button id="connectButton" type="submit" [disabled]="!loginForm.valid" class="btn btn-primary rounded-pill margin10 width25">Se connecter</button>
   </form>
 </div>
 <ng-template #logged_in_warning>
