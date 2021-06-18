@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedVariable,DuplicatedCode
+
 const bcrypt = require('bcrypt')
 
 module.exports = async (req, res, client) => {
@@ -14,17 +16,17 @@ module.exports = async (req, res, client) => {
         return;
     }
     password = req.body.num_secu + password
-    data = await client.query("SELECT * FROM Ordonnances WHERE Id_ordonnance = ?", [id_ordonnance])
-    var result = Object.values(JSON.parse(JSON.stringify(data[0])))[0]
+    let data = await client.query("SELECT * FROM Ordonnances WHERE Id_ordonnance = ?", [id_ordonnance])
+    let result = Object.values(JSON.parse(JSON.stringify(data[0])))[0]; // Convertir le résultat de client.query en objet manipulable
     if (data[0].length === 1) {
-
         if (await bcrypt.compare(password, result.Identifiant_patient)) {
 
-            data2 = await client.query("SELECT * FROM notes WHERE id_ordonnance = ? AND Id_pharmacie = ? ", [id_ordonnance, req.session.pharmacie])
+            // On vérifie que cette pharmacie a déjà publié une note sur cette ordonnance
+            let data2 = await client.query("SELECT * FROM notes WHERE id_ordonnance = ? AND Id_pharmacie = ? ", [id_ordonnance, req.session.pharmacie])
 
             if (data2[0].length === 1) {
-                sql = "UPDATE notes SET   Contenu = ?, Date_ecriture = ? WHERE id_ordonnance = ? AND Id_pharmacie = ? "
-                const result = await client.query(sql, [content, Date_ecriture, id_ordonnance, req.session.pharmacie])
+                let sql = "UPDATE notes SET Contenu = ?, Date_ecriture = ? WHERE id_ordonnance = ? AND Id_pharmacie = ? "
+                await client.query(sql, [content, Date_ecriture, id_ordonnance, req.session.pharmacie])
                 res.status(200).json({message: "ok"});
             } else {
                 res.status(403).json({message: "Aucune note de cette pharmacie existe"});

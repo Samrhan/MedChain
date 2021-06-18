@@ -1,3 +1,5 @@
+// noinspection DuplicatedCode
+
 const bcrypt = require('bcrypt')
 
 module.exports = async (req, res, client) => {
@@ -10,25 +12,20 @@ module.exports = async (req, res, client) => {
         return;
     }
     password = req.body.num_secu + password
-    data = await client.query("SELECT * FROM Ordonnances WHERE Id_ordonnance = ?", [id_ordonnance])
-    var result = Object.values(JSON.parse(JSON.stringify(data[0])))[0]
+    let data = await client.query("SELECT * FROM Ordonnances WHERE Id_ordonnance = ?", [id_ordonnance])
+    let result = Object.values(JSON.parse(JSON.stringify(data[0])))[0]
     if (data[0].length === 1) {
 
         if (await bcrypt.compare(password, result.Identifiant_patient)) {
 
-            data2 = await client.query("SELECT * FROM utilisations_ordonnance WHERE id_ordonnance = ?", [id_ordonnance])
-            var result2 = Object.values(JSON.parse(JSON.stringify(data2[0])))[0]
+            let data2 = await client.query("SELECT * FROM utilisations_ordonnance WHERE id_ordonnance = ?", [id_ordonnance])
+            let result2 = Object.values(JSON.parse(JSON.stringify(data2[0])))[0]
             let renouvellement_restant = result2.Renouvellements - result2.Utilisations
-            if (renouvellement_restant < 1) {
-                res.status(400).json({message: "bad request - l'ordonnance a trop de fois ete utilisé"});
-                return;
-            }
             res.status(200).json({
                 uses_left: renouvellement_restant,
                 max_date: result.Date_maximum,
                 Date_prescription: result.Date_prescription
             })
-
 
         } else {
             res.status(400).json({message: "bad request"});

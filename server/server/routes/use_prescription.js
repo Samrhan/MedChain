@@ -12,19 +12,19 @@ module.exports = async (req, res, client) => {
 
     }
     password = req.body.num_secu + password
-    data = await client.query("SELECT * FROM Ordonnances WHERE Id_ordonnance = ?", [id_ordonnance])
-    var result = Object.values(JSON.parse(JSON.stringify(data[0])))[0]
+    let data = await client.query("SELECT * FROM Ordonnances WHERE Id_ordonnance = ?", [id_ordonnance])
+    let result = Object.values(JSON.parse(JSON.stringify(data[0])))[0]
     if (data[0].length === 1) {
         if (await bcrypt.compare(password, result.Identifiant_patient)) {
-            data2 = await client.query("SELECT * FROM utilisations_ordonnance WHERE id_ordonnance = ?", [id_ordonnance])
-            var result2 = Object.values(JSON.parse(JSON.stringify(data2[0])))[0]
+            let data2 = await client.query("SELECT * FROM utilisations_ordonnance WHERE id_ordonnance = ?", [id_ordonnance])
+            let result2 = Object.values(JSON.parse(JSON.stringify(data2[0])))[0]
 
             if ((result2.Renouvellements - result2.Utilisations) < 1) {
-                res.status(403).json({message: "bad request - l'ordonnance a trop de fois ete utilisé"});
+                res.status(403).json({message: "bad request - l'ordonnance a trop de fois ete utilisée"});
                 return;
             }
-            sql = "INSERT INTO delivre(Id_ordonnance, Id_pharmacien, Date_delivrance) VALUES (?, ?, ?)"
-            const result = await client.query(sql, [id_ordonnance, req.session.userId, Date_delivrance])
+            let sql = "INSERT INTO delivre(Id_ordonnance, Id_pharmacien, Date_delivrance) VALUES (?, ?, ?)"
+            await client.query(sql, [id_ordonnance, req.session.userId, Date_delivrance])
 
             res.status(200).json({message: "ok"});
 

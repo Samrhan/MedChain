@@ -7,7 +7,7 @@ module.exports = async (req, res, client) => {
             sql = "SELECT RPPS, nom_medecin, prenom_medecin FROM medecins WHERE id_medecin=?"
         }
         let data = await client.query(sql, [req.session.userId])
-        var result = Object.values(JSON.parse(JSON.stringify(data[0])))[0]
+        let result = Object.values(JSON.parse(JSON.stringify(data[0])))[0]
 
         if (result) {
             if (req.session.TypeID === 0) {

@@ -20,14 +20,14 @@ var right_to_pharmacist = async function (req, res, next) {
     if (req.session.TypeID === 0) {
         next()
     } else {
-        res.status(401).json({message: "Vous ne pouvez pas utilisé cette route"}).send();
+        res.status(401).json({message: "Vous ne pouvez pas utiliser cette route"}).send();
     }
 }
 var right_to_doctor = async function (req, res, next) {
     if (req.session.TypeID === 1) {
         next()
     } else {
-        res.status(401).json({message: "Vous ne pouvez pas utilisé cette route"}).send();
+        res.status(401).json({message: "Vous ne pouvez pas utiliser cette route"}).send();
     }
 }
 
