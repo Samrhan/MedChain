@@ -2,8 +2,8 @@ const bcrypt = require('bcrypt')
 
 module.exports = async (req, res, client) => {
 
-    let id_ordonnance = req.body.id_ordonnance;
-    let num_secu = req.body.num_secu;
+    let id_ordonnance = req.body.token;
+    let num_secu = req.body.secu;
     let password = req.body.password;
     let Date_delivrance = new Date();
 

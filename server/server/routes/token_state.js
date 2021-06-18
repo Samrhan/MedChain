@@ -4,8 +4,8 @@ const bcrypt = require('bcrypt')
 
 module.exports = async (req, res, client) => {
 
-    let id_ordonnance = req.body.id_ordonnance;
-    let num_secu = req.body.num_secu;
+    let id_ordonnance = req.body.token_id;
+    let num_secu = req.body.secu;
     let password = req.body.password;
     if (num_secu == null || id_ordonnance == null || password == null) {
         res.status(400).json({message: 'bad request - Missing properties'})
