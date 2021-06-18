@@ -6,7 +6,7 @@ import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {RouterTestingModule} from "@angular/router/testing";
 import {ReactiveFormsModule} from "@angular/forms";
 
-import {of, throwError} from 'rxjs'
+import {of, throwError} from 'rxjs';
 
 
 describe('LoginPageComponent', () => {
@@ -125,6 +125,33 @@ describe('LoginPageComponent', () => {
 
     expect(component.router.navigate).toHaveBeenCalledWith(['/scan_ordonnance']);
   });
+
+  // Check if connect button is disabled by default
+  it('should not have connect button enabled by default', () => {
+    const nativeElement: HTMLElement = fixture.nativeElement;
+    const button: HTMLButtonElement | null = nativeElement.querySelector("#connectButton");
+    expect(button?.disabled).toBeTruthy();
+  })
+
+  it('should have connect button enabled when form is complete', () => {
+    const nativeElement: HTMLElement = fixture.nativeElement;
+    const button: HTMLButtonElement | null = nativeElement.querySelector("#connectButton");
+
+    component.loginForm.get('username')?.setValue("test")
+    fixture.detectChanges();
+    expect(button?.disabled).toBeTruthy();
+
+    component.loginForm.get('password')?.setValue("test")
+    component.loginForm.get('username')?.setValue("")
+    fixture.detectChanges();
+    expect(button?.disabled).toBeTruthy();
+
+    component.loginForm.get('password')?.setValue("test")
+    component.loginForm.get('username')?.setValue("test")
+    fixture.detectChanges();
+
+    expect(button?.disabled).toBeFalsy();
+  })
 
   // Misc
   it('invalid_input should return true if no control is present', () => {
