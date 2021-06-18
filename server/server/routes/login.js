@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedVariable
+
 const bcrypt = require('bcrypt')
 
 module.exports = async (req, res, client) => {
@@ -10,7 +12,7 @@ module.exports = async (req, res, client) => {
         res.status(403).json({message: "already logged in"})
         return;
     }
-    if (!(username && password && user_type)) {
+    if (!(username && password && user_type !== undefined)) {
         res.status(400).json({message: "bad request - request must include username, user_type and password"});
         return;
     }

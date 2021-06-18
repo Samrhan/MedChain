@@ -1,4 +1,4 @@
-// noinspection DuplicatedCode
+// noinspection DuplicatedCode,JSUnresolvedVariable
 
 const bcrypt = require('bcrypt')
 
@@ -16,8 +16,8 @@ module.exports = async (req, res, client) => {
         return;
     }
     password = req.body.num_secu + password
-    data = await client.query("SELECT * FROM Ordonnances WHERE Id_ordonnance = ?", [id_ordonnance])
-    var result = Object.values(JSON.parse(JSON.stringify(data[0])))[0]
+    let data = await client.query("SELECT * FROM Ordonnances WHERE Id_ordonnance = ?", [id_ordonnance])
+    let result = Object.values(JSON.parse(JSON.stringify(data[0])))[0]
     if (data[0].length === 1) {
 
         if (await bcrypt.compare(password, result.Identifiant_patient)) {
