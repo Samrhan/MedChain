@@ -18,6 +18,8 @@ DROP VIEW IF EXISTS medecins_complet;
 DROP VIEW IF EXISTS pharmaciens_complet;
 DROP VIEW IF EXISTS ordonnances_complet;
 DROP VIEW IF EXISTS utilisations_ordonnance;
+DROP VIEW IF EXISTS prescription_utile;
+DROP VIEW IF EXISTS notes_utile;
 
 
 #------------------------------------------------------------
@@ -39,9 +41,17 @@ NATURAL JOIN prescriptions
 NATURAL JOIN medecins;
 
 CREATE OR REPLACE VIEW info_ordonnance AS
-SELECT Renouvellements, Date_maximum, Date_prescription, nom_medecin, Numero, Rue, Ville, COdePostal, Telephone, Specialite, Id_ordonnance FROM ordonnances
+SELECT Renouvellements, Date_maximum, Date_prescription, nom_medecin, prenom_medecin, Numero, Rue, Ville, CodePostal, Telephone, Specialite, Id_ordonnance FROM ordonnances
 NATURAL JOIN medecins;
 
 CREATE OR REPLACE VIEW utilisations_ordonnance AS
 SELECT id_ordonnance, Renouvellements, Date_maximum, COUNT(*) AS Utilisations FROM Delivre NATURAL JOIN Ordonnances
 GROUP BY id_ordonnance;
+
+CREATE OR REPLACE VIEW prescriptions_utile AS
+SELECT Nom_medicament, Dosage, Duree, Prises_par_jour, Id_ordonnance
+FROM Prescriptions;
+
+CREATE OR REPLACE VIEW notes_utile AS
+SELECT Contenu, Date_ecriture, Id_ordonnance, Numero, Rue, Ville, CodePostal, Telephone FROM Notes
+NATURAL JOIN Pharmacies;
