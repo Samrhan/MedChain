@@ -28,6 +28,10 @@
   margin-bottom: 3em;
 }
 
+.bg-grey {
+  background: #EEEEEE;
+}
+
 @media (max-width: 1200px) {
   .expandingContainer {
     width: 75%;

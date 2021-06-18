@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {ModalModule} from "ngx-bootstrap/modal";
 import { LoginPageComponent } from './login-page/login-page.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { ScanOrdonnanceComponent } from './scan-ordonnance/scan-ordonnance.component';
@@ -20,6 +21,7 @@ import { ScanOrdonnanceComponent } from './scan-ordonnance/scan-ordonnance.compo
         BrowserModule,
         AppRoutingModule,
         NgbModule,
+        ModalModule.forRoot(),
         ReactiveFormsModule,
         HttpClientModule
     ],
