@@ -1,1 +1,61 @@
-/* You can add global styles to this file, and also import other style files */
+.centered {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.width25 {
+  width: 25%;
+}
+
+.width50 {
+  width: 50%;
+}
+
+.width75 {
+  width: 75%;
+}
+
+.margin10 {
+  margin: 10px;
+}
+
+.validation-alert {
+  color: red;
+}
+
+.expandingContainer {
+  width: 50%;
+  margin-bottom: 3em;
+}
+
+@media (max-width: 1200px) {
+  .expandingContainer {
+    width: 75%;
+  }
+}
+
+@media (max-width: 900px) {
+  .expandingContainer {
+    width: 100%;
+  }
+}
+
+.rounded20 {
+  border-radius: 20px;
+  padding: 5px;
+}
+
+/* Style des balises par defaut override */
+
+img {
+  object-fit: cover;
+}
+
+img:focus {
+  outline: 0;
+}
+
+/* Bootstrap override */
+.btn:focus {
+  box-shadow: none !important;
+}
