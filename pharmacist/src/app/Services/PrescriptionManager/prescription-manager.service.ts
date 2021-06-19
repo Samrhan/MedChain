@@ -181,4 +181,8 @@ export class PrescriptionManagerService implements CanActivate {
       withCredentials: true
     })
   }
+
+  get_prescription_cache(): any {
+    return this.cached_prescription;
+  }
 }
