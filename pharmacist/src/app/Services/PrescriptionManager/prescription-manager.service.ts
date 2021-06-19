@@ -50,4 +50,8 @@ export class PrescriptionManagerService {
     this.password = "";
     this.social = "";
   }
+
+  get_prescription_cache(): any {
+    return this.cached_prescription;
+  }
 }
