@@ -1,6 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ScanOrdonnanceComponent } from './scan-ordonnance.component';
+import {PrescriptionManagerService} from "../Services/PrescriptionManager/prescription-manager.service";
+import {ModalModule} from "ngx-bootstrap/modal";
+import {ReactiveFormsModule} from "@angular/forms";
+import {RouterTestingModule} from "@angular/router/testing";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {AuthenticatorService} from "../Services/Authenticator/authenticator.service";
 
 describe('ScanOrdonnanceComponent', () => {
   let component: ScanOrdonnanceComponent;
@@ -8,7 +14,17 @@ describe('ScanOrdonnanceComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ScanOrdonnanceComponent ]
+      declarations: [ ScanOrdonnanceComponent ],
+      providers: [
+        PrescriptionManagerService,
+        AuthenticatorService,
+      ],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        ReactiveFormsModule,
+        ModalModule.forRoot()
+      ]
     })
     .compileComponents();
   });

@@ -3,7 +3,8 @@ import {environment} from "../../../environments/environment";
 
 import { AuthenticatorService } from './authenticator.service';
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
-import {HttpClient, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpResponse} from "@angular/common/http";
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('AuthenticatorService', () => {
   let service: AuthenticatorService;
@@ -12,11 +13,13 @@ describe('AuthenticatorService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule, RouterTestingModule]
     });
     service = TestBed.inject(AuthenticatorService);
     httpMock = TestBed.inject(HttpTestingController);
     httpClient = TestBed.inject(HttpClient);
+    spyOn(service.router, 'navigate');
+    spyOn(window, "alert");
   });
 
   afterEach(() => {
@@ -49,12 +52,30 @@ describe('AuthenticatorService', () => {
     req.event(expected_response);
   })
 
-  it('should POST disconnect in the right format', () => {
+  it('should POST disconnect in the right format and redirect', () => {
     const expected_response = new HttpResponse({status: 200, statusText: 'OK'});
+
+    service.disconnect();
 
     const req = httpMock.expectOne(environment.api_url + '/disconnect');
     expect(req.request.method).toEqual("POST");
 
     req.event(expected_response);
+
+    expect(service.router.navigate).toHaveBeenCalledWith(['/login'])
+  })
+
+  it('should POST disconnect in the right format and redirect even in case of error', () => {
+    const expected_response = new HttpResponse({status: 400, statusText: 'bad request'});
+
+    service.disconnect();
+
+    const req = httpMock.expectOne(environment.api_url + '/disconnect');
+    expect(req.request.method).toEqual("POST");
+
+    req.flush({message: 'error'}, expected_response);
+
+    expect(service.router.navigate).toHaveBeenCalledWith(['/login'])
+    expect(window.alert).toHaveBeenCalled();
   })
 });

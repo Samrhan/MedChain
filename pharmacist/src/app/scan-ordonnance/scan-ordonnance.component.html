@@ -9,21 +9,21 @@
     <h4>Numéro de l'ordonnance</h4>
     <input type="text" class="form-control text-field m-3" formControlName="prescription_id">
     <div *ngFor="let validation of validation_messages.prescription_id">
-      <p *ngIf="invalid_input('prescription_id', validation.type)" class="validation-alert">{{validation.message}}</p>
+      <p *ngIf="invalid_input('prescription_id', validation.type)" class="validation-alert" id="prescription_id_error">{{validation.message}}</p>
     </div>
   </div>
   <div class="mb-5">
     <h4>Mot de passe de l'ordonnance</h4>
     <input type="text" class="form-control text-field m-3" formControlName="prescription_password">
     <div *ngFor="let validation of validation_messages.prescription_password">
-      <p *ngIf="invalid_input('prescription_password', validation.type)" class="validation-alert">{{validation.message}}</p>
+      <p *ngIf="invalid_input('prescription_password', validation.type)" class="validation-alert" id="prescription_password_error">{{validation.message}}</p>
     </div>
   </div>
   <div class="mb-5">
     <h4>Numéro de sécurité sociale du patient</h4>
     <input type="text" class="form-control text-field m-3" formControlName="patient_social_security">
     <div *ngFor="let validation of validation_messages.patient_social_security">
-      <p *ngIf="invalid_input('patient_social_security', validation.type)" class="validation-alert">{{validation.message}}</p>
+      <p *ngIf="invalid_input('patient_social_security', validation.type)" class="validation-alert" id="patient_social_security_error">{{validation.message}}</p>
     </div>
   </div>
   <button type="submit" class="btn btn-primary rounded20 w-25 mt-5" [disabled]="!prescription_form.valid">Valider</button>
