@@ -45,7 +45,7 @@ SELECT Renouvellements, Date_maximum, Date_prescription, nom_medecin, prenom_med
 NATURAL JOIN medecins;
 
 CREATE OR REPLACE VIEW utilisations_ordonnance AS
-SELECT id_ordonnance, Renouvellements, Date_maximum, COUNT(*) AS Utilisations FROM Delivre NATURAL JOIN Ordonnances
+SELECT id_ordonnance, Renouvellements, Date_maximum, SUM(Delivre_en_entier = true) AS Utilisations FROM Delivre NATURAL JOIN Ordonnances
 GROUP BY id_ordonnance;
 
 CREATE OR REPLACE VIEW prescriptions_utile AS
