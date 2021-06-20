@@ -21,7 +21,7 @@ export class AuthenticatorService {
   disconnect(){
     this.http.post(environment.api_url + '/disconnect', null, {withCredentials: true}).subscribe(() => {
       this.router.navigate(['/login']);
-    }, () => {
+    }, (err) => {
       alert("Une erreur est survenue lors de la déconnexion");
       this.router.navigate(['/login']);
     });

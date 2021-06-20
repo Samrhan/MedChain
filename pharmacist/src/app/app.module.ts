@@ -10,12 +10,16 @@ import {ModalModule} from "ngx-bootstrap/modal";
 import { LoginPageComponent } from './login-page/login-page.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { ScanOrdonnanceComponent } from './scan-ordonnance/scan-ordonnance.component';
+import { DisplayOrdonnanceComponent } from './display-ordonnance/display-ordonnance.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
-    ScanOrdonnanceComponent
+    ScanOrdonnanceComponent,
+    DisplayOrdonnanceComponent,
+    NavbarComponent
   ],
     imports: [
         BrowserModule,

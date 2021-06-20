@@ -1,0 +1,6 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-grey d-flex justify-content-between">
+  <button *ngIf="display_goBack_button else filler" class="btn btn-outline-primary nav-item" (click)="goBack()">Précédent</button> <!-- Bouton à afficher uniquement si le composant parent le demande -->
+  <ng-template #filler><button *ngIf="!display_goBack_button" class="btn btn-outline-danger nav-item invisible disabled">Se déconnecter</button></ng-template> <!-- Bouton invisible pour assurer que le logo soit bien centré -->
+  <img src="assets/Logo.png" alt="Logo" class="navbar-brand justify-self" height="100">
+  <button class="btn btn-outline-danger nav-item" (click)="disconnect()">Se déconnecter</button>
+</nav>
