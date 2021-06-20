@@ -12,6 +12,8 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { ScanOrdonnanceComponent } from './scan-ordonnance/scan-ordonnance.component';
 import { DisplayOrdonnanceComponent } from './display-ordonnance/display-ordonnance.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { AjoutNoteComponent } from './ajout-note/ajout-note.component';
+import { ConfirmerDistributionComponent } from './confirmer-distribution/confirmer-distribution.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { NavbarComponent } from './navbar/navbar.component';
     LoginPageComponent,
     ScanOrdonnanceComponent,
     DisplayOrdonnanceComponent,
-    NavbarComponent
+    NavbarComponent,
+    AjoutNoteComponent,
+    ConfirmerDistributionComponent,
   ],
     imports: [
         BrowserModule,
