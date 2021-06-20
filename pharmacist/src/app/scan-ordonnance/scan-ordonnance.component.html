@@ -29,8 +29,8 @@
   <button type="submit" class="btn btn-primary rounded20 w-25 mt-5" [disabled]="!prescription_form.valid">Valider</button>
 </form>
 
-<ng-template id="doesNotExistModal" #doesNotExistModal>
-  <div class="modal-header">
+<ng-template #doesNotExistModal>
+  <div class="modal-header" id="doesNotExistModalContent" #doesNotExistModalContent>
     <h4 class="modal-title pull-left">Cette ordonnance n'existe pas</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef?.hide()">
       <span aria-hidden="true">&times;</span>
