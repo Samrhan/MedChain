@@ -2,6 +2,12 @@
 
 
 <h1 class="centered mt-3">Ordonnance</h1>
+<div class="ml-5">
+  <p class="font-italic mb-0">Rédigée par {{info_ordonnance.prenom_medecin}} {{info_ordonnance.nom_medecin}} au {{info_ordonnance.Numero}} {{info_ordonnance.Rue}} {{info_ordonnance.Ville}} {{info_ordonnance.CodePostal}}</p>
+  <p class="font-italic mb-0">Le {{formatDate(info_ordonnance.Date_prescription)}}, valable jusqu'au {{formatDate(info_ordonnance.Date_maximum)}}</p>
+  <p *ngIf="info_ordonnance.Renouvellements > 1 && uses_left !== undefined">Renouvellable {{info_ordonnance.Renouvellements}} fois, déjà utilisée {{info_ordonnance.Renouvellements - uses_left}} fois</p>
+  <p *ngIf="uses_left !== undefined && uses_left <= 0" class="text-danger">Cette ordonnance a déjà été entièrement délivrée. Elle n'est affichée qu'à but consultatif</p>
+</div>
 
 
 <div class="container-grid mt-2 ml-5 mr-5">
@@ -9,12 +15,15 @@
   <div class="mr-5">
     <div class="d-flex align-content-center justify-content-between" style="min-height: 2.5rem">
       <h3>Notes</h3>
-      <button class="btn-secondary btn">Éditer la note</button>
+      <button class="btn-secondary btn">Ajouter une note</button>
     </div>
     <hr>
     <div class="border-round p-3">
       <div class="page-height p-1">
-        <div>
+        <div *ngFor="let note of notes">
+          {{note.Id_pharmacie}} le {{formatDate(note.Date_ecriture)}}
+          <hr>
+          {{note.Contenu}}
         </div>
       </div>
     </div>
@@ -27,7 +36,10 @@
     <hr>
     <div class="border-round p-3">
       <div class="page-height p-1">
-
+        <div *ngFor="let line of prescription">
+          <h5 class="mb-0 mr-3 d-inline">{{line.Nom_medicament}}</h5><p class="d-inline">{{line.Dosage}}</p>
+          <p>{{line.Prises_par_jour}} prise{{line.Prises_par_jour > 1 ? 's' : ''}} par jour pendant {{line.Duree}} jour{{line.Duree > 1 ? 's' : ''}}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -35,6 +47,6 @@
 </div>
 
 
-<div class="centered">
+<div class="centered" *ngIf="uses_left !== undefined &&  uses_left > 0">
   <button class="btn btn-primary centered mt-2 w-25 big-text">Terminer</button>
 </div>

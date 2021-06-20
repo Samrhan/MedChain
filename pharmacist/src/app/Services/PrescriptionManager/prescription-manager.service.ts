@@ -30,7 +30,7 @@ export class PrescriptionManagerService {
       withCredentials: true
     }).pipe(
       map((answer) => {
-        // On cache le résultat de la requête
+        // On met en cache le résultat de la requête
         localStorage.setItem('cached_prescription', JSON.stringify(answer));
         return 200;
       }), catchError(err => {
@@ -53,6 +53,28 @@ export class PrescriptionManagerService {
     } else {
       return null;
     }
+  }
 
+  get_uses_left(): Observable<number> {
+    let id: string = localStorage.getItem('id') || "";
+    let password: string = localStorage.getItem('password') || "";
+    let social: string = localStorage.getItem('social') || "";
+    return this.httpClient.post(environment.api_url + "/token_state", {
+      // token: id,
+      // secu: social,
+      // password: password
+      id_ordonnance: id,
+      num_secu: social,
+      password: password
+    }, {
+      withCredentials: true
+    }).pipe(
+      map((answer) => {
+        // @ts-ignore
+        return answer.uses_left;
+      }), catchError(err => {
+        return of(-1);
+      })
+    );
   }
 }
