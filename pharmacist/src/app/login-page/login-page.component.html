@@ -2,11 +2,11 @@
   <img src="assets/Logo.png" class="mb-5">
   <form [formGroup]="loginForm" (ngSubmit)="authenticate()" class="form-group">
     <h4 class="text-left">Nom d'utilisateur</h4>
-    <input id="username" type="text" formControlName="username" required class="form-control text-field margin10">
+    <input id="username" type="text" formControlName="username" required class="form-control border-round margin10">
     <p id="usernameNeeded" *ngIf="invalid_input('username', 'required')" class="validation-alert">Nom d'utilisateur requis</p>
 
     <h4 class="text-left">Mot de passe</h4>
-    <input id="password" type="password" formControlName="password" required class="form-control text-field margin10">
+    <input id="password" type="password" formControlName="password" required class="form-control border-round margin10">
     <p id="passwordNeeded" *ngIf="invalid_input('password', 'required')" class="validation-alert">Mot de passe requis</p>
 
     <div *ngIf="wrong_credentials">

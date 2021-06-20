@@ -1,4 +1,4 @@
-import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import { ScanOrdonnanceComponent } from './scan-ordonnance.component';
 import {PrescriptionManagerService} from "../Services/PrescriptionManager/prescription-manager.service";
@@ -6,7 +6,6 @@ import {ModalModule} from "ngx-bootstrap/modal";
 import {AbstractControl, ReactiveFormsModule} from "@angular/forms";
 import {RouterTestingModule} from "@angular/router/testing";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {AuthenticatorService} from "../Services/Authenticator/authenticator.service";
 import {of} from "rxjs";
 
 describe('ScanOrdonnanceComponent', () => {
@@ -14,14 +13,11 @@ describe('ScanOrdonnanceComponent', () => {
   let fixture: ComponentFixture<ScanOrdonnanceComponent>;
   let prescription_manager: PrescriptionManagerService;
 
-  let mockAuthenticatorService = jasmine.createSpyObj(['disconnect']);
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ScanOrdonnanceComponent ],
       providers: [
         PrescriptionManagerService,
-        { provide: AuthenticatorService, useValue: mockAuthenticatorService },
       ],
       imports: [
         HttpClientTestingModule,
@@ -49,14 +45,6 @@ describe('ScanOrdonnanceComponent', () => {
     expect(prescription_manager.get_prescription_cache()).toBeNull();
   })
 
-  it('should call disconnect on AuthenticatorService when disconnect() is ran', () => {
-    mockAuthenticatorService.disconnect.and.returnValue();
-
-    component.disconnect();
-
-    expect(mockAuthenticatorService.disconnect).toHaveBeenCalled();
-  })
-
   it('should call fetch_prescription() correctly and handle error values as expected', () => {
     // Cas où tout va bien
     spyOn(component.router, 'navigate');
@@ -71,7 +59,7 @@ describe('ScanOrdonnanceComponent', () => {
 
     component.fetch_prescription();
 
-    expect(component.router.navigate).toHaveBeenCalledWith(['/consult_prescription']);
+    expect(component.router.navigate).toHaveBeenCalledWith(['/display_ordonnance']);
     expect(prescription_manager.fetch_prescription).toHaveBeenCalledWith(expected.prescription_id, expected.prescription_password, expected.patient_social_security);
 
     // Cas erreur

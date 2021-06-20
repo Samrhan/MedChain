@@ -1,27 +1,23 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-grey d-flex justify-content-between">
-  <button class="btn btn-outline-danger nav-item invisible disabled">Se déconnecter</button> <!-- Bouton invisible pour assurer que le logo soit bien centré -->
-  <img src="assets/Logo.png" alt="Logo" class="navbar-brand justify-self" height="100">
-  <button class="btn btn-outline-danger nav-item" (click)="disconnect()">Se déconnecter</button>
-</nav>
+<app-navbar [display_goBack_button]=false></app-navbar>
 <h1 class="centered mt-4">Scanner une ordonnance</h1>
 <form [formGroup]="prescription_form" (ngSubmit)="fetch_prescription()" class="expandingContainer centered form-group">
   <div class="mb-5">
     <h4>Numéro de l'ordonnance</h4>
-    <input type="text" class="form-control text-field m-3" formControlName="prescription_id">
+    <input type="text" class="form-control border-round m-3" formControlName="prescription_id">
     <div *ngFor="let validation of validation_messages.prescription_id">
       <p *ngIf="invalid_input('prescription_id', validation.type)" class="validation-alert" id="prescription_id_error">{{validation.message}}</p>
     </div>
   </div>
   <div class="mb-5">
     <h4>Mot de passe de l'ordonnance</h4>
-    <input type="text" class="form-control text-field m-3" formControlName="prescription_password">
+    <input type="text" class="form-control border-round m-3" formControlName="prescription_password">
     <div *ngFor="let validation of validation_messages.prescription_password">
       <p *ngIf="invalid_input('prescription_password', validation.type)" class="validation-alert" id="prescription_password_error">{{validation.message}}</p>
     </div>
   </div>
   <div class="mb-5">
     <h4>Numéro de sécurité sociale du patient</h4>
-    <input type="text" class="form-control text-field m-3" formControlName="patient_social_security">
+    <input type="text" class="form-control border-round m-3" formControlName="patient_social_security">
     <div *ngFor="let validation of validation_messages.patient_social_security">
       <p *ngIf="invalid_input('patient_social_security', validation.type)" class="validation-alert" id="patient_social_security_error">{{validation.message}}</p>
     </div>
