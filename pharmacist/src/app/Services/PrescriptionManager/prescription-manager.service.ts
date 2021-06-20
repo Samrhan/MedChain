@@ -3,14 +3,16 @@ import {HttpClient} from "@angular/common/http";
 import {Observable, of} from "rxjs";
 import {environment} from "../../../environments/environment";
 import { map, catchError } from "rxjs/operators"
+import {CanActivate, Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
-export class PrescriptionManagerService {
+export class PrescriptionManagerService implements CanActivate {
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private router: Router
   ) { }
 
   fetch_prescription(id: string, password: string, social: string): Observable<number>{
@@ -72,9 +74,21 @@ export class PrescriptionManagerService {
       map((answer) => {
         // @ts-ignore
         return answer.uses_left;
-      }), catchError(err => {
+      }), catchError(() => {
         return of(-1);
       })
     );
+  }
+
+  /**
+   * Permet de restreindre l'accès à certaines routes uniquement si une ordonnance est en cache
+   */
+  canActivate():boolean {
+    if (localStorage.getItem('cached_prescription') !== "") {
+      return true;
+    } else {
+      this.router.navigateByUrl('/scan_ordonnance')
+      return false;
+    }
   }
 }
