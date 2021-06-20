@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable, of} from "rxjs";
+import {Observable, of, throwError} from "rxjs";
 import {environment} from "../../../environments/environment";
 import { map, catchError } from "rxjs/operators"
 import {CanActivate, Router} from "@angular/router";
@@ -9,6 +9,8 @@ import {CanActivate, Router} from "@angular/router";
   providedIn: 'root'
 })
 export class PrescriptionManagerService implements CanActivate {
+
+  shouldBeRefreshed: boolean = false;
 
   constructor(
     private httpClient: HttpClient,
@@ -20,6 +22,36 @@ export class PrescriptionManagerService implements CanActivate {
     localStorage.setItem('id', id);
     localStorage.setItem('password', password);
     localStorage.setItem('social', social);
+    // Puis on fait la requête
+    return this.httpClient.post(environment.api_url + "/get_prescription", {
+      // token: id,
+      // secu: social,
+      // password: password
+      id_ordonnance: id,
+      num_secu: social,
+      password: password
+    }, {
+      withCredentials: true
+    }).pipe(
+      map((answer) => {
+        // On met en cache le résultat de la requête
+        localStorage.setItem('cached_prescription', JSON.stringify(answer));
+        return 200;
+      }), catchError(err => {
+        return of(err.status);
+      })
+    );
+  }
+
+  refresh_prescription(){
+    this.shouldBeRefreshed = false;
+    // On charge le cache
+    let id: string = localStorage.getItem('id') || "";
+    let password: string = localStorage.getItem('password') || "";
+    let social: string = localStorage.getItem('social') || "";
+    if (!id || !password || !social){
+      throw throwError("no data cached");
+    }
     // Puis on fait la requête
     return this.httpClient.post(environment.api_url + "/get_prescription", {
       // token: id,
@@ -78,6 +110,46 @@ export class PrescriptionManagerService implements CanActivate {
         return of(-1);
       })
     );
+  }
+
+  post_note(content: string): Observable<any>{
+    let id: string = localStorage.getItem('id') || "";
+    let password: string = localStorage.getItem('password') || "";
+    let social: string = localStorage.getItem('social') || "";
+    if (!id || !password || !social){
+      throw throwError("no data cached");
+    }
+    return this.httpClient.post(environment.api_url + "/note", {
+      // token: id,
+      // secu: social,
+      // password: password
+      id_ordonnance: id,
+      num_secu: social,
+      password: password,
+      content: content
+    }, {
+      withCredentials: true
+    })
+  }
+
+  patch_note(content: string): Observable<any>{
+    let id: string = localStorage.getItem('id') || "";
+    let password: string = localStorage.getItem('password') || "";
+    let social: string = localStorage.getItem('social') || "";
+    if (!id || !password || !social){
+      throw throwError("no data cached");
+    }
+    return this.httpClient.patch(environment.api_url + "/note", {
+      // token: id,
+      // secu: social,
+      // password: password
+      id_ordonnance: id,
+      num_secu: social,
+      password: password,
+      content: content
+    }, {
+      withCredentials: true
+    })
   }
 
   /**
