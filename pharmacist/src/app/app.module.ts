@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {ModalModule} from "ngx-bootstrap/modal";
 import { LoginPageComponent } from './login-page/login-page.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ScanOrdonnanceComponent } from './scan-ordonnance/scan-ordonnance.component';
 import { DisplayOrdonnanceComponent } from './display-ordonnance/display-ordonnance.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -25,14 +25,15 @@ import { ConfirmerDistributionComponent } from './confirmer-distribution/confirm
     AjoutNoteComponent,
     ConfirmerDistributionComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        NgbModule,
-        ModalModule.forRoot(),
-        ReactiveFormsModule,
-        HttpClientModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    ModalModule.forRoot(),
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
