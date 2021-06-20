@@ -1,6 +1,5 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
-import {AuthenticatorService} from "../Services/Authenticator/authenticator.service";
 import {Router} from "@angular/router";
 import {PrescriptionManagerService} from "../Services/PrescriptionManager/prescription-manager.service";
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -59,19 +58,23 @@ export class ScanOrdonnanceComponent implements OnInit {
   template: TemplateRef<any> | undefined;
 
   constructor(
-    private authenticatorService: AuthenticatorService,
     private formBuilder: FormBuilder,
     public router: Router,
     private prescriptionManagerService: PrescriptionManagerService,
     public modalService: BsModalService
-  ) {}
+  ) {
+    // TODO : Remove this
+    let expected = {
+      prescription_id: '483472b1-c9d7-4cf3-91c6-42530141c628',
+      prescription_password: '8d87cb1c-4806-401e-82cf-c3956135cf2d',
+      patient_social_security: '000000000000000'
+    };
+
+    this.prescription_form.setValue(expected);
+  }
 
   ngOnInit(): void {
     this.prescriptionManagerService.clear_cache();
-  }
-
-  disconnect(){
-    this.authenticatorService.disconnect()
   }
 
   /**
@@ -108,7 +111,7 @@ export class ScanOrdonnanceComponent implements OnInit {
       (status) => {
         switch (status){
           case 200:
-            this.router.navigate(['/consult_prescription']);
+            this.router.navigate(['/display_ordonnance']);
             break;
           case 400:
             this.showDoesNotExist();

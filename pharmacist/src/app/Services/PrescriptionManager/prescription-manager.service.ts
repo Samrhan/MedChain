@@ -13,16 +13,11 @@ export class PrescriptionManagerService {
     private httpClient: HttpClient
   ) { }
 
-  cached_prescription: any;
-  id: String = "";
-  password: String = "";
-  social: String = "";
-
-  fetch_prescription(id: String, password: String, social: String): Observable<number>{
+  fetch_prescription(id: string, password: string, social: string): Observable<number>{
     // On met les paramètres en cache
-    this.id = id;
-    this.password = password;
-    this.social = social;
+    localStorage.setItem('id', id);
+    localStorage.setItem('password', password);
+    localStorage.setItem('social', social);
     // Puis on fait la requête
     return this.httpClient.post(environment.api_url + "/get_prescription", {
       // token: id,
@@ -36,7 +31,7 @@ export class PrescriptionManagerService {
     }).pipe(
       map((answer) => {
         // On cache le résultat de la requête
-        this.cached_prescription = answer;
+        localStorage.setItem('cached_prescription', JSON.stringify(answer));
         return 200;
       }), catchError(err => {
         return of(err.status);
@@ -45,13 +40,19 @@ export class PrescriptionManagerService {
   }
 
   clear_cache(): void{
-    this.cached_prescription = null;
-    this.id = "";
-    this.password = "";
-    this.social = "";
+    localStorage.setItem('cached_prescription', "");
+    localStorage.setItem('id', "");
+    localStorage.setItem('password', "");
+    localStorage.setItem('social', "");
   }
 
   get_prescription_cache(): any {
-    return this.cached_prescription;
+    const prescription = localStorage.getItem('cached_prescription');
+    if (prescription) {
+      return JSON.parse(prescription);
+    } else {
+      return null;
+    }
+
   }
 }
