@@ -19,6 +19,16 @@ export class DisplayOrdonnanceComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.prescriptionManagerService.shouldBeRefreshed){
+      this.prescriptionManagerService.refresh_prescription().subscribe(() => {
+        this.get_prescription()
+      })
+    } else {
+      this.get_prescription()
+    }
+  }
+
+  get_prescription(){
     let prescription = this.prescriptionManagerService.get_prescription_cache();
     this.prescriptionManagerService.get_uses_left().subscribe(val => this.uses_left = val);
     this.info_ordonnance = prescription.info_ordonnance;
