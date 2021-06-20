@@ -56,14 +56,14 @@ export class ScanOrdonnanceComponent implements OnInit {
 
   modalRef: BsModalRef | undefined;
   @ViewChild('doesNotExistModal')
-  private template: TemplateRef<any> | undefined;
+  template: TemplateRef<any> | undefined;
 
   constructor(
     private authenticatorService: AuthenticatorService,
     private formBuilder: FormBuilder,
     public router: Router,
     private prescriptionManagerService: PrescriptionManagerService,
-    private modalService: BsModalService
+    public modalService: BsModalService
   ) {}
 
   ngOnInit(): void {
