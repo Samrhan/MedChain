@@ -11,7 +11,7 @@ export class AuthenticatorService {
   }
   login(username: string, password: string): Observable<object> {
     return this.http.post(environment.api_url + '/login', {
-      username: username,
+      rpps: username,
       password: password
     }, {
       withCredentials: true

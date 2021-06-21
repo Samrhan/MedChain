@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthenticatorService} from "../service/authenticator.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -10,14 +11,13 @@ import {AuthenticatorService} from "../service/authenticator.service";
 export class LoginComponent implements OnInit {
 
   loginForm = new FormGroup({
-    username: new FormControl(null),
-    password: new FormControl(null)
+    rpps: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required)
   });
-  passwdErr = false;
-  missingPasswd = false;
-  missingId = false;
 
-  constructor(private authenticatorService: AuthenticatorService) {
+  badRppsOrPassword = false
+
+  constructor(private authenticatorService: AuthenticatorService, public router: Router) {
   }
 
   ngOnInit(): void {
@@ -25,33 +25,33 @@ export class LoginComponent implements OnInit {
 
   async login(): Promise<void> {
     const passwd = this.loginForm.controls.password.value;
-    const username = this.loginForm.controls.username.value;
-    this.missingPasswd = !passwd;
-    this.missingId = !username;
-    const validForm = !this.missingPasswd && !this.missingId;
-    if (validForm) {
-      const res = await this.authenticatorService.login(username, passwd).subscribe(response => {
-        console.log(response)
-      }, error => {
-        switch (error.status){
-          case 403:
-            // Déjà connecté
-            console.log(403)
-            break;
-          case 401:
-            // Le compte existe mais l'e-mail n'est pas validé
-            console.log(401)
+    const rpps = this.loginForm.controls.rpps.value;
 
-            break;
-          case 400:
-            // Mot de passe ou e-mail invalide
-            console.log(400)
+    const res = await this.authenticatorService.login(rpps, passwd).subscribe(response => {
+      this.router.navigate(['/form_ordonnance'])
+    }, error => {
+      switch (error.status) {
+        case 403:
+          break;
+        case 401:
+          this.badRppsOrPassword = true
+          break;
+        case 400:
+          this.badRppsOrPassword = true
+          break;
+        default:
+          alert("Une erreur est survenue, veuillez rééssayer.")
+      }
+    });
 
-            break;
-          default:
-            alert("Une erreur est survenue, veuillez rééssayer.")
-        }
-      });
+  }
+
+  invalid_input(name: string, validation: any) {
+    let control: AbstractControl | null = this.loginForm.get(name);
+    if (control) {
+      return control.hasError(validation) && (control.dirty || control.touched)
+    } else {
+      return true;
     }
   }
 
