@@ -25,6 +25,7 @@ module.exports = async (req, res, client) => {
     let email = req.body.patient_email;
     let prescription = JSON.parse(req.body.prescription)
 
+    Date_maximum = new Date();
     if (num_secu == null || prescription == null || Date_maximum == null || Renouvellements == null || email == null) {
         res.status(400).json({message: 'bad request - Missing properties'})
         return;
@@ -42,7 +43,7 @@ module.exports = async (req, res, client) => {
     }
 
     Identifiant_patient = num_secu.toString() + password.toString();
-    await bcrypt.hash(Identifiant_patient, 10);
+    Identifiant_patient = await bcrypt.hash(Identifiant_patient, 10);
 
     // on insert l'ordonnance
     sql = "INSERT INTO ordonnances(Id_ordonnance, Identifiant_patient, Renouvellements, Date_maximum, Date_prescription, Id_medecin) VALUES (?, ?, ?, ?, ?, ?)"
@@ -55,13 +56,20 @@ module.exports = async (req, res, client) => {
     }
 
 
+    const png = await bwipjs.toBuffer({
+        bcid:        'datamatrix',
+        text:        Id_ordonnance+"/"+password,
+        scale:       3,
+        height:      20,
+    });
 
-
+    let attch = new mailgun.Attachment({data: png, filename: "code.png"});
     mailgun.messages().send({
         from: `noreply@myvirtue.fr`,
-        to: email,
+        to: "adrien.girard@efrei.net",
         subject: "Telecharger votre ordonnance",
-        text: Id_ordonnance + "\n" + num_secu + password
+        text: "lien in  app",
+        attachment: attch
     })
     res.status(200).json({message: "ok"});
 

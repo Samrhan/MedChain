@@ -6,12 +6,13 @@ module.exports = async (req, res, client) => {
     let num_secu = req.body.secu;
     let password = req.body.password;
     let Date_delivrance = new Date();
+    let fully_used = req.body.fully_used;
 
     if (num_secu == null || id_ordonnance == null || password == null) {
         res.status(400).json({message: 'bad request - Missing properties'})
 
     }
-    password = req.body.num_secu + password
+    password = num_secu + password
     let data = await client.query("SELECT * FROM Ordonnances WHERE Id_ordonnance = ?", [id_ordonnance])
     let result = Object.values(JSON.parse(JSON.stringify(data[0])))[0]
     if (data[0].length === 1) {
@@ -23,9 +24,10 @@ module.exports = async (req, res, client) => {
                 res.status(403).json({message: "bad request - l'ordonnance a trop de fois ete utilisée"});
                 return;
             }
-            let sql = "INSERT INTO delivre(Id_ordonnance, Id_pharmacien, Date_delivrance) VALUES (?, ?, ?)"
-            await client.query(sql, [id_ordonnance, req.session.userId, Date_delivrance])
-
+            let sql = "INSERT INTO delivre(Id_ordonnance, Id_pharmacien, Date_delivrance,Delivre_en_entier) VALUES (?, ?, ?,?)"
+            await client.query(sql, [id_ordonnance, req.session.userId, Date_delivrance,fully_used])
+            let sql2 = "UPDATE notes SET Utilise = True WHERE id_ordonnance = ? AND Id_pharmacie = ? AND Utilise = False "
+            await client.query(sql2, [id_ordonnance, req.session.pharmacie])
             res.status(200).json({message: "ok"});
 
         } else {

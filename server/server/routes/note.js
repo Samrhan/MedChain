@@ -15,14 +15,14 @@ module.exports = async (req, res, client) => {
         res.status(400).json({message: 'bad request - Missing properties'})
         return;
     }
-    password = req.body.num_secu + password
+    password = num_secu + password
     let data = await client.query("SELECT * FROM Ordonnances WHERE Id_ordonnance = ?", [id_ordonnance])
     let result = Object.values(JSON.parse(JSON.stringify(data[0])))[0]
     if (data[0].length === 1) {
 
         if (await bcrypt.compare(password, result.Identifiant_patient)) {
 
-            let data2 = await client.query("SELECT * FROM notes WHERE id_ordonnance = ?", [id_ordonnance])
+            let data2 = await client.query("SELECT * FROM notes WHERE id_ordonnance = ? AND Utilise = False", [id_ordonnance])
             let result2 = Object.values(JSON.parse(JSON.stringify(data2[0])))
             for (let i = 0; i < result2.length; i++) {
                 if (result2[i].Id_pharmacie === parseInt(req.session.pharmacie)) {
