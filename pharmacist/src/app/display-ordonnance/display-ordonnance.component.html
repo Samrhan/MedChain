@@ -9,7 +9,6 @@
   <p *ngIf="uses_left !== undefined && uses_left <= 0" class="text-danger">Cette ordonnance a déjà été entièrement délivrée. Elle n'est affichée qu'à but consultatif</p>
 </div>
 
-
 <div class="container-grid mt-2 ml-5 mr-5">
 
   <div class="mr-5">
@@ -48,5 +47,5 @@
 
 
 <div class="centered" *ngIf="uses_left !== undefined &&  uses_left > 0">
-  <button class="btn btn-primary centered mt-2 w-25 big-text">Terminer</button>
+  <button class="btn btn-primary centered mt-2 w-25 big-text" [routerLink]="'/confirmer_distribution'">Terminer</button>
 </div>

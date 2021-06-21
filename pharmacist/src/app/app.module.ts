@@ -5,10 +5,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {ModalModule} from "ngx-bootstrap/modal";
+import {TooltipModule} from "ngx-bootstrap/tooltip";
+
 import { LoginPageComponent } from './login-page/login-page.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ScanOrdonnanceComponent } from './scan-ordonnance/scan-ordonnance.component';
 import { DisplayOrdonnanceComponent } from './display-ordonnance/display-ordonnance.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -30,6 +33,7 @@ import { ConfirmerDistributionComponent } from './confirmer-distribution/confirm
     AppRoutingModule,
     NgbModule,
     ModalModule.forRoot(),
+    TooltipModule.forRoot(),
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule

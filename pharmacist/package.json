@@ -1,5 +1,6 @@
 {
-  "name": "pharmacist",
+  "name": "medchain-pharmacie",
+  "productName": "MedChain Pharmacie",
   "version": "0.0.0",
   "main": "main.js",
   "scripts": {

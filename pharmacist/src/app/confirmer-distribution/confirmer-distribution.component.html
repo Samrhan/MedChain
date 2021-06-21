@@ -1,1 +1,39 @@
-<p>confirmer-distribution works!</p>
+<app-navbar [display_goBack_button]="true" [go_back_route]="'/display_ordonnance'"></app-navbar>
+
+<h1 class="centered mt-2">Confirmer la distribution des médicaments</h1>
+
+<div class="mt-2 ml-5 mr-5" [ngClass]="{'container-grid': note}">
+
+  <div class="mr-5" *ngIf="note">
+    <div class="d-flex align-content-center justify-content-between" style="min-height: 2.5rem">
+      <h3>Votre note</h3>
+    </div>
+    <hr>
+    <div class="border-round p-3">
+      <div class="page-height p-1">
+        <p>{{note}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ml-5">
+    <div style="min-height: 2.5rem">
+      <h3>Prescription</h3>
+    </div>
+    <hr>
+    <div class="border-round p-3">
+      <div class="page-height p-1">
+        <div *ngFor="let line of prescription">
+          <h5 class="mb-0 mr-3 d-inline">{{line.Nom_medicament}}</h5><p class="d-inline">{{line.Dosage}}</p>
+          <p>{{line.Prises_par_jour}} prise{{line.Prises_par_jour > 1 ? 's' : ''}} par jour pendant {{line.Duree}} jour{{line.Duree > 1 ? 's' : ''}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="d-flex justify-content-center mt-5">
+  <button class="btn btn-warning rounded-pill mr-5" (click)="use_prescription(false)" *ngIf="note">J'ai délivré cette ordonnance partiellement</button>
+  <button class="btn btn-primary rounded-pill ml-5" (click)="use_prescription(true)" [tooltip]="tooltip_text()" [delay]="note ? 0 : 500" placement="right">J'ai délivré cette ordonnance en entier</button>
+</div>
