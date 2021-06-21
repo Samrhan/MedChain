@@ -63,7 +63,7 @@ INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_en
 -- INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("483472b1-c9d7-4cf3-91c6-42530141c628", 2, "2021-06-12", True);
 INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("4ef7b9c8-c94d-4fa6-ae48-ec007eba8dc6", 1, "2021-05-20", True);
 INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("4ef7b9c8-c94d-4fa6-ae48-ec007eba8dc6", 2, "2021-06-20", True);
-INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("75f3e768-5853-446f-b739-d37f31dea755", 1, "2021-06-17", True);
+-- INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("75f3e768-5853-446f-b739-d37f31dea755", 1, "2021-06-17", True); -- On insère pas cette ordonnance pour le edge case où l'ordonnance est neuve
 INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("a32b3105-44fe-47e0-b336-39d219c71856", 1, "2021-06-04", True);
 INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("a32b3105-44fe-47e0-b336-39d219c71856", 2, "2021-07-04", True);
 INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("a32b3105-44fe-47e0-b336-39d219c71856", 1, "2021-08-05", True);

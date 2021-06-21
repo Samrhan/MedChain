@@ -6,12 +6,16 @@ let mainWindow
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1000,
+    height: 800,
+    icon: 'src/favicon.ico',
     webPreferences: {
       nodeIntegration: true
     }
   })
+
+  mainWindow.setMenu(null);
+  mainWindow.removeMenu();
 
   mainWindow.loadFile('dist/pharmacist/index.html');
 

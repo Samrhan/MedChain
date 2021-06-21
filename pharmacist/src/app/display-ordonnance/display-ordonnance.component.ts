@@ -14,7 +14,7 @@ export class DisplayOrdonnanceComponent implements OnInit {
   uses_left: number | undefined;
 
   constructor(
-    private prescriptionManagerService: PrescriptionManagerService,
+    public prescriptionManagerService: PrescriptionManagerService,
   ) {
   }
 
