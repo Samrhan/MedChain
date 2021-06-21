@@ -6,22 +6,26 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import { OrdonnanceFormComponent } from './ordonnance-form/ordonnance-form.component';
+import {PrescriptionsComponent} from './prescriptions/prescriptions.component';
+
+import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
+import {ComponentLoaderFactory} from "ngx-bootstrap/component-loader";
+import {PositioningService} from "ngx-bootstrap/positioning";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    OrdonnanceFormComponent
+    PrescriptionsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-
+    ModalModule,
   ],
-  providers: [],
+  providers: [PositioningService, ComponentLoaderFactory, BsModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

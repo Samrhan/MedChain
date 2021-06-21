@@ -17,7 +17,7 @@ export class AuthPreventService implements CanActivate {
   canActivate():Observable<boolean>|boolean {
     return this.userService.getConnectedUser().pipe(
       map((auth) => {
-        this.router.navigateByUrl('/form_ordonnance')
+        this.router.navigateByUrl('/prescription')
         return false;
       }),
       catchError(err => of(true))

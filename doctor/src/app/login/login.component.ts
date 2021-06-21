@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     const rpps = this.loginForm.controls.rpps.value;
 
     const res = await this.authenticatorService.login(rpps, passwd).subscribe(response => {
-      this.router.navigate(['/form_ordonnance'])
+      this.router.navigate(['/prescription'])
     }, error => {
       switch (error.status) {
         case 403:

@@ -91,7 +91,7 @@ describe('LoginComponent', () => {
     spyOn(component.router, 'navigate');
     component.login();
 
-    expect(component.router.navigate).toHaveBeenCalledWith(['/form_ordonnance']);
+    expect(component.router.navigate).toHaveBeenCalledWith(['/prescription']);
   })
 
 

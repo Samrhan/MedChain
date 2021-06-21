@@ -1,0 +1,37 @@
+<form [formGroup]="prescriptionForm">
+  <div class="form-row d-flex">
+    <div class="col-5">
+      <label class="sr-only" for="inputPatientMail">Mail du patient :</label>
+      <input formControlName="patient_email" type="email" class="form-control mb-2"
+             [ngClass]="{'is-invalid' : invalid_input('patient_email', 'required')}" id="inputPatientMail"
+             aria-describedby="bddHelp"
+             placeholder="Mail du patient" required>
+      <div id="PatientMailNeeded" class="invalid-feedback">
+        Indiquez le mail du patient
+      </div>
+    </div>
+    <div class="col-5">
+      <label class="sr-only" for="inputSecu">Numéro de sécurité sociale : </label>
+      <input formControlName="secu" class="form-control"
+             [ngClass]="{'is-invalid' : invalid_input('secu', 'required') }" id="inputSecu"
+             placeholder="Numéro de sécurité sociale"
+             type="password" required>
+      <div id="SecuNeeded" class="invalid-feedback">
+        Indiquez le numéro de sécurité sociale
+      </div>
+    </div>
+    <div class="col-2">
+      <label class="sr-only" for="inputRenewable">Renouvelable : </label>
+      <input class="form-check-input"
+             id="inputRenewable"
+             type="checkbox" [checked]="prescriptionForm.get('renewals')?.value!==1" (click)="openModal(renewform)">
+    </div>
+    <!--button [disabled]="!prescriptionForm.valid" type="submit" class="btn btn-primary">Se Connecter</button-->
+  </div>
+
+</form>
+
+
+<ng-template #renewform>
+
+</ng-template>
