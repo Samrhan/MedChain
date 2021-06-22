@@ -12,8 +12,8 @@ export class NavbarComponent implements OnInit {
   @Input() go_back_route: String = "";
 
   constructor(
-    private authenticatorService: AuthenticatorService,
-    private router: Router
+      private authenticatorService: AuthenticatorService,
+      public router: Router
   ) { }
 
   ngOnInit(): void {
