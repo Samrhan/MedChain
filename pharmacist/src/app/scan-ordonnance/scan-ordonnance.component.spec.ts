@@ -7,6 +7,7 @@ import {AbstractControl, ReactiveFormsModule} from "@angular/forms";
 import {RouterTestingModule} from "@angular/router/testing";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {of} from "rxjs";
+import {NavbarComponent} from "../navbar/navbar.component";
 
 describe('ScanOrdonnanceComponent', () => {
   let component: ScanOrdonnanceComponent;
@@ -15,7 +16,7 @@ describe('ScanOrdonnanceComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ScanOrdonnanceComponent ],
+      declarations: [ ScanOrdonnanceComponent, NavbarComponent ],
       providers: [
         PrescriptionManagerService,
       ],
@@ -23,7 +24,7 @@ describe('ScanOrdonnanceComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule,
         ReactiveFormsModule,
-        ModalModule.forRoot()
+        ModalModule.forRoot(),
       ]
     })
     .compileComponents();
@@ -133,6 +134,7 @@ describe('ScanOrdonnanceComponent', () => {
     component.showDoesNotExist();
     fixture.detectChanges();
 
+    expect(component.template).toBeTruthy();
     expect(component.modalService.show).toHaveBeenCalled();
   })
 
@@ -144,6 +146,17 @@ describe('ScanOrdonnanceComponent', () => {
     fixture.detectChanges();
 
     expect(component.modalService.show).not.toHaveBeenCalled();
+  })
+
+  it('showDoesNotExist() should reset form fields', () => {
+    component.prescription_form.get('prescription_id')?.setValue("test");
+    component.prescription_form.get('prescription_password')?.setValue("test");
+
+    component.showDoesNotExist();
+    fixture.detectChanges();
+
+    expect(component.prescription_form.get('prescription_id')?.value).toBeFalsy();
+    expect(component.prescription_form.get('prescription_password')?.value).toBeFalsy();
   })
 
   it('invalid_input should return true if no control is present', () => {
