@@ -35,5 +35,5 @@
 
 <div class="d-flex justify-content-center mt-5">
   <button class="btn btn-warning rounded-pill mr-5" (click)="use_prescription(false)" *ngIf="note">J'ai délivré cette ordonnance partiellement</button>
-  <button class="btn btn-primary rounded-pill ml-5" (click)="use_prescription(true)" [tooltip]="tooltip_text()" [delay]="note ? 0 : 500" placement="right">J'ai délivré cette ordonnance en entier</button>
+  <button class="btn btn-primary rounded-pill ml-5" (click)="use_prescription(true)" [tooltip]="tooltip_text()" [delay]="note ? 0 : 500" placement="top">J'ai délivré cette ordonnance en entier</button>
 </div>
