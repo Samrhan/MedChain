@@ -4,7 +4,8 @@ import { ConfirmerDistributionComponent } from './confirmer-distribution.compone
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {RouterTestingModule} from "@angular/router/testing";
 import {PrescriptionManagerService} from "../Services/PrescriptionManager/prescription-manager.service";
-import {of} from "rxjs";
+import {NavbarComponent} from "../navbar/navbar.component";
+import {TooltipModule} from "ngx-bootstrap/tooltip";
 
 describe('ConfirmerDistributionComponent', () => {
   let component: ConfirmerDistributionComponent;
@@ -56,13 +57,14 @@ describe('ConfirmerDistributionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConfirmerDistributionComponent ],
+      declarations: [ ConfirmerDistributionComponent, NavbarComponent ],
       providers: [
         { provide: PrescriptionManagerService, useValue: mockPrescriptionManager }
       ],
       imports: [
         HttpClientTestingModule,
-        RouterTestingModule
+        RouterTestingModule,
+        TooltipModule.forRoot()
       ]
     })
     .compileComponents();
