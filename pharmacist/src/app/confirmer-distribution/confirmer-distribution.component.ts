@@ -14,8 +14,8 @@ export class ConfirmerDistributionComponent implements OnInit {
   note: string | null = null;
 
   constructor(
-    private prescriptionManagerService: PrescriptionManagerService,
-    private router: Router,
+      private prescriptionManagerService: PrescriptionManagerService,
+      public router: Router,
   ) { }
 
   ngOnInit(): void {

@@ -6,12 +6,14 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {PrescriptionManagerService} from "../Services/PrescriptionManager/prescription-manager.service";
 import {NavbarComponent} from "../navbar/navbar.component";
 import {TooltipModule} from "ngx-bootstrap/tooltip";
+import {not} from "rxjs/internal-compatibility";
+import {of, throwError} from "rxjs";
 
 describe('ConfirmerDistributionComponent', () => {
   let component: ConfirmerDistributionComponent;
   let fixture: ComponentFixture<ConfirmerDistributionComponent>;
 
-  let mockPrescriptionManager = jasmine.createSpyObj(['get_prescription_cache', 'get_note'])
+  let mockPrescriptionManager = jasmine.createSpyObj(['get_prescription_cache', 'get_note', 'use_prescription'])
 
   const prescription = {
     "info_ordonnance": {
@@ -55,6 +57,8 @@ describe('ConfirmerDistributionComponent', () => {
     ]
   }
 
+  const note = "foobar"
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ConfirmerDistributionComponent, NavbarComponent ],
@@ -72,7 +76,7 @@ describe('ConfirmerDistributionComponent', () => {
 
   beforeEach(() => {
     mockPrescriptionManager.get_prescription_cache.and.returnValue(prescription);
-    mockPrescriptionManager.get_note.and.returnValue(null);
+    mockPrescriptionManager.get_note.and.returnValue(note);
 
     fixture = TestBed.createComponent(ConfirmerDistributionComponent);
     component = fixture.componentInstance;
@@ -82,4 +86,104 @@ describe('ConfirmerDistributionComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should fill internal fields', () => {
+    expect(component.prescription).toEqual(prescription.prescription);
+    expect(component.note).toEqual(note);
+  })
+
+  it('tooltip_text() should return appropriate message in case a note is present', () => {
+    component.note = "foo";
+    expect(component.tooltip_text()).toContain("Attention");
+  })
+
+  it('tooltip_text() should return appropriate message in case there is no note', () => {
+    component.note = null;
+    expect(component.tooltip_text()).toContain("Vous n'avez pas ajouté de note");
+  })
+
+  it('use_prescription should call prescriptionManagerService.use_prescription and redirect', () => {
+    mockPrescriptionManager.use_prescription.and.returnValue(of(true));
+    spyOn(component.router, 'navigate');
+
+    component.use_prescription(true);
+    expect(mockPrescriptionManager.use_prescription).toHaveBeenCalledWith(true);
+    expect(component.router.navigate).toHaveBeenCalledWith(['/scan_ordonnance']);
+
+    component.use_prescription(false);
+    expect(mockPrescriptionManager.use_prescription).toHaveBeenCalledWith(false);
+    expect(component.router.navigate).toHaveBeenCalledWith(['/scan_ordonnance']);
+  })
+
+  it('use_prescription should call prescriptionManagerService.use_prescription and display error message if one occurs', () => {
+    mockPrescriptionManager.use_prescription.and.returnValue(throwError(""));
+    spyOn(component.router, 'navigate');
+    spyOn(window, 'alert');
+
+    component.use_prescription(true);
+    expect(mockPrescriptionManager.use_prescription).toHaveBeenCalledWith(true);
+    expect(component.router.navigate).toHaveBeenCalledWith(['/scan_ordonnance']);
+    expect(window.alert).toHaveBeenCalled();
+
+    component.use_prescription(false);
+    expect(mockPrescriptionManager.use_prescription).toHaveBeenCalledWith(false);
+    expect(component.router.navigate).toHaveBeenCalledWith(['/scan_ordonnance']);
+    expect(component.router.navigate).toHaveBeenCalled();
+  })
+
+  it('should not display "partiellement délivré" button if there is no note', (done: DoneFn) => {
+    component.note = null;
+    fixture.detectChanges()
+    fixture.whenStable().then(() => {
+      expect(fixture.nativeElement.querySelector('#partiel')).toBeFalsy();
+      expect(fixture.nativeElement.querySelector('#total')).toBeTruthy();
+      done()
+    })
+  })
+
+  it('should display "partiellement délivré" button if there is a note', (done: DoneFn) => {
+    component.note = "foo";
+    fixture.detectChanges()
+    fixture.whenStable().then(() => {
+      expect(fixture.nativeElement.querySelector('#partiel')).toBeTruthy();
+      expect(fixture.nativeElement.querySelector('#total')).toBeTruthy();
+      done()
+    })
+  })
+
+  it('should only display the note container if there is a note (case no note)', (done: DoneFn) => {
+    component.note = null;
+    fixture.detectChanges()
+    fixture.whenStable().then(() => {
+      expect(fixture.nativeElement.querySelector('#noteContainer')).toBeFalsy();
+      done()
+    })
+  })
+
+  it('should only display the note container if there is a note (case note)', (done: DoneFn) => {
+    component.note = "foo";
+    fixture.detectChanges()
+    fixture.whenStable().then(() => {
+      expect(fixture.nativeElement.querySelector('#noteContainer')).toBeTruthy();
+      done()
+    })
+  })
+
+  it('should adapt global container style according to the presence of a note (case no note)', (done: DoneFn) => {
+    component.note = null;
+    fixture.detectChanges()
+    fixture.whenStable().then(() => {
+      expect(fixture.nativeElement.querySelector('#container').classList).not.toContain("container-grid");
+      done()
+    })
+  })
+
+  it('should adapt global container style according to the presence of a note (case note)', (done: DoneFn) => {
+    component.note = "foo";
+    fixture.detectChanges()
+    fixture.whenStable().then(() => {
+      expect(fixture.nativeElement.querySelector('#container').classList).toContain("container-grid");
+      done()
+    })
+  })
 });
