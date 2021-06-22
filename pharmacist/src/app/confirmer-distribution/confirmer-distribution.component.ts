@@ -26,7 +26,6 @@ export class ConfirmerDistributionComponent implements OnInit {
 
   use_prescription(fully_used: boolean) {
     this.prescriptionManagerService.use_prescription(fully_used).subscribe(() => {
-      alert("Tout s'est déroulé correctement !")
       this.router.navigate(['/scan_ordonnance'])
     }, () => {
       alert("Impossible de mettre à jour l'ordonnance...")
