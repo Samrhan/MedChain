@@ -1,6 +1,6 @@
 <form [formGroup]="prescriptionForm">
-  <div class="form-row d-flex">
-    <div class="col-5">
+  <div class="form-row d-flex align-items-center">
+    <div class="col-5 form-input">
       <label class="sr-only" for="inputPatientMail">Mail du patient :</label>
       <input formControlName="patient_email" type="email" class="form-control mb-2"
              [ngClass]="{'is-invalid' : invalid_input('patient_email', 'required')}" id="inputPatientMail"
@@ -10,28 +10,59 @@
         Indiquez le mail du patient
       </div>
     </div>
-    <div class="col-5">
+    <div class="col-5 form-input">
       <label class="sr-only" for="inputSecu">Numéro de sécurité sociale : </label>
       <input formControlName="secu" class="form-control"
              [ngClass]="{'is-invalid' : invalid_input('secu', 'required') }" id="inputSecu"
              placeholder="Numéro de sécurité sociale"
-             type="password" required>
+             type="text" required>
       <div id="SecuNeeded" class="invalid-feedback">
         Indiquez le numéro de sécurité sociale
       </div>
     </div>
-    <div class="col-2">
-      <label class="sr-only" for="inputRenewable">Renouvelable : </label>
+    <div class="col-1 form-input">
+      <label class="sr-only" for="inputRenewable">Renouvelable </label>
       <input class="form-check-input"
              id="inputRenewable"
              type="checkbox" [checked]="prescriptionForm.get('renewals')?.value!==1" (click)="openModal(renewform)">
     </div>
-    <!--button [disabled]="!prescriptionForm.valid" type="submit" class="btn btn-primary">Se Connecter</button-->
+    <ng-template #renewform>
+      <div class="form-group">
+        <label class="sr-only" for="inputRenewals">Nombre de renouvellement</label>
+        <input formControlName="renewals" class="form-control"
+               id="inputRenewals"
+               placeholder="Renouvellements"
+               type="number">
+        <label class="sr-only" for="inputMaxDate">Date limite</label>
+        <input formControlName="max_date" class="form-control"
+               id="inputMaxDate"
+               placeholder="Numéro de sécurité sociale"
+               type="date" required>
+      </div>
+    </ng-template>
   </div>
-
+  <div class="form-row d-flex" formArrayName="prescription" *ngFor="let _ of prescriptions().controls; let i = index">
+    <div class="col mb-3 input-group" [formGroupName]="i">
+      <div class="col-3 form-input">
+        <label class="sr-only" for="drug_name_{{i}}" *ngIf="i===0">Nom du médicament</label>
+        <input class="form-control" type="text" formControlName="drug_name" id="drug_name_{{i}}"
+               (focus)="addPrescription(i)">
+      </div>
+      <div class="col-2 form-input">
+        <label class="sr-only" for="dose_{{i}}" *ngIf="i===0">Posologie</label>
+        <input class="form-control" type="text" id="dose_{{i}}" formControlName="dose">
+      </div>
+      <div class="col-2 form-input">
+        <label class="sr-only" for="duration_{{i}}" *ngIf="i===0">Jours de traitement</label>
+        <input class="form-control" type="number" id="duration_{{i}}" formControlName="duration">
+      </div>
+      <div class="col-3 form-input">
+        <label class="sr-only" for="takes_per_day_{{i}}" *ngIf="i===0">Prises par jour</label>
+        <input class="form-control" type="text" id="takes_per_day_{{i}}" formControlName="takes_per_day">
+      </div>
+      <button class="btn btn-danger" type="button" *ngIf="i!==0" (click)="removePrescription(i)">❌</button>
+    </div>
+  </div>
+  <button [disabled]="!prescriptionForm.valid" type="submit" class="btn btn-primary">Confirmer</button>
 </form>
 
-
-<ng-template #renewform>
-
-</ng-template>

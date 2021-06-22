@@ -12,6 +12,7 @@ function createWindow() {
       nodeIntegration: true
     }
   })
+  mainWindow.removeMenu()
   mainWindow.loadFile('dist/doctor/index.html');
 
   mainWindow.on('closed', function () {
