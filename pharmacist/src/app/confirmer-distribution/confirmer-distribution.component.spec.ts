@@ -6,7 +6,6 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {PrescriptionManagerService} from "../Services/PrescriptionManager/prescription-manager.service";
 import {NavbarComponent} from "../navbar/navbar.component";
 import {TooltipModule} from "ngx-bootstrap/tooltip";
-import {not} from "rxjs/internal-compatibility";
 import {of, throwError} from "rxjs";
 
 describe('ConfirmerDistributionComponent', () => {
@@ -77,6 +76,10 @@ describe('ConfirmerDistributionComponent', () => {
   beforeEach(() => {
     mockPrescriptionManager.get_prescription_cache.and.returnValue(prescription);
     mockPrescriptionManager.get_note.and.returnValue(note);
+
+    mockPrescriptionManager.get_prescription_cache.calls.reset();
+    mockPrescriptionManager.get_note.calls.reset();
+    mockPrescriptionManager.use_prescription.calls.reset();
 
     fixture = TestBed.createComponent(ConfirmerDistributionComponent);
     component = fixture.componentInstance;

@@ -70,6 +70,10 @@ describe('DisplayOrdonnanceComponent', () => {
     mockPrescriptionManager.refresh_prescription.and.returnValue(of(true));
     spyPropertyGetter(mockPrescriptionManager, 'shouldBeRefreshed').and.returnValue(false);
 
+    mockPrescriptionManager.get_prescription_cache.calls.reset();
+    mockPrescriptionManager.get_uses_left.calls.reset();
+    mockPrescriptionManager.refresh_prescription.calls.reset();
+
     fixture = TestBed.createComponent(DisplayOrdonnanceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
