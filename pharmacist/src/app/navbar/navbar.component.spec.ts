@@ -29,6 +29,8 @@ describe('NavbarComponent', () => {
     fixture = TestBed.createComponent(NavbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    mockAuthenticatorService.disconnect.calls.reset();
   });
 
   it('should create', () => {
