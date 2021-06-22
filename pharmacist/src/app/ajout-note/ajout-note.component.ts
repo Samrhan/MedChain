@@ -13,7 +13,7 @@ export class AjoutNoteComponent implements OnInit {
 
   constructor(
     private prescriptionManager: PrescriptionManagerService,
-    private router: Router
+    public router: Router
   ) { }
 
   ngOnInit(): void {
@@ -32,5 +32,4 @@ export class AjoutNoteComponent implements OnInit {
     })
     this.prescriptionManager.shouldBeRefreshed = true;
   }
-
 }
