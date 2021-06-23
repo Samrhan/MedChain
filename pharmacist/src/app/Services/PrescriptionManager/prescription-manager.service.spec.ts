@@ -135,6 +135,10 @@ describe('PrescriptionManagerService', () => {
     req.flush({message: 'error'}, expected_response);
   })
 
+  it('refresh_prescription() should fail on empty cache', () => {
+    expect(function(){service.refresh_prescription()}).toThrow();
+  })
+
   it('refresh_prescription() should cache the new response', () => {
     localStorage.setItem('id', "test");
     localStorage.setItem('password', "pass");
@@ -160,6 +164,271 @@ describe('PrescriptionManagerService', () => {
     req.event(expected_response);
 
     expect(localStorage.getItem('cached_prescription')).toEqual(JSON.stringify(answ_body));
+  })
+
+  it('get_uses_left() should fail on empty cache', () => {
+    service.get_uses_left().subscribe((ans) => {
+      expect(ans).toEqual(-1);
+    }, fail)
+
+    localStorage.setItem('id', "test");
+    service.get_uses_left().subscribe((ans) => {
+      expect(ans).toEqual(-1);
+    }, fail);
+
+    localStorage.setItem('password', "test");
+    service.get_uses_left().subscribe((ans) => {
+      expect(ans).toEqual(-1);
+    }, fail);
+  })
+
+  it('get_uses_left() should fail on httpError', () => {
+    localStorage.setItem('id', "test");
+    localStorage.setItem('password', "pass");
+    localStorage.setItem('social', "1234");
+    const expected_response = new HttpResponse({status: 400, statusText: 'bad request'})
+
+    service.get_uses_left().subscribe(
+      data => expect(data).toEqual(-1),
+      fail
+    )
+
+    const req = httpMock.expectOne(environment.api_url + '/token_state');
+
+    req.flush({message: 'error'}, expected_response);
+  })
+
+  it('get_uses_left() should return the correct number', () => {
+    localStorage.setItem('id', "test");
+    localStorage.setItem('password', "pass");
+    localStorage.setItem('social', "1234");
+    const expected_request_body = {
+      token_id: "test",
+      secu: "1234",
+      password: "pass"
+    }
+    const response_body = {
+      uses_left: 1,
+      max_date: "2022-06-11T22:00:00.000Z",
+      Date_prescription: "2021-06-11T22:00:00.000Z"
+    }
+    const expected_response = new HttpResponse({status: 200, body: response_body})
+
+    service.get_uses_left().subscribe(
+      data => expect(data).toEqual(response_body.uses_left),
+      fail
+    )
+
+    const req = httpMock.expectOne(environment.api_url + '/token_state');
+    expect(req.request.method).toEqual("POST");
+    expect(req.request.body).toEqual(expected_request_body);
+
+    req.event(expected_response);
+  })
+
+  it('post_note() should fail on empty cache', () => {
+    expect(function(){service.post_note("foo")}).toThrow();
+    localStorage.setItem('id', "test");
+    expect(function(){service.post_note("foo")}).toThrow();
+    localStorage.setItem('password', "test");
+    expect(function(){service.post_note("foo")}).toThrow();
+  })
+
+  it('post_note() should cache the note content', () => {
+    localStorage.setItem('id', "test");
+    localStorage.setItem('password', "pass");
+    localStorage.setItem('social', "1234");
+
+    const content = "foobar"
+
+    service.post_note(content);
+    expect(localStorage.getItem('note')).toEqual(content);
+  })
+
+  it('post_note() should correctly format the request', () => {
+    localStorage.setItem('id', "test");
+    localStorage.setItem('password', "pass");
+    localStorage.setItem('social', "1234");
+
+    const content = "foobar"
+
+    const expected_request_body = {
+      token: "test",
+      secu: "1234",
+      password: "pass",
+      content: content
+    }
+    const expected_response = new HttpResponse({status: 200, body: {message: 'ok'}})
+
+    service.post_note(content).subscribe(
+      () => {},
+      fail
+    )
+
+    const req = httpMock.expectOne(environment.api_url + '/note');
+    expect(req.request.method).toEqual("POST");
+    expect(req.request.body).toEqual(expected_request_body);
+
+    req.event(expected_response);
+  })
+
+  it('post_note() should pass the error back in case of httpError', () => {
+    localStorage.setItem('id', "test");
+    localStorage.setItem('password', "pass");
+    localStorage.setItem('social', "1234");
+
+    const content = "foobar"
+
+    const expected_response = new HttpResponse({status: 400, statusText: 'bad request'})
+
+    service.post_note(content).subscribe(
+      fail,
+      () => {
+        expect(true).toBeTrue()
+      }
+    )
+
+    const req = httpMock.expectOne(environment.api_url + '/note');
+
+    req.flush({message: 'error'}, expected_response);
+  })
+
+  it('patch_note() should fail on empty cache', () => {
+    expect(function(){service.patch_note("foo")}).toThrow();
+    localStorage.setItem('id', "test");
+    expect(function(){service.patch_note("foo")}).toThrow();
+    localStorage.setItem('password', "test");
+    expect(function(){service.patch_note("foo")}).toThrow();
+  })
+
+  it('patch_note() should correctly format the request', () => {
+    localStorage.setItem('id', "test");
+    localStorage.setItem('password', "pass");
+    localStorage.setItem('social', "1234");
+
+    const content = "foobar"
+
+    const expected_request_body = {
+      token: "test",
+      secu: "1234",
+      password: "pass",
+      content: content
+    }
+    const expected_response = new HttpResponse({status: 200, body: {message: 'ok'}})
+
+    service.patch_note(content).subscribe(
+      () => {},
+      fail
+    )
+
+    const req = httpMock.expectOne(environment.api_url + '/note');
+    expect(req.request.method).toEqual("PATCH");
+    expect(req.request.body).toEqual(expected_request_body);
+
+    req.event(expected_response);
+  })
+
+  it('patch_note() should pass the error back in case of httpError', () => {
+    localStorage.setItem('id', "test");
+    localStorage.setItem('password', "pass");
+    localStorage.setItem('social', "1234");
+
+    const content = "foobar"
+
+    const expected_response = new HttpResponse({status: 400, statusText: 'bad request'})
+
+    service.patch_note(content).subscribe(
+      fail,
+      () => {
+        expect(true).toBeTrue()
+      }
+    )
+
+    const req = httpMock.expectOne(environment.api_url + '/note');
+
+    req.flush({message: 'error'}, expected_response);
+  })
+
+  it('get_note() should return null on empty cache', () => {
+    expect(service.get_note()).toBeNull();
+  })
+
+  it('get_note() should return the correct value', () => {
+    const content = "foobar";
+
+    localStorage.setItem('note', content)
+
+    expect(service.get_note()).toEqual(content);
+  })
+
+  it('canActivate() should return false and redirect on empty cache', () => {
+    spyOn(service.router, 'navigateByUrl');
+
+    expect(service.canActivate()).toBeFalse();
+    expect(service.router.navigateByUrl).toHaveBeenCalledWith('/scan_ordonnance');
+  })
+
+  it('canActivate() should return true on full cache', () => {
+    const prescription = {content: 'lorem ipsum dolor sit amet'}
+    localStorage.setItem('cached_prescription', JSON.stringify(prescription))
+
+    expect(service.canActivate()).toBeTrue();
+  })
+
+  it('use_prescription() should fail on empty cache', () => {
+    expect(function(){service.use_prescription(true)}).toThrow();
+    localStorage.setItem('id', "test");
+    expect(function(){service.use_prescription(true)}).toThrow();
+    localStorage.setItem('password', "test");
+    expect(function(){service.use_prescription(true)}).toThrow();
+  })
+
+  it('use_prescription() should correctly format the request', () => {
+    localStorage.setItem('id', "test");
+    localStorage.setItem('password', "pass");
+    localStorage.setItem('social', "1234");
+
+    const fully_used = true;
+
+    const expected_request_body = {
+      token: "test",
+      secu: "1234",
+      password: "pass",
+      fully_used: fully_used
+    }
+    const expected_response = new HttpResponse({status: 200, body: {message: 'ok'}})
+
+    service.use_prescription(fully_used).subscribe(
+      () => {},
+      fail
+    )
+
+    const req = httpMock.expectOne(environment.api_url + '/use_prescription');
+    expect(req.request.method).toEqual("POST");
+    expect(req.request.body).toEqual(expected_request_body);
+
+    req.event(expected_response);
+  })
+
+  it('use_prescription() should pass the error back in case of httpError', () => {
+    localStorage.setItem('id', "test");
+    localStorage.setItem('password', "pass");
+    localStorage.setItem('social', "1234");
+
+    const fully_used = true;
+
+    const expected_response = new HttpResponse({status: 400, statusText: 'bad request'})
+
+    service.use_prescription(fully_used).subscribe(
+      fail,
+      () => {
+        expect(true).toBeTrue()
+      }
+    )
+
+    const req = httpMock.expectOne(environment.api_url + '/use_prescription');
+
+    req.flush({message: 'error'}, expected_response);
   })
 
 

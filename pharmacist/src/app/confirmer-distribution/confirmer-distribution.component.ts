@@ -36,6 +36,6 @@ export class ConfirmerDistributionComponent implements OnInit {
   tooltip_text(): string {
     return this.note ?
       "Attention, vous avez ajouté une note à cette ordonnance. Si vous ne l'avez pas délivrée en entier, n'appuyez pas sur ce bouton" :
-      "Vous n'avez pas ajouté de note, donc cette ordonnance doit avoir été délivrée en entier. Si ce n'est pas le cas, merci d'ajouter une note sépcifiant ce que vous avez délivré.";
+      "Vous n'avez pas ajouté de note, donc cette ordonnance doit avoir été délivrée en entier. Si ce n'est pas le cas, merci d'ajouter une note spécifiant ce que vous avez délivré.";
   }
 }
