@@ -62,16 +62,7 @@ export class ScanOrdonnanceComponent implements OnInit {
     public router: Router,
     private prescriptionManagerService: PrescriptionManagerService,
     public modalService: BsModalService
-  ) {
-    // TODO : Remove this
-    let expected = {
-      prescription_id: '483472b1-c9d7-4cf3-91c6-42530141c628',
-      prescription_password: '8d87cb1c-4806-401e-82cf-c3956135cf2d',
-      patient_social_security: '000000000000000'
-    };
-
-    //this.prescription_form.setValue(expected);
-  }
+  ) {}
 
   ngOnInit(): void {
     this.prescriptionManagerService.clear_cache();
