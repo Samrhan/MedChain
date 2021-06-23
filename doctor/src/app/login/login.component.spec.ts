@@ -76,7 +76,7 @@ describe('LoginComponent', () => {
     expect(nativeElement.querySelector("#badRppsOrPassword")).toBeTruthy();
   })
 
-  it('should display "incorrect id" when getting 401', async () => {
+  it('should display "incorrect id" when getting 400', async () => {
     // Make the component believe it got 401
     mockAuthenticatorService.login.and.returnValue(throwError({status: 400}));
     await component.login();
@@ -94,5 +94,18 @@ describe('LoginComponent', () => {
     expect(component.router.navigate).toHaveBeenCalledWith(['/prescription']);
   })
 
+  it('should display alert when getting unknown error', () => {
+    spyOn(window, "alert");
+    mockAuthenticatorService.login.and.returnValue(throwError({status: 0}));
+    component.login();
+    fixture.detectChanges();
+
+    expect(window.alert).toHaveBeenCalled();
+  })
+
+
+  it('invalid_input should return true if no control is present', () => {
+    expect(component.invalid_input("test", "required")).toBeTruthy();
+  });
 
 });

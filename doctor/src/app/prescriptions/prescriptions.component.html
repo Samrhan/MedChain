@@ -24,7 +24,7 @@
       <label class="sr-only" for="inputRenewable">Renouvelable </label>
       <input class="form-check-input"
              id="inputRenewable"
-             type="checkbox" [checked]="prescriptionForm.get('renewals')?.value!==1" (click)="openModal(renewform)">
+             type="checkbox" [checked]="prescriptionForm.get('renewals')?.value!==1" (click)="openModal()">
     </div>
     <ng-template #renewform>
       <div class="form-group">
@@ -41,11 +41,11 @@
       </div>
     </ng-template>
   </div>
-  <div class="form-row d-flex" formArrayName="prescription" *ngFor="let _ of prescriptions().controls; let i = index" id="prescription-{{i}}">
+  <div class="form-row d-flex" formArrayName="prescription" *ngFor="let _ of prescriptions().controls; let i = index" id="prescription{{i}}">
     <div class="col mb-3 input-group" [formGroupName]="i">
       <div class="col-3 form-input">
-        <label class="sr-only" id="labelDrugName{{i}}" for="drug_name_{{i}}" *ngIf="i===0">Nom du médicament</label>
-        <input class="form-control" type="text" formControlName="drug_name" id="drug_name_{{i}}"
+        <label class="sr-only" id="labelDrugName{{i}}" for="drugName{{i}}" *ngIf="i===0">Nom du médicament</label>
+        <input class="form-control" type="text" formControlName="drug_name" id="drugName{{i}}"
                (focus)="addPrescription(i)">
       </div>
       <div class="col-2 form-input">

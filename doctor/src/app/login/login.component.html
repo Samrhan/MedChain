@@ -11,10 +11,10 @@
         Indiquez votre identifiant
       </div>
       <label for="inputPassword">Mot de Passe :</label>
-      <input formControlName="password" class="form-control" [ngClass]="{'is-invalid' : invalid_input('password', 'required') }"
+      <input formControlName="password" class="form-control" [ngClass]="{'is-invalid' : invalid_input('password', 'required') || badRppsOrPassword }"
              id="inputPassword" placeholder="Mot de Passe"
              type="password" required>
-      <div id="passwordNeeded" class="invalid-feedback" *ngIf="invalid_input('password', 'required') || badRppsOrPassword">
+      <div id="passwordNeeded" class="invalid-feedback" *ngIf="invalid_input('password', 'required')">
         Indiquez votre mot de passe
       </div>
       <div id="badRppsOrPassword" class="invalid-feedback" *ngIf="badRppsOrPassword">

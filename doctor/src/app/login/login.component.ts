@@ -31,8 +31,6 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/prescription'])
     }, error => {
       switch (error.status) {
-        case 403:
-          break;
         case 401:
           this.badRppsOrPassword = true
           break;

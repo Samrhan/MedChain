@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, TemplateRef} from '@angular/core';
+import {AfterViewInit, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -17,9 +17,13 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 })
 export class PrescriptionsComponent implements OnInit, AfterViewInit {
   prescriptionForm: FormGroup;
-  modalRef: BsModalRef | undefined;
 
-  constructor(private fb: FormBuilder, private modalService: BsModalService) {
+  modalRef: BsModalRef | undefined;
+  @ViewChild('renewform')
+  template: TemplateRef<any> | undefined;
+
+
+  constructor(public fb: FormBuilder, public modalService: BsModalService) {
     this.prescriptionForm = this.fb.group({
       patient_email: new FormControl('', [Validators.required, Validators.email]),
       secu: new FormControl('', Validators.compose([
@@ -28,13 +32,14 @@ export class PrescriptionsComponent implements OnInit, AfterViewInit {
         Validators.maxLength(15),
         this.validSocial])),
       renewals: new FormControl(1),
-      max_date: new FormControl(new Date(new Date().getFullYear() + 1, new Date().getMonth(), new Date().getDate()).toISOString().substr(0,10)),
+      max_date: new FormControl(new Date(new Date().getFullYear() + 1, new Date().getMonth(), new Date().getDate()).toISOString().substr(0, 10)),
       prescription: this.fb.array([this.newPrescription()])
     })
   }
 
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
+  openModal() {
+    if (this.template)
+      this.modalRef = this.modalService.show(this.template);
   }
 
   ngOnInit(): void {
