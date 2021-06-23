@@ -6,7 +6,7 @@
              [ngClass]="{'is-invalid' : invalid_input('patient_email', 'required')}" id="inputPatientMail"
              aria-describedby="bddHelp"
              placeholder="Mail du patient" required>
-      <div id="PatientMailNeeded" class="invalid-feedback">
+      <div id="PatientMailNeeded" class="invalid-feedback" *ngIf="invalid_input('patient_email', 'required')">
         Indiquez le mail du patient
       </div>
     </div>
@@ -16,7 +16,7 @@
              [ngClass]="{'is-invalid' : invalid_input('secu', 'required') }" id="inputSecu"
              placeholder="Numéro de sécurité sociale"
              type="text" required>
-      <div id="SecuNeeded" class="invalid-feedback">
+      <div id="SecuNeeded" class="invalid-feedback" *ngIf="invalid_input('secu', 'required')">
         Indiquez le numéro de sécurité sociale
       </div>
     </div>
@@ -41,26 +41,26 @@
       </div>
     </ng-template>
   </div>
-  <div class="form-row d-flex" formArrayName="prescription" *ngFor="let _ of prescriptions().controls; let i = index">
+  <div class="form-row d-flex" formArrayName="prescription" *ngFor="let _ of prescriptions().controls; let i = index" id="prescription-{{i}}">
     <div class="col mb-3 input-group" [formGroupName]="i">
       <div class="col-3 form-input">
-        <label class="sr-only" for="drug_name_{{i}}" *ngIf="i===0">Nom du médicament</label>
+        <label class="sr-only" id="labelDrugName{{i}}" for="drug_name_{{i}}" *ngIf="i===0">Nom du médicament</label>
         <input class="form-control" type="text" formControlName="drug_name" id="drug_name_{{i}}"
                (focus)="addPrescription(i)">
       </div>
       <div class="col-2 form-input">
-        <label class="sr-only" for="dose_{{i}}" *ngIf="i===0">Posologie</label>
+        <label class="sr-only" id="labelDose{{i}}" for="dose_{{i}}" *ngIf="i===0">Posologie</label>
         <input class="form-control" type="text" id="dose_{{i}}" formControlName="dose">
       </div>
       <div class="col-2 form-input">
-        <label class="sr-only" for="duration_{{i}}" *ngIf="i===0">Jours de traitement</label>
+        <label class="sr-only" id="labelDuration{{i}}" for="duration_{{i}}" *ngIf="i===0">Jours de traitement</label>
         <input class="form-control" type="number" id="duration_{{i}}" formControlName="duration">
       </div>
       <div class="col-3 form-input">
-        <label class="sr-only" for="takes_per_day_{{i}}" *ngIf="i===0">Prises par jour</label>
+        <label class="sr-only" id="labelTakesPerDay{{i}}" for="takes_per_day_{{i}}" *ngIf="i===0">Prises par jour</label>
         <input class="form-control" type="text" id="takes_per_day_{{i}}" formControlName="takes_per_day">
       </div>
-      <button class="btn btn-danger" type="button" *ngIf="i!==0" (click)="removePrescription(i)">❌</button>
+      <button id="deleteButton{{i}}" class="btn btn-danger" type="button" *ngIf="i!==0" (click)="removePrescription(i)">❌</button>
     </div>
   </div>
   <button [disabled]="!prescriptionForm.valid" type="submit" class="btn btn-primary">Confirmer</button>

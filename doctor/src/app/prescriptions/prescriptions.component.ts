@@ -77,4 +77,6 @@ export class PrescriptionsComponent implements OnInit, AfterViewInit {
   validSocial(control: AbstractControl): ValidationErrors | null {
     return (/^[0-9]{15}$/.test(control.value) || control.value.length !== 15) ? null : {invalidSocial: {value: control.value}};
   }
+
+
 }
