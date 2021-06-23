@@ -14,7 +14,7 @@ export class PrescriptionManagerService implements CanActivate {
 
   constructor(
     private httpClient: HttpClient,
-    private router: Router
+    public router: Router
   ) { }
 
   fetch_prescription(id: string, password: string, social: string): Observable<number>{
@@ -88,6 +88,9 @@ export class PrescriptionManagerService implements CanActivate {
     let id: string = localStorage.getItem('id') || "";
     let password: string = localStorage.getItem('password') || "";
     let social: string = localStorage.getItem('social') || "";
+    if (!id || !password || !social){
+      return of(-1);
+    }
     return this.httpClient.post(environment.api_url + "/token_state", {
       token_id: id,
       secu: social,
