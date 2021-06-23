@@ -10,17 +10,16 @@ import {UserService} from "./user.service";
 })
 
 export class AuthGuardService implements CanActivate {
-  constructor(public userService: UserService, public router: Router) {
-  }
+  constructor(public userService: UserService, public router: Router) {}
 
-  canActivate(): Observable<boolean> | boolean {
+  canActivate():Observable<boolean> {
     return this.userService.getConnectedUser().pipe(
       map((auth) => {
         return true;
       }),
       catchError(err => {
-        this.router.navigateByUrl('/login')
-        throw ''
+        this.router.navigateByUrl('/login');
+        throw '';
       })
     );
   }

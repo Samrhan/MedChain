@@ -14,13 +14,13 @@ import {UserService} from "./user.service";
 export class AuthPreventService implements CanActivate {
   constructor(public userService: UserService, public router: Router) {}
 
-  canActivate():Observable<boolean>|boolean {
+  canActivate():Observable<boolean> {
     return this.userService.getConnectedUser().pipe(
       map((auth) => {
         this.router.navigateByUrl('/prescription')
         return false;
       }),
-      catchError(err => of(true))
+      catchError(err => {return of(true)})
     );
   }
 }
