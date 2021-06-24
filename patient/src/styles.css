@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+.top-bar {
+  min-height: 7vh;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top-bar h5 {
+  margin: 0;
+}

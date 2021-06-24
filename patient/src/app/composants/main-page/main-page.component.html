@@ -1,1 +1,22 @@
-<p>main-page works!</p>
+<div class="top-bar px-2">
+  <h5>Vos ordonnances</h5>
+  <fa-icon [icon]="faCog"></fa-icon>
+</div>
+<div *ngIf="prescriptionManager.isStorageEmpty(); else displayPrescriptions">
+  <div class="mx-3 mt-4">
+    <button class="btn btn-primary rounded-pill w-100">Ajouter une ordonnance</button>
+  </div>
+  <span class="m-5"></span>
+  <div class="d-flex align-items-center justify-content-center mt-5">
+    <img src="assets/bottle.svg" alt="illustration médicaments" class="w-25 me-3">
+    <img src="assets/ordonnance.svg" alt="illustration ordonnance" class="w-25 ms-3">
+  </div>
+  <h2 class="text-orange mx-3 mt-5"><b>Vous n’avez pas encore d’ordonnance enregistrée</b></h2>
+  <p class="m-3"><b>Vous pouvez en ajouter grâce au <span class="text-orange">lien</span> reçu <span class="text-orange">par mail</span> après votre consultation, ou en cliquant sur <span class="text-orange">le bouton ci-dessus</span> et en scannant le <span class="text-orange">QR code présent</span> dans le document</b></p>
+
+</div>
+<ng-template #displayPrescriptions>
+  <div>
+
+  </div>
+</ng-template>

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {PrescriptionsManagerService} from "../../services/prescriptionManager/prescriptions-manager.service";
+
+import { faCog } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-main-page',
@@ -7,7 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor() { }
+  faCog = faCog;
+
+  constructor(
+    public prescriptionManager: PrescriptionsManagerService
+  ) { }
 
   ngOnInit(): void {
   }

@@ -5,8 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class PrescriptionsManagerService {
 
-  // localStorage key
+  // localStorage keys
   readonly data: string = "prescriptions";
+  readonly social: string = "social_security";
 
   // Mutex lock
   mutex: boolean = true;
@@ -14,14 +15,22 @@ export class PrescriptionsManagerService {
   constructor() { }
 
   isStorageEmpty(): boolean {
-    return localStorage.getItem(this.data) === "";
+    return JSON.parse(localStorage.getItem(this.data) || "[]").length === 0;
   }
 
-  getAllPrescriptions() {
+  isSocialEmpty(): boolean {
+    return (localStorage.getItem(this.social) || "") === "";
+  }
+
+  getAllPrescriptions(): any {
     return JSON.parse(localStorage.getItem(this.data) || "[]");
   }
 
-  addPrescription(token: string, password: string) {
+  getSocial(): string {
+    return localStorage.getItem(this.social) || "";
+  }
+
+  addPrescription(token: string, password: string): void {
     // Pour éviter que deux écritures simultanées ne viennent se surcharger l'une l'autre, on bloque l'accès à la méthode le temps que le traitement s'effectue
     if (this.mutex){
       this.mutex = false;
@@ -33,7 +42,16 @@ export class PrescriptionsManagerService {
       localStorage.setItem(this.data, JSON.stringify(prescriptions));
       this.mutex = true;
     } else {
-      setTimeout((token, password) => this.addPrescription(token, password), 100)
+      setTimeout((token: string, password: string) => this.addPrescription(token, password), 100)
     }
+  }
+
+  setSocial(new_social: string): void {
+    localStorage.setItem(this.social, new_social);
+  }
+
+  clearAll() {
+    localStorage.setItem(this.data, JSON.stringify([]));
+    localStorage.setItem(this.social, "");
   }
 }
