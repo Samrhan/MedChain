@@ -1,1 +1,5 @@
-<router-outlet></router-outlet>
+<button (click)="addToHomeScreen()" *ngIf="showButton; else router">Add to Home Screen</button>
+<ng-template #router>
+  <router-outlet></router-outlet>
+</ng-template>
+
