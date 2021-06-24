@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+
+import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-num-secu-picker',
@@ -7,9 +11,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NumSecuPickerComponent implements OnInit {
 
-  constructor() { }
+  faQuestionCircle = faQuestionCircle
+
+  modalRef: BsModalRef | undefined;
+
+  constructor(private modalService: BsModalService) {}
 
   ngOnInit(): void {
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
   }
 
 }

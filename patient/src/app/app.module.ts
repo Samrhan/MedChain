@@ -9,6 +9,8 @@ import { HttpClientModule} from "@angular/common/http";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 import { NumSecuPickerComponent } from './composants/num-secu-picker/num-secu-picker.component';
 import { SettingsComponent } from './composants/settings/settings.component';
 import { MainPageComponent } from './composants/main-page/main-page.component';
@@ -31,6 +33,7 @@ import { AddFromLinkComponent } from './composants/add-from-link/add-from-link.c
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
+    ModalModule.forRoot(),
     FontAwesomeModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
