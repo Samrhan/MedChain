@@ -9,6 +9,8 @@ import {
   Validators
 } from "@angular/forms";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
+import { faCheckSquare, faSquare } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-prescriptions',
@@ -17,6 +19,9 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 })
 export class PrescriptionsComponent implements OnInit, AfterViewInit {
   prescriptionForm: FormGroup;
+
+  faSquare = faSquare
+  faChekSquare = faCheckSquare
 
   modalRef: BsModalRef | undefined;
   @ViewChild('renewform')
@@ -83,5 +88,8 @@ export class PrescriptionsComponent implements OnInit, AfterViewInit {
     return (/^[0-9]{15}$/.test(control.value) || control.value.length !== 15) ? null : {invalidSocial: {value: control.value}};
   }
 
+  confirm(): void {
+    console.log(this.prescriptionForm)
+  }
 
 }

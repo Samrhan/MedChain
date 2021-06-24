@@ -11,6 +11,7 @@ import {PrescriptionsComponent} from './prescriptions/prescriptions.component';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import {ComponentLoaderFactory} from "ngx-bootstrap/component-loader";
 import {PositioningService} from "ngx-bootstrap/positioning";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {PositioningService} from "ngx-bootstrap/positioning";
     ReactiveFormsModule,
     HttpClientModule,
     ModalModule,
+    FontAwesomeModule,
   ],
   providers: [PositioningService, ComponentLoaderFactory, BsModalService],
   bootstrap: [AppComponent]
