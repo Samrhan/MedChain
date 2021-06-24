@@ -1,49 +1,100 @@
-.btn-danger{
-  border-radius: 10px!important;
+.app-container{
+  background-color: lightsteelblue!important;
+  height: 100vh;
 }
 
-.form-control{
-  border-radius: 10px!important;
+
+.btn-danger {
+  border-radius: 10px !important;
 }
 
-.sr-only{
+
+.form-control {
+  border-radius: 10px !important;
+}
+
+input{
+  border: 1px solid black;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25), 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.sr-only {
   margin-left: -40px;
   margin-bottom: 10px;
 }
 
-.form-input{
+.form-input {
   padding-right: 40px;
   padding-left: 40px;
 }
 
-form{
+form {
   padding: 40px;
 }
 
-.form-row:first-child{
+.form-row:first-child {
   padding-bottom: 3rem;
 }
 
-.sr-only:not:first-of-type{
+.sr-only:not:first-of-type {
   display: none;
 }
 
-.form-row ~ .form-row{
+.form-row ~ .form-row {
   margin-left: 9rem;
 }
 
-form{
+form {
   display: flex;
   flex-direction: column;
 }
 
-.btn-primary{
+.btn-primary {
   align-self: center;
   width: 20rem;
   border-radius: 10px;
 }
 
-.modal-content{
-  border-radius: 10px;
+.modal-content {
+  border-radius: 20px;
   margin: 20px;
+}
+
+#modalForm {
+  padding: 10px 50px 10px 50px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+#modalForm button {
+  margin-top: 20px;
+}
+
+.navbar {
+  justify-content: flex-end;
+}
+
+.navbar button {
+  margin-right: 30px;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom:10px ;
+}
+
+.navbar-brand img {
+  width: 120px;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 15px;
+  transform: translateX(-50%);
+}
+
+.form-container {
+  margin: 20px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 10px;
+  box-shadow: 0 4px 4px rgba(255, 255, 255, 0.25), 0 4px 4px rgba(0, 0, 0, 0.25);
+
 }

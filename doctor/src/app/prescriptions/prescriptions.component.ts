@@ -9,7 +9,7 @@ import {
   Validators
 } from "@angular/forms";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
-import { faCheckSquare, faSquare } from '@fortawesome/free-solid-svg-icons';
+import {AuthenticatorService} from "../service/authenticator.service";
 
 
 @Component({
@@ -20,16 +20,22 @@ import { faCheckSquare, faSquare } from '@fortawesome/free-solid-svg-icons';
 export class PrescriptionsComponent implements OnInit, AfterViewInit {
   prescriptionForm: FormGroup;
 
-  faSquare = faSquare
-  faChekSquare = faCheckSquare
-
   modalRef: BsModalRef | undefined;
-  @ViewChild('renewform')
+  @ViewChild('renewForm')
   template: TemplateRef<any> | undefined;
 
 
-  constructor(public fb: FormBuilder, public modalService: BsModalService) {
-    this.prescriptionForm = this.fb.group({
+  constructor(public fb: FormBuilder, public modalService: BsModalService, private authenticatorService: AuthenticatorService) {
+    this.prescriptionForm = this.initForm()
+  }
+
+  initForm(): FormGroup {
+    // Default renewals max date : Now + 1 Year
+    let date = new Date()
+    let maxDate = new Date(date.getFullYear() + 1, date.getMonth(), date.getDate())
+    let maxDateString = maxDate.toISOString().substr(0, 10)
+
+    return this.fb.group({
       patient_email: new FormControl('', [Validators.required, Validators.email]),
       secu: new FormControl('', Validators.compose([
         Validators.required,
@@ -37,14 +43,18 @@ export class PrescriptionsComponent implements OnInit, AfterViewInit {
         Validators.maxLength(15),
         this.validSocial])),
       renewals: new FormControl(1),
-      max_date: new FormControl(new Date(new Date().getFullYear() + 1, new Date().getMonth(), new Date().getDate()).toISOString().substr(0, 10)),
+      max_date: new FormControl(maxDateString),
       prescription: this.fb.array([this.newPrescription()])
     })
-  }
+  };
 
   openModal() {
     if (this.template)
       this.modalRef = this.modalService.show(this.template);
+  }
+
+  closeModal() {
+    this.modalService.hide()
   }
 
   ngOnInit(): void {
@@ -90,6 +100,10 @@ export class PrescriptionsComponent implements OnInit, AfterViewInit {
 
   confirm(): void {
     console.log(this.prescriptionForm)
+  }
+
+  disconnect() {
+    this.authenticatorService.disconnect()
   }
 
 }
