@@ -19,26 +19,29 @@ import { AjoutNoteComponent } from './ajout-note/ajout-note.component';
 import { ConfirmerDistributionComponent } from './confirmer-distribution/confirmer-distribution.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginPageComponent,
-    ScanOrdonnanceComponent,
-    DisplayOrdonnanceComponent,
-    NavbarComponent,
-    AjoutNoteComponent,
-    ConfirmerDistributionComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    ModalModule.forRoot(),
-    TooltipModule.forRoot(),
-    ReactiveFormsModule,
-    HttpClientModule,
-    FormsModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        LoginPageComponent,
+        ScanOrdonnanceComponent,
+        DisplayOrdonnanceComponent,
+        NavbarComponent,
+        AjoutNoteComponent,
+        ConfirmerDistributionComponent,
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgbModule,
+        ModalModule.forRoot(),
+        TooltipModule.forRoot(),
+        ReactiveFormsModule,
+        HttpClientModule,
+        FormsModule
+    ],
+    providers: [],
+    exports: [
+        NavbarComponent
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
