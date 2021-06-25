@@ -17,6 +17,7 @@ import { MainPageComponent } from './composants/main-page/main-page.component';
 import { PrescriptionDisplayBigComponent } from './composants/prescription-display-big/prescription-display-big.component';
 import { ScanPrescriptionComponent } from './composants/scan-prescription/scan-prescription.component';
 import { AddFromLinkComponent } from './composants/add-from-link/add-from-link.component';
+import { BarcodeComponent } from './composants/barcode/barcode.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { AddFromLinkComponent } from './composants/add-from-link/add-from-link.c
     PrescriptionDisplayBigComponent,
     ScanPrescriptionComponent,
     AddFromLinkComponent,
+    BarcodeComponent,
   ],
   imports: [
     BrowserModule,
