@@ -1,3 +1,4 @@
+<!-- Écran lorsqu'il n'y a aucune ordonnance -->
 <div class="top-bar px-2">
   <h5>Vos ordonnances</h5>
   <fa-icon [icon]="faCog" [routerLink]="['/settings']"></fa-icon>
@@ -13,15 +14,22 @@
   </div>
   <h2 class="text-orange mx-3 mt-5"><b>Vous n’avez pas encore d’ordonnance enregistrée</b></h2>
   <p class="m-3"><b>Vous pouvez en ajouter grâce au <span class="text-orange">lien</span> reçu <span class="text-orange">par mail</span> après votre consultation, ou en cliquant sur <span class="text-orange">le bouton ci-dessus</span> et en scannant le <span class="text-orange">QR code présent</span> dans le document</b></p>
-
 </div>
+
+<!-- Écran lorsqu'il y a au moins une ordonnance -->
 <ng-template #displayPrescriptions>
   <div class="mt-5" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')">
     <div *ngFor="let prescription of prescriptions; let id = index" [routerLink]="['/display', id]">
-        <app-barcode [code]="prescription.token" [password]="prescription.password" *ngIf="id === current_prescription"></app-barcode>
+      <div *ngIf="id === current_prescription">
+        <app-barcode [code]="prescription.token" [password]="prescription.password"></app-barcode>
+        <div class="d-flex flex-column align-items-center justify-content-center mt-2">
+          <p class="rounded-pill bg-primary text-light text-center w-50">{{getDate(prescription.token)}}</p>
+          <p class="rounded-pill bg-primary text-light text-center w-50">{{getUses(prescription.token)}}</p>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-center mt-3">
     <fa-icon [icon]="faArrowLeft" (click)="prev_prescription()"></fa-icon>
     <p class="mx-3">{{current_prescription + 1}} / {{max_value + 1}}</p>
     <fa-icon [icon]="faArrowRight" (click)="next_prescription()"></fa-icon>

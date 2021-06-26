@@ -18,6 +18,7 @@ export class MainPageComponent implements OnInit {
   faArrowRight = faArrowRight;
 
   prescriptions: Array<any>;
+  status: Map<string, any>;
   max_value: number = 0;
   current_prescription: number = parseInt(localStorage.getItem('current_prescription') || "0");
 
@@ -26,12 +27,29 @@ export class MainPageComponent implements OnInit {
   ) {
     // TODO: Remove this
     prescriptionManager.clearAll();
-    prescriptionManager.addPrescription("d92984f1-d19f-4bdc-926b-6e81e8ce75d5", "b07174a9-3c48-4aa4-9f03-b87f385de469");
-    prescriptionManager.addPrescription("755da544-56f4-466c-a454-f1bc23236cf3", "08a99940-e030-4e97-a865-07c17364c9c6");
-    prescriptionManager.addPrescription("81732cb4-e652-4ad2-8d2b-5878062a3a5f", "64308ae0-fdbf-49f4-9333-57d10a765219");
+    prescriptionManager.setSocial('000000000000000');
+    prescriptionManager.addPrescription("483472b1-c9d7-4cf3-91c6-42530141c628", "8d87cb1c-4806-401e-82cf-c3956135cf2d");
+    prescriptionManager.addPrescription("4ef7b9c8-c94d-4fa6-ae48-ec007eba8dc6", "8d87cb1c-4806-401e-82cf-c3956135cf2d"); // Cette ordonnance sera supprimée car elle est trop vieille
+    prescriptionManager.addPrescription("eb924924-2bfe-445a-a013-8be34d8c1e12", "8d87cb1c-4806-401e-82cf-c3956135cf2d"); // Cette ordonnance sera supprimée car elle est trop utilisée
+    prescriptionManager.addPrescription("47753d54-c9d0-4f9c-bd73-973d9f359422", "8d87cb1c-4806-401e-82cf-c3956135cf2d");
 
+    // On récupère toutes les données
     this.prescriptions = prescriptionManager.getAllPrescriptions();
+    this.status = new Map<string, any>();
     this.max_value = this.prescriptions.length - 1;
+    for(let prescription of this.prescriptions){
+      prescriptionManager.getTokenState(prescription.token, prescription.password).subscribe((metadata) => {
+        // On en profite pour supprimer les ordonnances devenues inutiles
+        if(new Date(metadata.max_date) < new Date() || metadata.uses_left < 1){
+          prescriptionManager.removePrescription(prescription.token);
+          this.prescriptions = prescriptionManager.getAllPrescriptions();
+          this.max_value = this.prescriptions.length - 1;
+        } else {
+          this.status.set(prescription.token, metadata);
+        }
+      })
+    }
+
   }
 
   ngOnInit(): void {
@@ -76,6 +94,26 @@ export class MainPageComponent implements OnInit {
           }
         }
       }
+    }
+  }
+
+  getDate(code: string): string {
+    const metadata = this.status.get(code);
+    if (metadata){
+      const max_date = new Date(metadata.max_date);
+      return `Limite ${max_date.toLocaleDateString('fr-FR')}`;
+    } else {
+      return ""
+    }
+  }
+
+  getUses(code: string): string {
+    const metadata = this.status.get(code);
+    if (metadata){
+      const utilisations = metadata.uses_left;
+      return `${utilisations} Utilisation${utilisations > 1 ? 's' : ''} restante${utilisations > 1 ? 's' : ''}`
+    } else {
+      return ""
     }
   }
 }
