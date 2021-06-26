@@ -4,6 +4,7 @@ import {PrescriptionsManagerService} from "../../services/prescriptionManager/pr
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-main-page',
@@ -18,10 +19,10 @@ export class MainPageComponent implements OnInit {
 
   prescriptions: Array<any>;
   max_value: number = 0;
-  current_prescription: number = 0;
+  current_prescription: number = parseInt(localStorage.getItem('current_prescription') || "0");
 
   constructor(
-    public prescriptionManager: PrescriptionsManagerService
+    public prescriptionManager: PrescriptionsManagerService,
   ) {
     // TODO: Remove this
     prescriptionManager.clearAll();
@@ -38,10 +39,12 @@ export class MainPageComponent implements OnInit {
 
   next_prescription(){
     this.current_prescription = Math.min(this.current_prescription + 1, this.max_value);
+    localStorage.setItem('current_prescription', this.current_prescription.toString())
   }
 
   prev_prescription(){
     this.current_prescription = Math.max(this.current_prescription - 1, 0);
+    localStorage.setItem('current_prescription', this.current_prescription.toString())
   }
 
   private swipeCoord?: [number, number];

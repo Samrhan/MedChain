@@ -17,7 +17,7 @@
 </div>
 <ng-template #displayPrescriptions>
   <div class="mt-5" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')">
-    <div *ngFor="let prescription of prescriptions; let id = index">
+    <div *ngFor="let prescription of prescriptions; let id = index" [routerLink]="['/display', id]">
         <app-barcode [code]="prescription.token" [password]="prescription.password" *ngIf="id === current_prescription"></app-barcode>
     </div>
   </div>
