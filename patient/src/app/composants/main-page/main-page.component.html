@@ -17,9 +17,11 @@
 </div>
 <ng-template #displayPrescriptions>
   <div class="mt-5" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')">
-    <app-barcode [code]="prescriptions[current_prescription].token" [password]="prescriptions[current_prescription].password"></app-barcode>
+    <div *ngFor="let prescription of prescriptions; let id = index">
+        <app-barcode [code]="prescription.token" [password]="prescription.password" *ngIf="id === current_prescription"></app-barcode>
+    </div>
   </div>
-  <div class="d-flex justify-content-center mt-3">
+  <div class="d-flex justify-content-center">
     <fa-icon [icon]="faArrowLeft" (click)="prev_prescription()"></fa-icon>
     <p class="mx-3">{{current_prescription + 1}} / {{max_value + 1}}</p>
     <fa-icon [icon]="faArrowRight" (click)="next_prescription()"></fa-icon>

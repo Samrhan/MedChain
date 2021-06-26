@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, ViewChild} from '@angular/core';
 
 import * as bwipjs from 'bwip-js';
 
@@ -7,29 +7,28 @@ import * as bwipjs from 'bwip-js';
   templateUrl: './barcode.component.html',
   styleUrls: ['./barcode.component.css']
 })
-export class BarcodeComponent implements OnInit, OnChanges {
+export class BarcodeComponent implements AfterViewInit {
 
   @Input() code: string = '';
   @Input() password: string = '';
 
   @Input() scale: number = 3
 
+  @ViewChild('barcode') canvas : ElementRef | undefined
+
   constructor() { }
 
-  ngOnInit(): void {
-    this.drawBarcode()
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
+  ngAfterViewInit(): void {
     this.drawBarcode()
   }
 
   drawBarcode(): void {
-    let canvas = bwipjs.toCanvas('barcode-canvas', {
-      bcid:        'datamatrix',       // Barcode type
-      text:        this.code + "\n" + this.password,    // Text to encode
-      scale:       this.scale,                          // Scaling factor
-      textxalign:  'center',                            // Always good to set this
+    let canvas: HTMLCanvasElement = this.canvas?.nativeElement;
+    bwipjs.toCanvas(canvas, {
+      bcid: 'datamatrix',       // Barcode type
+      text: this.code + "\n" + this.password,    // Text to encode
+      scale: this.scale,                          // Scaling factor
+      textxalign: 'center',                            // Always good to set this
     });
   }
 }
