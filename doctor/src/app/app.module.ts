@@ -28,5 +28,6 @@ import {PositioningService} from "ngx-bootstrap/positioning";
   providers: [PositioningService, ComponentLoaderFactory, BsModalService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }

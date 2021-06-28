@@ -10,6 +10,7 @@ import {
 } from "@angular/forms";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {AuthenticatorService} from "../service/authenticator.service";
+import {PrescriptionService} from "../service/prescription.service";
 
 
 @Component({
@@ -19,22 +20,27 @@ import {AuthenticatorService} from "../service/authenticator.service";
 })
 export class PrescriptionsComponent implements OnInit, AfterViewInit {
   prescriptionForm: FormGroup;
+  consult = false; // Mode vue 0 = edition, 1 = consultation
 
   modalRef: BsModalRef | undefined;
   @ViewChild('renewForm')
   template: TemplateRef<any> | undefined;
 
 
-  constructor(public fb: FormBuilder, public modalService: BsModalService, private authenticatorService: AuthenticatorService) {
+  constructor(public fb: FormBuilder, public modalService: BsModalService, public authenticatorService: AuthenticatorService, public prescriptionService: PrescriptionService) {
     this.prescriptionForm = this.initForm()
+  }
+
+  getMaxDate(): string {
+    let date = new Date()
+    let maxDate = new Date(date.getFullYear() + 1, date.getMonth(), date.getDate())
+    return maxDate.toISOString().substr(0, 10)
   }
 
   initForm(): FormGroup {
     // Default renewals max date : Now + 1 Year
-    let date = new Date()
-    let maxDate = new Date(date.getFullYear() + 1, date.getMonth(), date.getDate())
-    let maxDateString = maxDate.toISOString().substr(0, 10)
 
+    let maxDate = this.getMaxDate()
     return this.fb.group({
       patient_email: new FormControl('', [Validators.required, Validators.email]),
       secu: new FormControl('', Validators.compose([
@@ -43,7 +49,7 @@ export class PrescriptionsComponent implements OnInit, AfterViewInit {
         Validators.maxLength(15),
         this.validSocial])),
       renewals: new FormControl(1),
-      max_date: new FormControl(maxDateString),
+      max_date: new FormControl(maxDate),
       prescription: this.fb.array([this.newPrescription()])
     })
   };
@@ -82,7 +88,8 @@ export class PrescriptionsComponent implements OnInit, AfterViewInit {
   }
 
   removePrescription(i: number): void {
-    this.prescriptions().removeAt(i);
+    if (i !== 0)
+      this.prescriptions().removeAt(i);
   }
 
   invalid_input(name: string, validation: any) {
@@ -98,8 +105,31 @@ export class PrescriptionsComponent implements OnInit, AfterViewInit {
     return (/^[0-9]{15}$/.test(control.value) || control.value.length !== 15) ? null : {invalidSocial: {value: control.value}};
   }
 
+  toggleConsult(): void {
+    // Enzo m'engueule pas stp, ça sert juste à suppr tous les champs vide
+    while (this.prescriptionForm.value.prescription.slice(-1)[0].drug_name.trim() === '' && this.prescriptions().length > 1)
+      this.removePrescription(this.prescriptions().length - 1)
+    this.consult = true
+  }
+
   confirm(): void {
-    console.log(this.prescriptionForm)
+    if (!this.consult) { // Si on est pas en mode consult, on passe en mode consult
+      this.toggleConsult()
+      return
+    }
+
+    this.prescriptionService.post_prescription(this.prescriptionForm.value).subscribe(() => {
+      this.consult = false;
+      this.prescriptionForm.reset({
+        patient_email: '',
+        secu: '',
+        renewals: 1,
+        max_date: this.getMaxDate(),
+        prescription: this.fb.array([this.newPrescription()])
+      })
+    }, error => {
+      alert(error)
+    })
   }
 
   disconnect() {

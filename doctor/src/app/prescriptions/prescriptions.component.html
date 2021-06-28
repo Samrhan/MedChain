@@ -1,9 +1,10 @@
 <div class="app-container">
   <nav class="navbar navbar-light bg-light">
+    <button class="btn btn-outline-primary" id="rollbackButton" type="button" (click)="consult=false" *ngIf="consult===true">Précédent</button>
     <a class="navbar-brand" href="#">
       <img src="assets/logo.png" alt="">
     </a>
-    <button class="btn btn-outline-primary" type="button" (click)="disconnect()">Se déconnecter</button>
+    <button class="btn btn-outline-primary" id="disconnectButton" type="button" (click)="disconnect()">Se déconnecter</button>
   </nav>
   <div class="form-container">
     <form [formGroup]="prescriptionForm" (submit)="confirm()">
@@ -13,7 +14,8 @@
           <input formControlName="patient_email" type="email" class="form-control mb-2"
                  [ngClass]="{'is-invalid' : invalid_input('patient_email', 'required')}" id="inputPatientMail"
                  aria-describedby="bddHelp"
-                 placeholder="Mail du patient" required>
+                 placeholder="Mail du patient" required *ngIf="!consult">
+          <p id="consultPatientMail" class="consult-field" *ngIf="consult">{{prescriptionForm.value.patient_email}}</p>
           <div id="PatientMailNeeded" class="invalid-feedback" *ngIf="invalid_input('patient_email', 'required')">
             Indiquez le mail du patient
           </div>
@@ -23,17 +25,19 @@
           <input formControlName="secu" class="form-control"
                  [ngClass]="{'is-invalid' : invalid_input('secu', 'required') }" id="inputSecu"
                  placeholder="Numéro de sécurité sociale"
-                 type="text" required>
+                 type="text" *ngIf="!consult" required>
+          <p id="consultSecu" class="consult-field" *ngIf="consult">{{prescriptionForm.value.secu}}</p>
           <div id="SecuNeeded" class="invalid-feedback" *ngIf="invalid_input('secu', 'required')">
             Indiquez le numéro de sécurité sociale
           </div>
         </div>
         <div class="col-1 form-input">
           <label for="renewBox" class="sr-only">Renouvelable </label>
-          <div id="renewBox" (click)="openModal()">
+          <div id="renewBox" (click)="openModal()" *ngIf="!consult">
             <span *ngIf="prescriptionForm.get('renewals')?.value > 1">&#9745;</span>
             <span *ngIf="prescriptionForm.get('renewals')?.value <= 1" style="font-size: 30px">&#9634;</span>
           </div>
+          <p style="width: 300px" *ngIf="consult" class="consult-field" id="consultRenew">{{prescriptionForm.get('renewals')?.value <= 1 ? '&#9634; ' : '&#9745; '+ prescriptionForm.get('max_date')?.value+', '+prescriptionForm.get('renewals')?.value + ' fois'}}</p>
         </div>
         <ng-template #renewForm>
           <div class="form-group" id="modalForm">
@@ -58,21 +62,33 @@
           <div class="col-3 form-input">
             <label class="sr-only" id="labelDrugName{{i}}" for="drugName{{i}}" *ngIf="i===0">Nom du médicament</label>
             <input class="form-control" type="text" formControlName="drug_name" id="drugName{{i}}"
-                   (focus)="addPrescription(i)">
+                   (focus)="addPrescription(i)" *ngIf="!consult">
+            <p id="consultDrugName{{i}}" class="consult-field"
+               *ngIf="consult">{{prescriptionForm.value.prescription[i].drug_name}}</p>
           </div>
           <div class="col-2 form-input">
             <label class="sr-only" id="labelDose{{i}}" for="dose_{{i}}" *ngIf="i===0">Posologie</label>
-            <input class="form-control" type="text" id="dose_{{i}}" formControlName="dose">
+            <input class="form-control" type="text" id="dose_{{i}}" formControlName="dose" *ngIf="!consult">
+            <p id="consultDose{{i}}" class="consult-field"
+               *ngIf="consult">{{prescriptionForm.value.prescription[i].dose}}</p>
+
           </div>
           <div class="col-2 form-input">
             <label class="sr-only" id="labelDuration{{i}}" for="duration_{{i}}" *ngIf="i===0">Jours de
               traitement</label>
-            <input class="form-control" type="number" id="duration_{{i}}" formControlName="duration">
+            <input class="form-control" type="number" id="duration_{{i}}" formControlName="duration" *ngIf="!consult">
+            <p id="consultDuration{{i}}" class="consult-field"
+               *ngIf="consult">{{prescriptionForm.value.prescription[i].duration}}</p>
+
           </div>
           <div class="col-3 form-input">
             <label class="sr-only" id="labelTakesPerDay{{i}}" for="takes_per_day_{{i}}" *ngIf="i===0">Prises par
               jour</label>
-            <input class="form-control" type="text" id="takes_per_day_{{i}}" formControlName="takes_per_day">
+            <input class="form-control" type="text" id="takes_per_day_{{i}}" formControlName="takes_per_day"
+                   *ngIf="!consult">
+            <p id="consultTakesPerDay{{i}}" class="consult-field"
+               *ngIf="consult">{{prescriptionForm.value.prescription[i].takes_per_day}}</p>
+
           </div>
           <button id="deleteButton{{i}}" class="btn btn-danger" type="button" *ngIf="i!==0"
                   (click)="removePrescription(i)">
@@ -80,7 +96,7 @@
           </button>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">Confirmer</button>
+      <button id="confirmButton" type="submit" class="btn btn-primary">Confirmer</button>
     </form>
   </div>
 </div>
