@@ -55,7 +55,7 @@ INSERT INTO Ordonnances(Id_ordonnance, Identifiant_patient, Renouvellements, Dat
 INSERT INTO Ordonnances(Id_ordonnance, Identifiant_patient, Renouvellements, Date_maximum, Date_prescription, Id_medecin) VALUES ("eb924924-2bfe-445a-a013-8be34d8c1e12", "$2b$10$Qsc6s8ikL9PWSftPWJgBhOoeu.mD3EIaPSnJgTsI.hFLROtTFT6aK", 1, "2022-03-21", "2021-03-21", 2);
 INSERT INTO Ordonnances(Id_ordonnance, Identifiant_patient, Renouvellements, Date_maximum, Date_prescription, Id_medecin) VALUES ("ce8aeb44-460d-4da0-81c2-4e3d01a981d5", "$2b$10$Qsc6s8ikL9PWSftPWJgBhOoeu.mD3EIaPSnJgTsI.hFLROtTFT6aK", 1, "2022-04-01", "2021-04-01", 2);
 INSERT INTO Ordonnances(Id_ordonnance, Identifiant_patient, Renouvellements, Date_maximum, Date_prescription, Id_medecin) VALUES ("64be2240-105c-4c3b-8e93-2ab4ff35fade", "$2b$10$Qsc6s8ikL9PWSftPWJgBhOoeu.mD3EIaPSnJgTsI.hFLROtTFT6aK", 1, "2021-12-05", "2020-12-05", 2);
-INSERT INTO Ordonnances(Id_ordonnance, Identifiant_patient, Renouvellements, Date_maximum, Date_prescription, Id_medecin) VALUES ("287c6493-b166-49d9-9b09-d629000f5c9d", "$2b$10$Qsc6s8ikL9PWSftPWJgBhOoeu.mD3EIaPSnJgTsI.hFLROtTFT6aK", 5, "2021-02-27", "2020-02-27", 2);
+INSERT INTO Ordonnances(Id_ordonnance, Identifiant_patient, Renouvellements, Date_maximum, Date_prescription, Id_medecin) VALUES ("287c6493-b166-49d9-9b09-d629000f5c9d", "$2b$10$Qsc6s8ikL9PWSftPWJgBhOoeu.mD3EIaPSnJgTsI.hFLROtTFT6aK", 5, "2021-08-27", "2020-08-27", 2);
 INSERT INTO Ordonnances(Id_ordonnance, Identifiant_patient, Renouvellements, Date_maximum, Date_prescription, Id_medecin) VALUES ("eb4b84bb-e2f0-469b-9c69-495a3234957f", "$2b$10$Qsc6s8ikL9PWSftPWJgBhOoeu.mD3EIaPSnJgTsI.hFLROtTFT6aK", 2, "2021-01-01", "2020-01-01", 2);
 
 -- Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier

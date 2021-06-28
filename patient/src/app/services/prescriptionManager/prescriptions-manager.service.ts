@@ -41,11 +41,13 @@ export class PrescriptionsManagerService {
     if (this.addMutex){
       this.addMutex = false;
       let prescriptions: Array<any>  = JSON.parse(localStorage.getItem(this.data) || "[]");
-      prescriptions.push({
-        token: token,
-        password: password
-      })
-      localStorage.setItem(this.data, JSON.stringify(prescriptions));
+      if (prescriptions.findIndex(element => element.token == token) === -1){
+        prescriptions.push({
+          token: token,
+          password: password
+        })
+        localStorage.setItem(this.data, JSON.stringify(prescriptions));
+      }
       this.addMutex = true;
     } else {
       setTimeout((token: string, password: string) => this.addPrescription(token, password), 100)

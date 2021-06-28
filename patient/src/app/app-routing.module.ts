@@ -6,6 +6,7 @@ import {SettingsComponent} from "./composants/settings/settings.component";
 import {NumSecuPickerComponent} from "./composants/num-secu-picker/num-secu-picker.component";
 import {PrescriptionDisplayBigComponent} from "./composants/prescription-display-big/prescription-display-big.component";
 import {ScanPrescriptionComponent} from "./composants/scan-prescription/scan-prescription.component";
+import {AddFromLinkComponent} from "./composants/add-from-link/add-from-link.component";
 
 const routes: Routes = [
   {path : '', component: MainPageComponent},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path : 'num_secu', component: NumSecuPickerComponent},
   {path : 'display/:id', component: PrescriptionDisplayBigComponent},
   {path : 'scan', component: ScanPrescriptionComponent},
+  {path : 'add/:token/:password', component: AddFromLinkComponent},
   {path : '**', component: MainPageComponent}
 ];
 

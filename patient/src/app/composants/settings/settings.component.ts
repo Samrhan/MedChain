@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {PrescriptionsManagerService} from "../../services/prescriptionManager/prescriptions-manager.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-settings',
@@ -9,7 +10,8 @@ import {PrescriptionsManagerService} from "../../services/prescriptionManager/pr
 export class SettingsComponent implements OnInit {
 
   constructor(
-    private prescriptionManager: PrescriptionsManagerService
+    private prescriptionManager: PrescriptionsManagerService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -17,7 +19,8 @@ export class SettingsComponent implements OnInit {
 
   deleteAll(){
     if (window.confirm("Voulez-vous vraiment supprimer toutes les données ? Cette action est irréversible.")){
-      this.prescriptionManager.clearAll()
+      this.prescriptionManager.clearAll();
+      this.router.navigate(['/'])
     }
   }
 
