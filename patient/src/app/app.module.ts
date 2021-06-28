@@ -8,6 +8,7 @@ import { HttpClientModule} from "@angular/common/http";
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {PlatformModule} from '@angular/cdk/platform';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 
@@ -34,6 +35,7 @@ import { BarcodeComponent } from './composants/barcode/barcode.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    PlatformModule,
     NgbModule,
     ModalModule.forRoot(),
     FontAwesomeModule,
