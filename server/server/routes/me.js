@@ -9,16 +9,13 @@ module.exports = async (req, res, client) => {
         let data = await client.query(sql, [req.session.userId])
         let result = Object.values(JSON.parse(JSON.stringify(data[0])))[0]// Convertir le résultat de client.query en objet manipulable
 
-        if (result) {
-            if (req.session.TypeID === 0) {
-                result.role = "pharmacien"
-            } else {
-                result.role = "medecin"
-            }
-            res.status(200).json(result);
+        if (req.session.TypeID === 0) {
+            result.role = "pharmacien"
         } else {
-            res.status(500).json({message: 'internal server error'});
+            result.role = "medecin"
         }
+        res.status(200).json(result);
+
     } else {
         res.status(401).json({message: "no user logged in."});
     }

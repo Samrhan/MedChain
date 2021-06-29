@@ -20,7 +20,7 @@ module.exports = async (req, res, client) => {
 
             let data2 = await client.query("SELECT * FROM utilisations_ordonnance WHERE id_ordonnance = ?", [id_ordonnance])
             let result2 = Object.values(JSON.parse(JSON.stringify(data2[0])))[0]
-            if(result2 === undefined){
+            if (result2 === undefined) {
                 let renouvellement_restant = result.Renouvellements
 
                 res.status(200).json({
@@ -29,7 +29,7 @@ module.exports = async (req, res, client) => {
                     Date_prescription: result.Date_prescription
                 })
 
-            }else{
+            } else {
                 let renouvellement_restant = result2.Renouvellements - result2.Utilisations
 
                 res.status(200).json({

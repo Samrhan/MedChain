@@ -121,6 +121,7 @@ describe('test conexion',  () => {
         expect(res.body).toHaveProperty('message')
 
     })
+
     it(' connexion echec mauvaise information ', async () => {
         const res = await agent
             .post('/api/login')
@@ -145,7 +146,7 @@ describe('test conexion',  () => {
         expect(res.statusCode).toEqual(401)
         expect(res.body).toHaveProperty('message')
     })
-    it(' connexion echec plus de doit de connexion', async () => {
+    it(' connexion echec plus de droit de connexion', async () => {
         const res = await agent
             .post('/api/login')
             .send({
@@ -187,6 +188,7 @@ describe('test medecin',  () => {
 
 
     })
+
 
     it(' recupere information utilisateur medecin ', async () => {
          const res = await agent
@@ -297,7 +299,7 @@ describe('test pharmacien',  () => {
         const res = await agent
             .post('/api/login')
             .send({
-                username: 'enzo.filangi',
+                username: 'jonathan.witt',
                 password: '1234',
                 user_type: '0'
             })
@@ -386,6 +388,7 @@ describe('test pharmacien',  () => {
         expect(res.statusCode).toEqual(200)
 
     })
+
     it(' creation note echec pharmacien mauvais mdp', async () => {
         const res = await agent
             .post('/api/note')
@@ -543,5 +546,6 @@ describe('test pharmacien',  () => {
         expect(res.body).toHaveProperty('message')
 
     })
+
 })
 

@@ -3,7 +3,6 @@ const {v4: uuidv4} = require('uuid');
 const bwipjs = require('bwip-js');
 
 
-
 let domain = process.env.DOMAIN;
 let apiKey = process.env.APIKEY;
 
@@ -23,11 +22,11 @@ module.exports = async (req, res, client) => {
     let email = req.body.patient_email;
     let prescription = req.body.prescription
 
-    if (num_secu == null || prescription == null || Date_maximum == null || Renouvellements == null || email == null || typeof(prescription) !== "object") {
+    if (num_secu == null || prescription == null || Date_maximum == null || Renouvellements == null || email == null || typeof (prescription) !== "object") {
         res.status(400).json({message: 'bad request - Missing properties'})
         return;
     }
-    Date_maximum= new Date(Date_maximum)
+    Date_maximum = new Date(Date_maximum)
     if (num_secu.length !== 15) {
         res.status(400).json({message: 'bad request - Error numero de secu'})
         return;
@@ -55,10 +54,10 @@ module.exports = async (req, res, client) => {
 
 
     const png = await bwipjs.toBuffer({
-        bcid:        'datamatrix',
-        text:        Id_ordonnance+"/"+password,
-        scale:       3,
-        height:      20,
+        bcid: 'datamatrix',
+        text: Id_ordonnance + "/" + password,
+        scale: 3,
+        height: 20,
     });
 
     let attch = new mailgun.Attachment({data: png, filename: "code.png"});

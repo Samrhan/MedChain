@@ -35,7 +35,8 @@ module.exports = async (req, res, client) => {
                     req.session.userId = result.Id_pharmacien;
                     req.session.TypeID = 0;
                     req.session.pharmacie = result.Id_pharmacie;
-                } else if (user_type === 1) {
+                }
+                if (user_type === 1) {
                     req.session.userId = result.Id_medecin;
                     req.session.TypeID = 1;
                 }

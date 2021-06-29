@@ -68,7 +68,7 @@ INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_en
 INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("a32b3105-44fe-47e0-b336-39d219c71856", 1, "2021-06-04", True);
 INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("a32b3105-44fe-47e0-b336-39d219c71856", 2, "2021-07-04", True);
 INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("a32b3105-44fe-47e0-b336-39d219c71856", 1, "2021-08-05", True);
-INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("47753d54-c9d0-4f9c-bd73-973d9f359422", 2, "2020-10-12", True);
+INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("47753d54-c9d0-4f9c-bd73-973d9f359422", 1, "2020-10-12", True);
 INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("eb924924-2bfe-445a-a013-8be34d8c1e12", 1, "2021-03-21", True);
 INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("ce8aeb44-460d-4da0-81c2-4e3d01a981d5", 1, "2021-06-12", True);
 INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_entier) VALUES ("ce8aeb44-460d-4da0-81c2-4e3d01a981d5", 1, "2021-08-14", True);
@@ -80,6 +80,8 @@ INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_en
 
 -- Id_ordonnance, Id_pharmacie, Contenu, Date_ecriture
 INSERT INTO Notes(Id_ordonnance, Id_pharmacie, Contenu, Date_ecriture) VALUES ("483472b1-c9d7-4cf3-91c6-42530141c628", 1, "Délivré : Paracétamol", "2021-06-12");
+INSERT INTO Notes(Id_ordonnance, Id_pharmacie, Contenu, Date_ecriture,Utilise) VALUES ("47753d54-c9d0-4f9c-bd73-973d9f359422", 3, "Délivré : Paracétamol", "2021-06-13",true);
+INSERT INTO Notes(Id_ordonnance, Id_pharmacie, Contenu, Date_ecriture) VALUES ("483472b1-c9d7-4cf3-91c6-42530141c628", 2, "Délivré : Paracétamol", "2021-06-12");
 
 -- Nom_medicament, Dosage, Duree, Prises_par_jour, Id_ordonnance
 INSERT INTO Prescriptions(Nom_medicament, Dosage, Duree, Prises_par_jour, Id_ordonnance) VALUES ("Paracétamol", "1000mg", 5, 2, "483472b1-c9d7-4cf3-91c6-42530141c628");

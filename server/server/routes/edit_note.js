@@ -22,10 +22,10 @@ module.exports = async (req, res, client) => {
         if (await bcrypt.compare(password, result.Identifiant_patient)) {
 
             // On vérifie que cette pharmacie a déjà publié une note sur cette ordonnance
-            let data2 = await client.query("SELECT * FROM notes WHERE id_ordonnance = ? AND Id_pharmacie = ? ", [id_ordonnance, req.session.pharmacie])
+            let data2 = await client.query("SELECT * FROM notes WHERE id_ordonnance = ? AND Id_pharmacie = ? AND Utilise = false ", [id_ordonnance, req.session.pharmacie])
 
             if (data2[0].length === 1) {
-                let sql = "UPDATE notes SET Contenu = ?, Date_ecriture = ? WHERE id_ordonnance = ? AND Id_pharmacie = ? AND Utilise = False "
+                let sql = "UPDATE notes SET Contenu = ?, Date_ecriture = ? WHERE id_ordonnance = ? AND Id_pharmacie = ? AND Utilise = false "
                 await client.query(sql, [content, Date_ecriture, id_ordonnance, req.session.pharmacie])
                 res.status(200).json({message: "ok"});
             } else {

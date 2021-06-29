@@ -31,7 +31,6 @@ let right_to_doctor = async function (req, res, next) {
 }
 
 
-
 router.post("/login", async (req, res) => require('./login.js')(req, res, client))
 router.post("/disconnect", (req, res) => require('./disconnect.js')(req, res, client))
 router.get("/me", async (req, res) => require('./me.js')(req, res, client))
@@ -42,7 +41,7 @@ router.post("/use_prescription", right_to_pharmacist, async (req, res) => requir
 router.post("/note", right_to_pharmacist, async (req, res) => require('./note.js')(req, res, client))
 router.patch("/note", right_to_pharmacist, async (req, res) => require('./edit_note.js')(req, res, client))
 
-router.post('/test', async(req, res) => {
+router.post('/test', async (req, res) => {
     res.status(200).json({message: "ok"});
 })
 
