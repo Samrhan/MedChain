@@ -20,6 +20,8 @@ import { ScanPrescriptionComponent } from './composants/scan-prescription/scan-p
 import { AddFromLinkComponent } from './composants/add-from-link/add-from-link.component';
 import { BarcodeComponent } from './composants/barcode/barcode.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import {ZXingScannerModule} from "@zxing/ngx-scanner";
 
 @NgModule({
   declarations: [
@@ -33,20 +35,22 @@ import {ReactiveFormsModule} from "@angular/forms";
     BarcodeComponent,
   ],
     imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        PlatformModule,
-        NgbModule,
-        ModalModule.forRoot(),
-        FontAwesomeModule,
-        ServiceWorkerModule.register('ngsw-worker.js', {
-            enabled: environment.production,
-            // Register the ServiceWorker as soon as the app is stable
-            // or after 30 seconds (whichever comes first).
-            registrationStrategy: 'registerWhenStable:30000'
-        }),
-        ReactiveFormsModule
+      BrowserModule,
+      BrowserAnimationsModule,
+      AppRoutingModule,
+      HttpClientModule,
+      PlatformModule,
+      NgbModule,
+      ModalModule.forRoot(),
+      FontAwesomeModule,
+      ZXingScannerModule,
+      ServiceWorkerModule.register('ngsw-worker.js', {
+          enabled: environment.production,
+          // Register the ServiceWorker as soon as the app is stable
+          // or after 30 seconds (whichever comes first).
+          registrationStrategy: 'registerWhenStable:30000'
+      }),
+      ReactiveFormsModule
     ],
   providers: [],
   bootstrap: [AppComponent]

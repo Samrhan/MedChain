@@ -1,1 +1,21 @@
-<p>scan-prescription works!</p>
+<div class="px-2 top-bar justify-content-start" (click)="goBack()">
+  <fa-icon [icon]="faArrowLeft"></fa-icon>
+  <h5 class="ms-2">Revenir aux ordonnances</h5>
+</div>
+<div class="d-flex flex-column align-items-center justify-content-center mt-5">
+  <zxing-scanner #scanner
+                 [enable]="true"
+                 [autofocusEnabled]="true"
+                 [device]="currentDevice"
+                 [torch]="true"
+                 (scanSuccess)="handleQrCodeResult($event)"
+                 [formats]="allowedFormats">
+  </zxing-scanner>
+  <h5>Placez le code devant la caméra</h5>
+</div>
+<div *ngIf="code_found" class="d-flex flex-column align-items-center justify-content-center position-absolute bottom-0 w-100 popup" [@enterAnimation]>
+  <h3 class="text-center mt-5 mb-2">Ordonnance détectée !</h3>
+  <p class="text-center">{{token}}</p>
+  <p class="text-center">{{password}}</p>
+  <button class="btn btn-primary w-75 rounded-pill mb-5" (click)="addPrescription()">Ajouter aux ordonnances</button>
+</div>
