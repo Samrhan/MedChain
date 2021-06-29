@@ -30,8 +30,8 @@ module.exports = async (req, res, client) => {
                     return;
                 }
             }
-            let sql = "INSERT INTO notes(Id_ordonnance, Id_pharmacie, Contenu, Date_ecriture) VALUES (?, ?, ?,?)"
-            await client.query(sql, [id_ordonnance, req.session.pharmacie, content, Date_ecriture])
+            let sql = "INSERT INTO notes(Id_ordonnance, Id_pharmacie, Contenu, Date_ecriture, Utilise) VALUES (?, ?, ?,?,?)"
+            await client.query(sql, [id_ordonnance, req.session.pharmacie, content, Date_ecriture,false])
             res.status(200).json({message: "ok"});
 
         } else {

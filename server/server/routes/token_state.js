@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 
 module.exports = async (req, res, client) => {
 
-    let id_ordonnance = req.body.token_id;
+    let id_ordonnance = req.body.token;
     let num_secu = req.body.secu;
     let password = req.body.password;
     if (num_secu == null || id_ordonnance == null || password == null) {

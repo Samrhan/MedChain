@@ -48,6 +48,6 @@ module.exports = async (req, res, client) => {
         }
 
     } else {
-        res.status(403).json({message: "bad request"});
+        res.status(401).json({message: "bad request"});
     }
 }

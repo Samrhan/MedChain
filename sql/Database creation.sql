@@ -151,7 +151,7 @@ CREATE TABLE Notes(
         Date_ecriture Date NOT NULL ,
         Utilise Bool NOT NULL DEFAULT False
 
-	,CONSTRAINT Note_PK PRIMARY KEY (Id_ordonnance,Id_pharmacie)
+	,CONSTRAINT Note_PK PRIMARY KEY (Id_ordonnance,Id_pharmacie,Date_ecriture)
 
 	,CONSTRAINT Note_Ordonnances_FK FOREIGN KEY (Id_ordonnance) REFERENCES Ordonnances(Id_ordonnance)
 	,CONSTRAINT Note_Pharmacie0_FK FOREIGN KEY (Id_pharmacie) REFERENCES Pharmacies(Id_pharmacie)

@@ -4,7 +4,12 @@
   "description": "",
   "main": "server/routes/api.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-dev": "nodemon index.js",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
     "start": "node ./bin/www"
   },
   "author": "",
@@ -22,6 +27,12 @@
     "mailgun.js": "^3.4.0",
     "morgan": "^1.10.0",
     "mysql2": "^2.2.5",
+    "sequelize": "^6.6.4",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "jest": "^27.0.5",
+    "supertest": "^6.1.3"
   }
 }

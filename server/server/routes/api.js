@@ -2,13 +2,6 @@ const express = require('express')
 const router = express.Router()
 const mysql = require("mysql2/promise")
 
-const bwipjs = require('bwip-js');
-
-let domain = process.env.DOMAIN;
-let apiKey = process.env.APIKEY;
-const mailgun = require('mailgun-js')({domain, apiKey, host: "api.eu.mailgun.net",})
-
-
 const dotenv = require('dotenv')
 dotenv.config()
 
@@ -50,21 +43,6 @@ router.post("/note", right_to_pharmacist, async (req, res) => require('./note.js
 router.patch("/note", right_to_pharmacist, async (req, res) => require('./edit_note.js')(req, res, client))
 
 router.post('/test', async(req, res) => {
-
-    const png = await bwipjs.toBuffer({
-        bcid:        'datamatrix',
-        text:        '0123456789',
-        scale:       3,
-        height:      10,
-    });
-    let attch = new mailgun.Attachment({data: png, filename: "code.png"});
-    mailgun.messages().send({
-        from: `noreply@myvirtue.fr`,
-        to: "adrien.girard@efrei.net",
-        subject: "Telecharger votre ordonnance",
-        text: "lien in  app",
-        attachment: attch
-    })
     res.status(200).json({message: "ok"});
 })
 

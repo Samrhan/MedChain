@@ -21,13 +21,13 @@ module.exports = async (req, res, client) => {
     let Date_maximum = req.body.max_date;
     let Date_prescription = new Date();
     let email = req.body.patient_email;
-    let prescription = JSON.parse(req.body.prescription)
+    let prescription = req.body.prescription
 
-    Date_maximum = new Date();
-    if (num_secu == null || prescription == null || Date_maximum == null || Renouvellements == null || email == null) {
+    if (num_secu == null || prescription == null || Date_maximum == null || Renouvellements == null || email == null || typeof(prescription) !== "object") {
         res.status(400).json({message: 'bad request - Missing properties'})
         return;
     }
+    Date_maximum= new Date(Date_maximum)
     if (num_secu.length !== 15) {
         res.status(400).json({message: 'bad request - Error numero de secu'})
         return;
