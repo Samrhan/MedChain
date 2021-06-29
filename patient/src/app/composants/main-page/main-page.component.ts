@@ -27,13 +27,13 @@ export class MainPageComponent implements OnInit {
   ) {
     // TODO: Remove this
     // prescriptionManager.clearAll();
-    prescriptionManager.addPrescription("483472b1-c9d7-4cf3-91c6-42530141c628", "8d87cb1c-4806-401e-82cf-c3956135cf2d");
+    // prescriptionManager.addPrescription("483472b1-c9d7-4cf3-91c6-42530141c628", "8d87cb1c-4806-401e-82cf-c3956135cf2d");
     // prescriptionManager.addPrescription("4ef7b9c8-c94d-4fa6-ae48-ec007eba8dc6", "8d87cb1c-4806-401e-82cf-c3956135cf2d"); // Cette ordonnance sera supprimée car elle est trop vieille
     // prescriptionManager.addPrescription("eb924924-2bfe-445a-a013-8be34d8c1e12", "8d87cb1c-4806-401e-82cf-c3956135cf2d"); // Cette ordonnance sera supprimée car elle est trop utilisée
     // prescriptionManager.addPrescription("eb924924-2bfe-445a-a013-8be34d8c1e12", "8d87cb1c-4806-401e-82cf-c3956135cf2e"); // Cette ordonnance sera supprimée car elle n'a pas le bon mot de passe
     // prescriptionManager.addPrescription("eb924924-2bfe-445a-a013-8be34d8c1e13", "8d87cb1c-4806-401e-82cf-c3956135cf2d"); // Cette ordonnance sera supprimée car elle n'existe pas
     // prescriptionManager.addPrescription("47753d54-c9d0-4f9c-bd73-973d9f359422", "8d87cb1c-4806-401e-82cf-c3956135cf2d");
-    prescriptionManager.setSocial('000000000000000');
+    // prescriptionManager.setSocial('000000000000000');
 
 
     // On récupère toutes les données

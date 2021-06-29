@@ -8,14 +8,16 @@ import {PrescriptionDisplayBigComponent} from "./composants/prescription-display
 import {ScanPrescriptionComponent} from "./composants/scan-prescription/scan-prescription.component";
 import {AddFromLinkComponent} from "./composants/add-from-link/add-from-link.component";
 
+import {CheckSocialService} from "./services/checkSocial/check-social.service";
+
 const routes: Routes = [
-  {path : '', component: MainPageComponent},
-  {path : 'settings', component: SettingsComponent},
+  {path : '', component: MainPageComponent, canActivate: [CheckSocialService]},
+  {path : 'settings', component: SettingsComponent, canActivate: [CheckSocialService]},
   {path : 'num_secu', component: NumSecuPickerComponent},
-  {path : 'display/:id', component: PrescriptionDisplayBigComponent},
-  {path : 'scan', component: ScanPrescriptionComponent},
-  {path : 'add/:token/:password', component: AddFromLinkComponent},
-  {path : '**', component: MainPageComponent}
+  {path : 'display/:id', component: PrescriptionDisplayBigComponent, canActivate: [CheckSocialService]},
+  {path : 'scan', component: ScanPrescriptionComponent, canActivate: [CheckSocialService]},
+  {path : 'add/:token/:password', component: AddFromLinkComponent, canActivate: [CheckSocialService]},
+  {path : '**', component: MainPageComponent, canActivate: [CheckSocialService]}
 ];
 
 @NgModule({

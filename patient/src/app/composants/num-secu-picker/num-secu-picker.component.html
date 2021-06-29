@@ -4,11 +4,14 @@
   <p class="text-center" (click)="openModal(help)">Vous pourrez trouver ce numéro sur votre carte vitale, sous votre nom <fa-icon [icon]="faQuestionCircle"></fa-icon></p>
 </div>
 
-<form class="mx-4 mt-3">
-  <input type="text" class="form-control" placeholder="Numéro de sécurité sociale">
-</form>
+<form [formGroup]="social_form" (ngSubmit)="saveSocial()" class="mx-4 mt-3">
+  <input type="text" class="form-control" placeholder="Numéro de sécurité sociale" formControlName="patient_social_security">
+  <div *ngFor="let validation of validation_messages.patient_social_security">
+    <p *ngIf="invalid_input('patient_social_security', validation.type)" class="validation-alert" id="patient_social_security_error">{{validation.message}}</p>
+  </div>
 
-<button class="btn btn-primary position-absolute bottom-0 start-50 translate-middle w-75 rounded-pill mb-3">Enregistrer le numéro</button>
+  <button type="submit" class="btn btn-primary position-absolute bottom-0 start-50 translate-middle w-75 rounded-pill mb-3" [disabled]="!social_form.valid">Enregistrer le numéro</button>
+</form>
 
 <ng-template #help>
   <div class="modal-header">

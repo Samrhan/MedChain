@@ -19,6 +19,7 @@ import { PrescriptionDisplayBigComponent } from './composants/prescription-displ
 import { ScanPrescriptionComponent } from './composants/scan-prescription/scan-prescription.component';
 import { AddFromLinkComponent } from './composants/add-from-link/add-from-link.component';
 import { BarcodeComponent } from './composants/barcode/barcode.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -31,21 +32,22 @@ import { BarcodeComponent } from './composants/barcode/barcode.component';
     AddFromLinkComponent,
     BarcodeComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    PlatformModule,
-    NgbModule,
-    ModalModule.forRoot(),
-    FontAwesomeModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-      // Register the ServiceWorker as soon as the app is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        PlatformModule,
+        NgbModule,
+        ModalModule.forRoot(),
+        FontAwesomeModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: environment.production,
+            // Register the ServiceWorker as soon as the app is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerWhenStable:30000'
+        }),
+        ReactiveFormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
