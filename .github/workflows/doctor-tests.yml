@@ -32,7 +32,6 @@ jobs:
         run: |
           cd doctor
           npm install
-          ng test 
           npm run ng test --browsers=ChromeHeadless --watch=false --code-coverage
 
           
