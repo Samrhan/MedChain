@@ -8,18 +8,6 @@ const mysql = require('mysql2/promise');
 
 dotenv.config()
 
-/* Configuration de Redis
-const redis = require('redis')
-const redisClient = redis.createClient()
-const redisStore = require('connect-redis')(session)
-redisClient.on('error', (err) => {
-    console.log('Redis error : ', err);
-})
-redisClient.on('connect', function (err) {
-    console.log('Connected to redis successfully');
-});
-*/
-
 const apiRouter = require('./routes/api.js')
 
 const app = express()
@@ -43,11 +31,9 @@ app.use(session({
     saveUninitialized: false,
     resave: false,
     cookie: {
-        //secure: true,
         httpOnly: true,
         maxAge: 30*24*60*60*1000, // Un mois
     },
-    //store: new redisStore({ host: 'localhost', port: 6379, client: redisClient, ttl: 86400 })
 }))
 
 

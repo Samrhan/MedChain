@@ -1,0 +1,13 @@
+<app-navbar [display_goBack_button]="true" [go_back_route]="'/display_ordonnance'"></app-navbar>
+
+<h1 class="mt-2 centered">Ajouter une note</h1>
+
+<div class="centered mt-5">
+  <textarea [(ngModel)]="content">
+
+  </textarea>
+</div>
+
+<div class="centered">
+  <button [disabled]="!content" class="btn btn-primary w-25 rounded20 mt-5" (click)="send_note()">Ajouter une note</button>
+</div>

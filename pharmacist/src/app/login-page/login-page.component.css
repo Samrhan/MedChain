@@ -1,0 +1,17 @@
+@media (max-width: 1220px) {
+  #login {
+    width: 100%;
+  }
+
+  .width25 {
+    /* On augmente la taille des petits éléments pour qu'ils soient mieux visibles */
+    width: 33%;
+  }
+}
+
+@media (max-width: 500px) {
+  .width25 {
+    /* Quand l'écran devient vraiment petit on diminue la taille de la police pour éviter d'avoir des boutons sur deux lignes */
+    font-size: 0.75rem;
+  }
+}

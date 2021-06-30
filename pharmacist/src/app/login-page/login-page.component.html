@@ -1,0 +1,25 @@
+<div class="centered container-fluid width50 mt-5"*ngIf="!loggedIn; else logged_in_warning" id="login">
+  <img src="assets/Logo.png" class="mb-5">
+  <form [formGroup]="loginForm" (ngSubmit)="authenticate()" class="form-group">
+    <h4 class="text-left">Nom d'utilisateur</h4>
+    <input id="username" type="text" formControlName="username" required class="form-control border-round margin10">
+    <p id="usernameNeeded" *ngIf="invalid_input('username', 'required')" class="validation-alert">Nom d'utilisateur requis</p>
+
+    <h4 class="text-left">Mot de passe</h4>
+    <input id="password" type="password" formControlName="password" required class="form-control border-round margin10">
+    <p id="passwordNeeded" *ngIf="invalid_input('password', 'required')" class="validation-alert">Mot de passe requis</p>
+
+    <div *ngIf="wrong_credentials">
+      <p id="wrongCredential" class="alert alert-danger centered width75">Nom d'utilisateur ou mot de passe incorrect !</p>
+    </div>
+    <button id="connectButton" type="submit" [disabled]="!loginForm.valid" class="btn btn-primary rounded-pill margin10 width25">Se connecter</button>
+  </form>
+</div>
+<ng-template #logged_in_warning>
+  <div id="alreadyConnected">
+    <h2 class="alert alert-danger">Vous êtes déjà connecté.</h2>
+    <div class="centered">
+      <button class="btn btn-primary centered" [routerLink]="['/scan_ordonnance']">Retourner à la page d'accueil</button>
+    </div>
+  </div>
+</ng-template>

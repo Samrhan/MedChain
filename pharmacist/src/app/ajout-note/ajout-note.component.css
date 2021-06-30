@@ -1,0 +1,7 @@
+textarea {
+  min-width: 90vw;
+  max-width: 90vw;
+  min-height: 30vh;
+  max-height: 60vh;
+  overflow: auto;
+}

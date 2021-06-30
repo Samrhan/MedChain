@@ -4,13 +4,22 @@
   "description": "",
   "main": "server/routes/api.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./bin/www"
+    "start-dev": "nodemon index.js",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --coverage",
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "start": "node ./bin/www",
+    "coverage": "react-scripts test --coverage --reporters='html' --coverageDirectory='output/coverage/report'"
+
   },
+
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "bwip-js": "^3.0.1",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
@@ -21,6 +30,13 @@
     "mailgun.js": "^3.4.0",
     "morgan": "^1.10.0",
     "mysql2": "^2.2.5",
+    "sequelize": "^6.6.4",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "istanbul": "^0.4.5",
+    "jest": "^27.0.5",
+    "supertest": "^6.1.3"
   }
 }

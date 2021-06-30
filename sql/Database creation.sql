@@ -58,7 +58,7 @@ CREATE TABLE Medecins(
 
 CREATE TABLE Ordonnances(
         Id_ordonnance       Char(36) NOT NULL ,
-        Identifiant_patient TinyBlob NOT NULL ,
+        Identifiant_patient text NOT NULL ,
         Renouvellements     Int NOT NULL ,
         Date_maximum        Date NOT NULL ,
         Date_prescription   Datetime NOT NULL ,
@@ -129,11 +129,12 @@ CREATE TABLE Pharmaciens(
 #------------------------------------------------------------
 
 CREATE TABLE Delivre(
+        Id_Delivre     Int  Auto_increment  NOT NULL ,
         Id_ordonnance     Char(36) NOT NULL ,
         Id_pharmacien     Int NOT NULL ,
         Date_delivrance   Datetime NOT NULL ,
-		Delivre_en_entier Bool NOT NULL DEFAULT False
-	,CONSTRAINT Delivre_PK PRIMARY KEY (Id_ordonnance,Id_pharmacien,Date_delivrance)
+		Delivre_en_entier Bool DEFAULT False
+	,CONSTRAINT Delivre_PK PRIMARY KEY (Id_Delivre,Id_ordonnance,Id_pharmacien,Date_delivrance)
 
 	,CONSTRAINT Delivre_Ordonnances_FK FOREIGN KEY (Id_ordonnance) REFERENCES Ordonnances(Id_ordonnance)
 	,CONSTRAINT Delivre_Pharmacien0_FK FOREIGN KEY (Id_pharmacien) REFERENCES Pharmaciens(Id_pharmacien)
@@ -145,11 +146,14 @@ CREATE TABLE Delivre(
 #------------------------------------------------------------
 
 CREATE TABLE Notes(
+        Id_Notes     Int  Auto_increment  NOT NULL ,
         Id_ordonnance Char(36) NOT NULL ,
         Id_pharmacie  Int NOT NULL ,
         Contenu       Text NOT NULL ,
-        Date_ecriture Date NOT NULL
-	,CONSTRAINT Note_PK PRIMARY KEY (Id_ordonnance,Id_pharmacie)
+        Date_ecriture Date NOT NULL ,
+        Utilise Bool NOT NULL DEFAULT False
+
+	,CONSTRAINT Note_PK PRIMARY KEY (Id_Notes,Id_ordonnance,Id_pharmacie,Date_ecriture)
 
 	,CONSTRAINT Note_Ordonnances_FK FOREIGN KEY (Id_ordonnance) REFERENCES Ordonnances(Id_ordonnance)
 	,CONSTRAINT Note_Pharmacie0_FK FOREIGN KEY (Id_pharmacie) REFERENCES Pharmacies(Id_pharmacie)
