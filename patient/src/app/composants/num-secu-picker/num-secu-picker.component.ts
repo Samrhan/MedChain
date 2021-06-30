@@ -41,11 +41,7 @@ export class NumSecuPickerComponent implements OnInit {
     private prescriptionManager: PrescriptionsManagerService,
     private router: Router,
     private formBuilder: FormBuilder
-  ) {
-    if (!prescriptionManager.isSocialEmpty()){
-      router.navigate(['/'])
-    }
-  }
+  ) {}
 
   ngOnInit(): void {
   }

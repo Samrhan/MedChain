@@ -37,6 +37,7 @@ export class MainPageComponent implements OnInit {
 
 
     // On récupère toutes les données
+    let already_shown_error: boolean = false;
     this.prescriptions = prescriptionManager.getAllPrescriptions();
     this.status = new Map<string, any>();
     this.max_value = this.prescriptions.length - 1;
@@ -56,6 +57,10 @@ export class MainPageComponent implements OnInit {
       }, (err) => {
         // On supprime aussi les ordonnances invalides
         if (err.status === 400){
+          if(!already_shown_error){
+            already_shown_error = true;
+            window.alert("Une ou plusieurs ordonnances ont été invalidées à cause d'informations invalides. Veuillez vérifier que votre numéro de sécurité sociale est correct et que l'ordonnance vous était bien destinée.")
+          }
           prescriptionManager.removePrescription(prescription.token);
           this.prescriptions = prescriptionManager.getAllPrescriptions();
           this.max_value = this.prescriptions.length - 1;
