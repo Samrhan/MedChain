@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
 export class SettingsComponent implements OnInit {
 
   constructor(
-    private prescriptionManager: PrescriptionsManagerService,
+    public prescriptionManager: PrescriptionsManagerService,
     private router: Router
   ) { }
 
