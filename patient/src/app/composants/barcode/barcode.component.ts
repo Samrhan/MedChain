@@ -26,9 +26,9 @@ export class BarcodeComponent implements AfterViewInit {
     let canvas: HTMLCanvasElement = this.canvas?.nativeElement;
     bwipjs.toCanvas(canvas, {
       bcid: 'datamatrix',       // Barcode type
-      text: this.code + "\n" + this.password,    // Text to encode
+      text: this.code + "/" + this.password,     // Text to encode
       scale: this.scale,                          // Scaling factor
-      textxalign: 'center',                            // Always good to set this
+      textxalign: 'center',                       // Always good to set this
     });
   }
 }
