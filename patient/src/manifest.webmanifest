@@ -1,6 +1,6 @@
 {
-  "name": "patient",
-  "short_name": "patient",
+  "name": "medchain",
+  "short_name": "medchain",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
