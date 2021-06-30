@@ -33,8 +33,7 @@ jobs:
         with:
            node-version: ${{ matrix.node-version }}
       - name: run on linux
-          if: startsWith(matrix.os,'ubuntu')
-            run: |
+        run: |
              cd doctor
              npm ci
              npm run test-headless
