@@ -32,11 +32,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
            node-version: ${{ matrix.node-version }}
-
-      - name: Run a multi-line script
-        run: |
-          cd doctor
-          npm ci
-          npm run ng test --browsers=ChromeHeadless --watch=false --code-coverage
+      - name: run on linux
+        if: startsWith(matrix.os,'ubuntu')
+          run: |
+            cd doctor
+            npm ci
+            npm run test-headless
 
           
