@@ -19,9 +19,6 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ng-toolkit
         
     strategy:
       matrix:
@@ -34,12 +31,12 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+           node-version: ${{ matrix.node-version }}
 
       - name: Run a multi-line script
         run: |
           cd doctor
-          npm install
+          npm ci
           npm run ng test --browsers=ChromeHeadless --watch=false --code-coverage
 
           
