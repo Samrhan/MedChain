@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 
@@ -16,6 +16,7 @@ export class NumSecuPickerComponent implements OnInit {
 
   faQuestionCircle = faQuestionCircle
 
+  @ViewChild("help") template;
   modalRef: BsModalRef | undefined;
 
   social_form: FormGroup = this.formBuilder.group({
@@ -37,9 +38,9 @@ export class NumSecuPickerComponent implements OnInit {
   };
 
   constructor(
-    private modalService: BsModalService,
+    public modalService: BsModalService,
     private prescriptionManager: PrescriptionsManagerService,
-    private router: Router,
+    public router: Router,
     private formBuilder: FormBuilder
   ) {}
 
@@ -65,7 +66,7 @@ export class NumSecuPickerComponent implements OnInit {
   }
 
   saveSocial() {
-    this.prescriptionManager.setSocial(this.social_form.get('patient_social_security')?.value);
+    this.prescriptionManager.setSocial(this.social_form.get('patient_social_security').value);
     this.router.navigate(['/'])
   }
 }
