@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {PrescriptionManagerService} from "../Services/PrescriptionManager/prescription-manager.service";
@@ -10,6 +10,9 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./scan-ordonnance.component.css']
 })
 export class ScanOrdonnanceComponent implements OnInit {
+
+  @ViewChild("token") token_field!: ElementRef;
+  @ViewChild("password") password_field!: ElementRef;
 
   prescription_form: FormGroup = this.formBuilder.group({
     prescription_id: new FormControl('', Validators.compose([
@@ -123,4 +126,12 @@ export class ScanOrdonnanceComponent implements OnInit {
     }
   }
 
+  switchField(event: KeyboardEvent) {
+    if (event.key === "/"){
+      // On indique à Jasmine d'ignorer les deux lignes suivantes dans le code coverage pour éviter de considérer que certaines branches ne sont pas testées à cause de l'opérateur ?.
+      /* istanbul ignore next */
+      this.prescription_form.get('prescription_id')?.setValue(this.token_field.nativeElement.value.slice(0, -1));
+      this.password_field.nativeElement.focus();
+    }
+  }
 }

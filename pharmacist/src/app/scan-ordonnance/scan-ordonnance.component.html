@@ -3,14 +3,14 @@
 <form [formGroup]="prescription_form" (ngSubmit)="fetch_prescription()" class="expandingContainer centered form-group">
   <div class="mb-5">
     <h4>Numéro de l'ordonnance</h4>
-    <input type="text" class="form-control border-round m-3" formControlName="prescription_id">
+    <input type="text" class="form-control border-round m-3" formControlName="prescription_id" (keyup)="switchField($event)" #token>
     <div *ngFor="let validation of validation_messages.prescription_id">
       <p *ngIf="invalid_input('prescription_id', validation.type)" class="validation-alert" id="prescription_id_error">{{validation.message}}</p>
     </div>
   </div>
   <div class="mb-5">
     <h4>Mot de passe de l'ordonnance</h4>
-    <input type="text" class="form-control border-round m-3" formControlName="prescription_password">
+    <input type="text" class="form-control border-round m-3" formControlName="prescription_password" #password>
     <div *ngFor="let validation of validation_messages.prescription_password">
       <p *ngIf="invalid_input('prescription_password', validation.type)" class="validation-alert" id="prescription_password_error">{{validation.message}}</p>
     </div>

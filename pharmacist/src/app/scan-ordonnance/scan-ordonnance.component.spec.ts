@@ -162,4 +162,19 @@ describe('ScanOrdonnanceComponent', () => {
   it('invalid_input should return true if no control is present', () => {
     expect(component.invalid_input("test", "required")).toBeTruthy();
   });
+
+  it('switchField should only react when pressing "/"', () => {
+    spyOn(component.password_field.nativeElement, "focus")
+    let invalidKeyEvent: KeyboardEvent = new KeyboardEvent("a", {
+      key: "a"
+    })
+    let validKeyEvent: KeyboardEvent = new KeyboardEvent("/", {
+      key: "/"
+    })
+
+    component.switchField(invalidKeyEvent)
+    expect(component.password_field.nativeElement.focus).not.toHaveBeenCalled()
+    component.switchField(validKeyEvent)
+    expect(component.password_field.nativeElement.focus).toHaveBeenCalled()
+  })
 });
