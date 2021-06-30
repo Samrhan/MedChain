@@ -32,6 +32,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
            node-version: ${{ matrix.node-version }}
+      - uses: szenius/set-timezone@v1.0
+          with:
+            timezoneLinux: "Europe/Paris"
       - name: run on linux
         run: |
              cd pharmacist
