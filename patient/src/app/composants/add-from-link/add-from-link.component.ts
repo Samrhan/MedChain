@@ -17,25 +17,27 @@ export class AddFromLinkComponent implements OnInit {
 
   constructor(
     private prescriptionManager: PrescriptionsManagerService,
-    private router: Router,
+    public router: Router,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    //http://localhost:4200/add/287c6493-b166-49d9-9b09-d629000f5c9d/8d87cb1c-4806-401e-82cf-c3956135cf2d
-
     this.route.params.subscribe(params => {
-      this.token = params["token"];
-      this.password = params["password"];
-
-      if (this.validUUID(this.token) && this.validUUID(this.password)){
-        this.prescriptionManager.addPrescription(this.token, this.password);
-        this.router.navigate(['/']);
-        this.showOk = true;
-      } else {
-        this.showInvalidParams = true;
-      }
+      this.addPrescriptionFromURL(params);
     })
+  }
+
+  addPrescriptionFromURL(params): void{
+    this.token = params["token"];
+    this.password = params["password"];
+
+    if (this.validUUID(this.token) && this.validUUID(this.password)){
+      this.prescriptionManager.addPrescription(this.token, this.password);
+      this.router.navigate(['/']);
+      this.showOk = true;
+    } else {
+      this.showInvalidParams = true;
+    }
   }
 
   validUUID(text: string): boolean {
