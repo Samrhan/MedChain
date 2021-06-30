@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ScanPrescriptionComponent } from './scan-prescription.component';
+import {PrescriptionsManagerService} from "../../services/prescriptionManager/prescriptions-manager.service";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {RouterTestingModule} from "@angular/router/testing";
+import {ZXingScannerModule} from "@zxing/ngx-scanner";
 
 describe('ScanPrescriptionComponent', () => {
   let component: ScanPrescriptionComponent;
@@ -8,7 +12,9 @@ describe('ScanPrescriptionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ScanPrescriptionComponent ]
+      declarations: [ ScanPrescriptionComponent ],
+      providers: [ PrescriptionsManagerService ],
+      imports: [ HttpClientTestingModule, RouterTestingModule, ZXingScannerModule ]
     })
     .compileComponents();
   });

@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddFromLinkComponent } from './add-from-link.component';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {RouterTestingModule} from "@angular/router/testing";
+import {PrescriptionsManagerService} from "../../services/prescriptionManager/prescriptions-manager.service";
 
 describe('AddFromLinkComponent', () => {
   let component: AddFromLinkComponent;
@@ -8,7 +11,9 @@ describe('AddFromLinkComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddFromLinkComponent ]
+      declarations: [ AddFromLinkComponent ],
+      providers: [ PrescriptionsManagerService ],
+      imports: [ HttpClientTestingModule, RouterTestingModule ]
     })
     .compileComponents();
   });
