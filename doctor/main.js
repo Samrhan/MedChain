@@ -8,6 +8,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1410,
     height: 1024,
+    icon: 'src/favicon.ico',
     webPreferences: {
       nodeIntegration: true
     }
