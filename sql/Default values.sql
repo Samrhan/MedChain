@@ -81,7 +81,6 @@ INSERT INTO Delivre(Id_ordonnance, Id_pharmacien, Date_delivrance, Delivre_en_en
 -- Id_ordonnance, Id_pharmacie, Contenu, Date_ecriture
 INSERT INTO Notes(Id_ordonnance, Id_pharmacie, Contenu, Date_ecriture) VALUES ("483472b1-c9d7-4cf3-91c6-42530141c628", 1, "Délivré : Paracétamol", "2021-06-12");
 INSERT INTO Notes(Id_ordonnance, Id_pharmacie, Contenu, Date_ecriture,Utilise) VALUES ("47753d54-c9d0-4f9c-bd73-973d9f359422", 3, "Délivré : Paracétamol", "2021-06-13",true);
-INSERT INTO Notes(Id_ordonnance, Id_pharmacie, Contenu, Date_ecriture) VALUES ("483472b1-c9d7-4cf3-91c6-42530141c628", 2, "Délivré : Paracétamol", "2021-06-12");
 
 -- Nom_medicament, Dosage, Duree, Prises_par_jour, Id_ordonnance
 INSERT INTO Prescriptions(Nom_medicament, Dosage, Duree, Prises_par_jour, Id_ordonnance) VALUES ("Paracétamol", "1000mg", 5, 2, "483472b1-c9d7-4cf3-91c6-42530141c628");
