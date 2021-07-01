@@ -182,14 +182,14 @@ describe('PrescriptionManagerService', () => {
     }, fail);
   })
 
-  it('get_uses_left() should fail on httpError', () => {
+  it('get_uses_left() should fail on httpError and return impossible number to front', () => {
     localStorage.setItem('id', "test");
     localStorage.setItem('password', "pass");
     localStorage.setItem('social', "1234");
     const expected_response = new HttpResponse({status: 400, statusText: 'bad request'})
 
     service.get_uses_left().subscribe(
-      data => expect(data).toEqual(-1),
+      data => expect(data).toEqual(-9999),
       fail
     )
 

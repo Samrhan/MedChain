@@ -6,7 +6,8 @@
   <p class="font-italic mb-0">Rédigée par {{info_ordonnance.prenom_medecin}} {{info_ordonnance.nom_medecin}} au {{info_ordonnance.Numero}} {{info_ordonnance.Rue}} {{info_ordonnance.Ville}} {{info_ordonnance.CodePostal}}</p>
   <p class="font-italic mb-0">Le {{formatDate(info_ordonnance.Date_prescription)}}, valable jusqu'au {{formatDate(info_ordonnance.Date_maximum)}}</p>
   <p *ngIf="info_ordonnance.Renouvellements > 1 && uses_left !== undefined">Renouvellable {{info_ordonnance.Renouvellements}} fois, déjà utilisée {{info_ordonnance.Renouvellements - uses_left}} fois</p>
-  <p *ngIf="uses_left !== undefined && uses_left <= 0" class="text-danger">Cette ordonnance a déjà été entièrement délivrée. Elle n'est affichée qu'à but consultatif</p>
+  <p *ngIf="uses_left !== undefined && uses_left <= 0 && uses_left > -1000" class="text-danger">Cette ordonnance a déjà été entièrement délivrée. Elle n'est affichée qu'à but consultatif.</p>
+  <p *ngIf="uses_left !== undefined && uses_left <= -9999" class="text-danger alert-danger w-25">Impossible de récupérer les informations concernant l'utilisation de cette ordonnance.</p>
 </div>
 
 <div class="container-grid mt-2 ml-5 mr-5">

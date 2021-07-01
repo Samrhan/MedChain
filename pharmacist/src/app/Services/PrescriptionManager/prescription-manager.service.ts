@@ -102,7 +102,7 @@ export class PrescriptionManagerService implements CanActivate {
         // @ts-ignore
         return answer.uses_left;
       }), catchError(() => {
-        return of(-1);
+        return of(-9999);
       })
     );
   }
