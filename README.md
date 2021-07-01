@@ -44,7 +44,7 @@ $ npm install
 
 Nous conseillons d'utiliser un IDE produit par JetBrains, dans le cas présent, Webstorm. En effet, nous avons laissé dans notre repository le dossier .idea/runConfigurations dans lequel nous avons inclus l'ensemble des commandes à taper pour lancer les diverses parties du projet. Il suffit d'utiliser le menu déroulant en haut à droite pour sélectionner une composante et la lancer.
 
-Autrement, nous avons également configuré les package.json de chaque application pour que la commande `npm start` exécute chaque programme. Cependant, il est nécessaire d'employer à la place la commande `npm build` pour les application *doctor* et *pharmacist* afin d'avoir l'expérience réelle de l'utilisateur. En effet, `npm start` ouvrira l'application dans le navigateur, pratique pour le développement, tandis que `npm build` ouvrira l'application dans Electron, pratique pour avoir une application de bureau.
+Autrement, nous avons également configuré les package.json de chaque application pour que la commande `npm start` exécute chaque programme. Cependant, il est nécessaire d'employer à la place la commande `npm start:electron` pour les application *doctor* et *pharmacist* afin d'avoir l'expérience réelle de l'utilisateur. En effet, `npm start` ouvrira l'application dans le navigateur, pratique pour le développement, tandis que `npm start:electron` ouvrira l'application dans Electron, pratique pour avoir une application de bureau.
 
 ## Delivery 
 Voici nos documents de réponse à l'appel d'offre
