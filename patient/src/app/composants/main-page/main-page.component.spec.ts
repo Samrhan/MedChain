@@ -12,7 +12,7 @@ describe('MainPageComponent', () => {
   let component: MainPageComponent;
   let fixture: ComponentFixture<MainPageComponent>;
 
-  let mockPrescriptionsManager = jasmine.createSpyObj(['getAllPrescriptions', 'getTokenState', 'removePrescription', 'isStorageEmpty'])
+  let mockPrescriptionsManager = jasmine.createSpyObj(['getAllPrescriptions', 'getTokenState', 'removePrescription', 'isStorageEmpty']);
 
   let prescriptions = [{
     token: "483472b1-c9d7-4cf3-91c6-42530141c628",
@@ -20,7 +20,7 @@ describe('MainPageComponent', () => {
   },{
     token: "4ef7b9c8-c94d-4fa6-ae48-ec007eba8dc6",
     password: "8d87cb1c-4806-401e-82cf-c3956135cf2d"
-  }]
+  }];
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

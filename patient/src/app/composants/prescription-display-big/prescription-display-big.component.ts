@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import {PrescriptionsManagerService} from "../../services/prescriptionManager/prescriptions-manager.service";
@@ -18,12 +18,17 @@ export class PrescriptionDisplayBigComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    public router: Router,
     private prescriptionManager: PrescriptionsManagerService
   ) { }
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id = this.parseId();
     this.getPrescription(id);
+  }
+
+  parseId(){
+    return Number(this.route.snapshot.paramMap.get('id'));
   }
 
   getPrescription(id: number){
@@ -31,6 +36,8 @@ export class PrescriptionDisplayBigComponent implements OnInit {
     if (prescription){
       this.code = prescription.token;
       this.password = prescription.password;
+    } else {
+      this.router.navigate(['/'])
     }
   }
 
