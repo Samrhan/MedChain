@@ -203,7 +203,7 @@ describe('PrescriptionManagerService', () => {
     localStorage.setItem('password', "pass");
     localStorage.setItem('social', "1234");
     const expected_request_body = {
-      token_id: "test",
+      token: "test",
       secu: "1234",
       password: "pass"
     }
