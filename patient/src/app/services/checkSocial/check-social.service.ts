@@ -9,7 +9,7 @@ export class CheckSocialService implements CanActivate{
 
   constructor(
     private prescriptionManager: PrescriptionsManagerService,
-    private router: Router
+    public router: Router
   ) { }
 
   canActivate(): boolean {
