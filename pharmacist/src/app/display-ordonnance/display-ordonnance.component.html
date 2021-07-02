@@ -21,9 +21,9 @@
     <div class="border-round p-3">
       <div class="page-height p-1">
         <div *ngFor="let note of notes">
-          Le {{formatDate(note.Date_ecriture)}}
+          <p class="font-italic">Le {{formatDate(note.Date_ecriture)}}</p>
+          <p>{{note.Contenu}}</p>
           <hr>
-          {{note.Contenu}}
         </div>
       </div>
     </div>

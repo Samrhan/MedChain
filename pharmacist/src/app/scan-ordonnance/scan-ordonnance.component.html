@@ -3,7 +3,7 @@
 <form [formGroup]="prescription_form" (ngSubmit)="fetch_prescription()" class="expandingContainer centered form-group">
   <div class="mb-5">
     <h4>Numéro de l'ordonnance</h4>
-    <input type="text" class="form-control border-round m-3" formControlName="prescription_id" (keyup)="switchField($event)" #token>
+    <input type="text" class="form-control border-round m-3" formControlName="prescription_id" (input)="changeField($event)" #token>
     <div *ngFor="let validation of validation_messages.prescription_id">
       <p *ngIf="invalid_input('prescription_id', validation.type)" class="validation-alert" id="prescription_id_error">{{validation.message}}</p>
     </div>

@@ -60,6 +60,8 @@ export class ScanOrdonnanceComponent implements OnInit {
   @ViewChild('doesNotExistModal')
   template: TemplateRef<any> | undefined;
 
+  shift_pressed: boolean = false;
+
   constructor(
     private formBuilder: FormBuilder,
     public router: Router,
@@ -126,11 +128,12 @@ export class ScanOrdonnanceComponent implements OnInit {
     }
   }
 
-  switchField(event: KeyboardEvent) {
-    if (event.key === "/"){
-      // On indique à Jasmine d'ignorer les deux lignes suivantes dans le code coverage pour éviter de considérer que certaines branches ne sont pas testées à cause de l'opérateur ?.
-      /* istanbul ignore next */
-      this.prescription_form.get('prescription_id')?.setValue(this.token_field.nativeElement.value.slice(0, -1));
+  changeField($event: Event) {
+    const content = ($event.target as HTMLInputElement).value;
+    const split = content.split('/');
+    if (split.length >= 2 && split[0].length > 0 && split[1].length > 0){
+      this.prescription_form.get('prescription_id')!.setValue(split[0]);
+      this.prescription_form.get('prescription_password')!.setValue(split[1]);
       this.password_field.nativeElement.focus();
     }
   }

@@ -163,18 +163,40 @@ describe('ScanOrdonnanceComponent', () => {
     expect(component.invalid_input("test", "required")).toBeTruthy();
   });
 
-  it('switchField should only react when pressing "/"', () => {
+  it('changeField should only react when the content contains a "/"', () => {
     spyOn(component.password_field.nativeElement, "focus")
-    let invalidKeyEvent: KeyboardEvent = new KeyboardEvent("a", {
-      key: "a"
-    })
-    let validKeyEvent: KeyboardEvent = new KeyboardEvent("/", {
-      key: "/"
-    })
+    let invalidKeyEvent = {
+      target: document.createElement('input')
+    }
+    invalidKeyEvent.target.value = "aaaa"
+    let secondInvalidKeyEvent = {
+      target: document.createElement('input')
+    }
+    secondInvalidKeyEvent.target.value = "/"
+    let thirdInvalidKeyEvent = {
+      target: document.createElement('input')
+    }
+    thirdInvalidKeyEvent.target.value = "a/"
+    let fourthInvalidKeyEvent = {
+      target: document.createElement('input')
+    }
+    fourthInvalidKeyEvent.target.value = "/a"
 
-    component.switchField(invalidKeyEvent)
+    let validKeyEvent = {
+      target: document.createElement('input')
+    }
+    validKeyEvent.target.value = "aa/aa"
+
+    component.changeField(invalidKeyEvent as unknown as Event)
     expect(component.password_field.nativeElement.focus).not.toHaveBeenCalled()
-    component.switchField(validKeyEvent)
+    component.changeField(secondInvalidKeyEvent as unknown as Event)
+    expect(component.password_field.nativeElement.focus).not.toHaveBeenCalled()
+    component.changeField(thirdInvalidKeyEvent as unknown as Event)
+    expect(component.password_field.nativeElement.focus).not.toHaveBeenCalled()
+    component.changeField(fourthInvalidKeyEvent as unknown as Event)
+    expect(component.password_field.nativeElement.focus).not.toHaveBeenCalled()
+
+    component.changeField(validKeyEvent as unknown as Event)
     expect(component.password_field.nativeElement.focus).toHaveBeenCalled()
   })
 });
