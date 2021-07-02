@@ -7,6 +7,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {PrescriptionsManagerService} from "../../services/prescriptionManager/prescriptions-manager.service";
 import {AbstractControl, ReactiveFormsModule} from "@angular/forms";
 import createSpyObj = jasmine.createSpyObj;
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 
 describe('NumSecuPickerComponent', () => {
   let component: NumSecuPickerComponent;
@@ -16,7 +17,7 @@ describe('NumSecuPickerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NumSecuPickerComponent ],
+      declarations: [ NumSecuPickerComponent, FaIconComponent ],
       providers: [
         { provide: PrescriptionsManagerService, useValue: mockPrescriptionsManager }
       ],

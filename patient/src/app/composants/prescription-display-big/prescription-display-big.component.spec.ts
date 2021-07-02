@@ -4,6 +4,8 @@ import { PrescriptionDisplayBigComponent } from './prescription-display-big.comp
 import {RouterTestingModule} from "@angular/router/testing";
 import {PrescriptionsManagerService} from "../../services/prescriptionManager/prescriptions-manager.service";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {BarcodeComponent} from "../barcode/barcode.component";
 
 describe('PrescriptionDisplayBigComponent', () => {
   let component: PrescriptionDisplayBigComponent;
@@ -11,7 +13,7 @@ describe('PrescriptionDisplayBigComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PrescriptionDisplayBigComponent ],
+      declarations: [ PrescriptionDisplayBigComponent, FaIconComponent, BarcodeComponent ],
       providers: [ PrescriptionsManagerService ],
       imports: [RouterTestingModule, HttpClientTestingModule]
     })

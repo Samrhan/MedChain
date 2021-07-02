@@ -5,6 +5,7 @@ import {PrescriptionsManagerService} from "../../services/prescriptionManager/pr
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {RouterTestingModule} from "@angular/router/testing";
 import {ZXingScannerModule} from "@zxing/ngx-scanner";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 
 describe('ScanPrescriptionComponent', () => {
   let component: ScanPrescriptionComponent;
@@ -12,7 +13,7 @@ describe('ScanPrescriptionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ScanPrescriptionComponent ],
+      declarations: [ ScanPrescriptionComponent, FaIconComponent ],
       providers: [ PrescriptionsManagerService ],
       imports: [ HttpClientTestingModule, RouterTestingModule, ZXingScannerModule ]
     })
