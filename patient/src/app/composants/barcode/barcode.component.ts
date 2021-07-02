@@ -14,7 +14,7 @@ export class BarcodeComponent implements AfterViewInit {
 
   @Input() scale: number = 3
 
-  @ViewChild('barcode') canvas : ElementRef | undefined
+  @ViewChild('barcode') canvas !: ElementRef
 
   constructor() { }
 
@@ -23,7 +23,7 @@ export class BarcodeComponent implements AfterViewInit {
   }
 
   drawBarcode(): void {
-    let canvas: HTMLCanvasElement = this.canvas?.nativeElement;
+    let canvas: HTMLCanvasElement = this.canvas.nativeElement;
     bwipjs.toCanvas(canvas, {
       bcid: 'datamatrix',       // Barcode type
       text: this.code + "/" + this.password,     // Text to encode
