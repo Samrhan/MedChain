@@ -5,8 +5,9 @@ import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {PrescriptionsManagerService} from "../../services/prescriptionManager/prescriptions-manager.service";
 import {of, throwError} from "rxjs";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
+import {HttpResponse} from "@angular/common/http";
 import {BarcodeComponent} from "../barcode/barcode.component";
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('MainPageComponent', () => {
   let component: MainPageComponent;
@@ -28,7 +29,7 @@ describe('MainPageComponent', () => {
       providers: [
         { provide: PrescriptionsManagerService, useValue: mockPrescriptionsManager }
       ],
-      imports: [ HttpClientTestingModule ]
+      imports: [ HttpClientTestingModule, RouterTestingModule ]
     })
     .compileComponents();
   });
