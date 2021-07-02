@@ -27,4 +27,21 @@ describe('SettingsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should do nothing if window.confirm returns false', () => {
+    spyOn(window, 'confirm').and.returnValue(false);
+    spyOn(component.prescriptionManager, 'clearAll');
+
+    component.deleteAll();
+    expect(component.prescriptionManager.clearAll).not.toHaveBeenCalled();
+  })
+
+  it('should call clearAll() if window.confirm returns true', () => {
+    spyOn(window, 'confirm').and.returnValue(true);
+    spyOn(component.prescriptionManager, 'clearAll');
+
+    component.deleteAll();
+    expect(component.prescriptionManager.clearAll).toHaveBeenCalled();
+  })
+
 });
