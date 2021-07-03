@@ -1,4 +1,223 @@
 #------------------------------------------------------------
+#       Création de la base de données
+#		MedChain
+#
+#		Auteurs :
+#			Samuel BADER, 
+#			Yann COURTEMANCHE, 
+#			Enzo FILANGI, 
+#			Adrien GIRARD, 
+#			Jonathan WITT
+#------------------------------------------------------------
+
+#------------------------------------------------------------
+# Suppression des données existantes
+#------------------------------------------------------------
+
+DROP DATABASE IF EXISTS medchain;
+CREATE DATABASE medchain;
+use medchain;
+
+
+#------------------------------------------------------------
+# Table: Specialites
+#------------------------------------------------------------
+
+CREATE TABLE Specialites(
+        Specialite Varchar (200) NOT NULL
+	,CONSTRAINT Specialites_PK PRIMARY KEY (Specialite)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Medecins
+#------------------------------------------------------------
+
+CREATE TABLE Medecins(
+        Id_medecin      Int  Auto_increment  NOT NULL ,
+        Nom_medecin     Varchar (200) NOT NULL ,
+        Prenom_medecin  Varchar (200) NOT NULL ,
+        Numero          Varchar (200) NOT NULL ,
+        Rue             Varchar (200) NOT NULL ,
+        Ville           Varchar (200) NOT NULL ,
+        CodePostal      Char (5) NOT NULL ,
+        Telephone       Char (10) NOT NULL ,
+        RPPS            Char (11) NOT NULL ,
+        Password        Text NOT NULL ,
+        Droit_connexion Bool NOT NULL DEFAULT True,
+        Specialite      Varchar (200) NOT NULL
+	,CONSTRAINT Medecins_PK PRIMARY KEY (Id_medecin)
+
+	,CONSTRAINT Medecins_Specialites_FK FOREIGN KEY (Specialite) REFERENCES Specialites(Specialite)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Ordonnances
+#------------------------------------------------------------
+
+CREATE TABLE Ordonnances(
+        Id_ordonnance       Char(36) NOT NULL ,
+        Identifiant_patient text NOT NULL ,
+        Renouvellements     Int NOT NULL ,
+        Date_maximum        Date NOT NULL ,
+        Date_prescription   Datetime NOT NULL ,
+        Id_medecin          Int NOT NULL
+	,CONSTRAINT Ordonnances_PK PRIMARY KEY (Id_ordonnance)
+
+	,CONSTRAINT Ordonnances_Medecins_FK FOREIGN KEY (Id_medecin) REFERENCES Medecins(Id_medecin)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Prescriptions
+#------------------------------------------------------------
+
+CREATE TABLE Prescriptions(
+        Id_prescription Int  Auto_increment  NOT NULL ,
+        Nom_medicament  Varchar (200) NOT NULL ,
+        Dosage          Varchar (200) NOT NULL ,
+        Duree           Int NOT NULL ,
+        Prises_par_jour Int NOT NULL ,
+        Id_ordonnance   Char(36) NOT NULL
+	,CONSTRAINT Prescriptions_PK PRIMARY KEY (Id_prescription)
+
+	,CONSTRAINT Prescriptions_Ordonnances_FK FOREIGN KEY (Id_ordonnance) REFERENCES Ordonnances(Id_ordonnance)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Pharmacie
+#------------------------------------------------------------
+
+CREATE TABLE Pharmacies(
+        Id_pharmacie Int  Auto_increment  NOT NULL ,
+        Numero       Varchar (200) NOT NULL ,
+        Rue          Varchar (200) NOT NULL ,
+        Ville        Varchar (200) NOT NULL ,
+        CodePostal   Char (5) NOT NULL ,
+        Telephone    Char (10) NOT NULL
+	,CONSTRAINT Pharmacie_PK PRIMARY KEY (Id_pharmacie)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Pharmacien
+#------------------------------------------------------------
+
+CREATE TABLE Pharmaciens(
+        Id_pharmacien     Int  Auto_increment  NOT NULL ,
+        Nom_pharmacien    Varchar (200) NOT NULL ,
+        Prenom_pharmacien Varchar (200) NOT NULL ,
+        Numero            Varchar (200) NOT NULL ,
+        Rue               Varchar (200) NOT NULL ,
+        Ville             Varchar (200) NOT NULL ,
+        CodePostal        Char (5) NOT NULL ,
+        Telephone         Char (10) NOT NULL ,
+        Password          Text NOT NULL ,
+        Username          Text NOT NULL ,
+        Droit_connexion   Bool NOT NULL DEFAULT True ,
+        Id_pharmacie      Int NOT NULL
+	,CONSTRAINT Pharmacien_PK PRIMARY KEY (Id_pharmacien)
+
+	,CONSTRAINT Pharmacien_Pharmacie_FK FOREIGN KEY (Id_pharmacie) REFERENCES Pharmacies(Id_pharmacie)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Delivre
+#------------------------------------------------------------
+
+CREATE TABLE Delivre(
+        Id_Delivre     Int  Auto_increment  NOT NULL ,
+        Id_ordonnance     Char(36) NOT NULL ,
+        Id_pharmacien     Int NOT NULL ,
+        Date_delivrance   Datetime NOT NULL ,
+		Delivre_en_entier Bool DEFAULT False
+	,CONSTRAINT Delivre_PK PRIMARY KEY (Id_Delivre,Id_ordonnance,Id_pharmacien,Date_delivrance)
+
+	,CONSTRAINT Delivre_Ordonnances_FK FOREIGN KEY (Id_ordonnance) REFERENCES Ordonnances(Id_ordonnance)
+	,CONSTRAINT Delivre_Pharmacien0_FK FOREIGN KEY (Id_pharmacien) REFERENCES Pharmaciens(Id_pharmacien)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Note
+#------------------------------------------------------------
+
+CREATE TABLE Notes(
+        Id_Notes     Int  Auto_increment  NOT NULL ,
+        Id_ordonnance Char(36) NOT NULL ,
+        Id_pharmacie  Int NOT NULL ,
+        Contenu       Text NOT NULL ,
+        Date_ecriture Date NOT NULL ,
+        Utilise Bool NOT NULL DEFAULT False
+
+	,CONSTRAINT Note_PK PRIMARY KEY (Id_Notes,Id_ordonnance,Id_pharmacie,Date_ecriture)
+
+	,CONSTRAINT Note_Ordonnances_FK FOREIGN KEY (Id_ordonnance) REFERENCES Ordonnances(Id_ordonnance)
+	,CONSTRAINT Note_Pharmacie0_FK FOREIGN KEY (Id_pharmacie) REFERENCES Pharmacies(Id_pharmacie)
+)ENGINE=InnoDB;
+
+#------------------------------------------------------------
+#       Création des vues
+#		MedChain
+#
+#		Auteurs :
+#			Samuel BADER, 
+#			Yann COURTEMANCHE, 
+#			Enzo FILANGI, 
+#			Adrien GIRARD, 
+#			Jonathan WITT
+#------------------------------------------------------------
+
+#------------------------------------------------------------
+# Suppression des données existantes
+#------------------------------------------------------------
+
+DROP VIEW IF EXISTS medecins_complet;
+DROP VIEW IF EXISTS pharmaciens_complet;
+DROP VIEW IF EXISTS ordonnances_complet;
+DROP VIEW IF EXISTS utilisations_ordonnance;
+DROP VIEW IF EXISTS prescription_utile;
+DROP VIEW IF EXISTS notes_utile;
+
+
+#------------------------------------------------------------
+# Création des vues
+#------------------------------------------------------------
+
+CREATE OR REPLACE VIEW medecins_complet AS
+SELECT * FROM medecins
+NATURAL JOIN specialites;
+
+CREATE OR REPLACE VIEW pharmaciens_complet AS
+SELECT Nom_pharmacien, Prenom_pharmacien, pharmaciens.Numero as pharmacienNumero, pharmaciens.Rue as pharmacienRue, pharmaciens.Ville as pharmacienVille, pharmaciens.CodePostal as pharmacienCodePostal, pharmaciens.Telephone as pharmacienTelephone, Password, Username, Droit_connexion, pharmacies.Id_pharmacie, pharmacies.Numero as pharmacieNumero, pharmacies.Rue as pharmacieRue, pharmacies.Ville as pharmacieVille, pharmacies.CodePostal as pharmacieCodePostal, pharmacies.Telephone as pharmacieTelephone
+FROM pharmaciens
+LEFT JOIN pharmacies ON pharmaciens.id_pharmacie = pharmacies.id_pharmacie;
+
+CREATE OR REPLACE VIEW ordonnances_complet AS
+SELECT * FROM ordonnances
+NATURAL JOIN prescriptions
+NATURAL JOIN medecins;
+
+CREATE OR REPLACE VIEW info_ordonnance AS
+SELECT Renouvellements, Date_maximum, Date_prescription, nom_medecin, prenom_medecin, Numero, Rue, Ville, CodePostal, Telephone, Specialite, Id_ordonnance FROM ordonnances
+NATURAL JOIN medecins;
+
+CREATE OR REPLACE VIEW utilisations_ordonnance AS
+SELECT id_ordonnance, Renouvellements, Date_maximum, SUM(Delivre_en_entier = true) AS Utilisations FROM Delivre NATURAL JOIN Ordonnances
+GROUP BY id_ordonnance;
+
+CREATE OR REPLACE VIEW prescriptions_utile AS
+SELECT Nom_medicament, Dosage, Duree, Prises_par_jour, Id_ordonnance
+FROM Prescriptions;
+
+CREATE OR REPLACE VIEW notes_utile AS
+SELECT Contenu, Date_ecriture, Id_ordonnance, Numero, Rue, Ville, CodePostal, Telephone FROM Notes
+NATURAL JOIN Pharmacies;
+
+#------------------------------------------------------------
 #       Insertions de valeurs par défaut dans la base de données
 #		MedChain
 #
@@ -95,12 +314,3 @@ INSERT INTO Prescriptions(Nom_medicament, Dosage, Duree, Prises_par_jour, Id_ord
 INSERT INTO Prescriptions(Nom_medicament, Dosage, Duree, Prises_par_jour, Id_ordonnance) VALUES ("Rhinofluimucil", "2 pulvérisations", 7, 3, "287c6493-b166-49d9-9b09-d629000f5c9d");
 INSERT INTO Prescriptions(Nom_medicament, Dosage, Duree, Prises_par_jour, Id_ordonnance) VALUES ("Piascledine", "300mg", 30, 1, "eb4b84bb-e2f0-469b-9c69-495a3234957f");
 INSERT INTO Prescriptions(Nom_medicament, Dosage, Duree, Prises_par_jour, Id_ordonnance) VALUES ("Paracétamol", "1000mg", 30, 2, "eb4b84bb-e2f0-469b-9c69-495a3234957f");
-
-
-
-
-
-
-
-
-
