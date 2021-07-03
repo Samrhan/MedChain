@@ -92,7 +92,7 @@ export class PrescriptionManagerService implements CanActivate {
       return of(-1);
     }
     return this.httpClient.post(environment.api_url + "/token_state", {
-      token_id: id,
+      token: id,
       secu: social,
       password: password
     }, {
@@ -102,7 +102,7 @@ export class PrescriptionManagerService implements CanActivate {
         // @ts-ignore
         return answer.uses_left;
       }), catchError(() => {
-        return of(-1);
+        return of(-9999);
       })
     );
   }

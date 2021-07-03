@@ -6,12 +6,14 @@ let mainWindow
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1410,
+    height: 1024,
+    icon: 'src/favicon.ico',
     webPreferences: {
       nodeIntegration: true
     }
   })
+  mainWindow.removeMenu()
   mainWindow.loadFile('dist/doctor/index.html');
 
   mainWindow.on('closed', function () {

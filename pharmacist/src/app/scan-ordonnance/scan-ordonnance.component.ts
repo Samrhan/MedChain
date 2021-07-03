@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {PrescriptionManagerService} from "../Services/PrescriptionManager/prescription-manager.service";
@@ -10,6 +10,9 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./scan-ordonnance.component.css']
 })
 export class ScanOrdonnanceComponent implements OnInit {
+
+  @ViewChild("token") token_field!: ElementRef;
+  @ViewChild("password") password_field!: ElementRef;
 
   prescription_form: FormGroup = this.formBuilder.group({
     prescription_id: new FormControl('', Validators.compose([
@@ -56,6 +59,8 @@ export class ScanOrdonnanceComponent implements OnInit {
   modalRef: BsModalRef | undefined;
   @ViewChild('doesNotExistModal')
   template: TemplateRef<any> | undefined;
+
+  shift_pressed: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -123,4 +128,13 @@ export class ScanOrdonnanceComponent implements OnInit {
     }
   }
 
+  changeField($event: Event) {
+    const content = ($event.target as HTMLInputElement).value;
+    const split = content.split('/');
+    if (split.length >= 2 && split[0].length > 0 && split[1].length > 0){
+      this.prescription_form.get('prescription_id')!.setValue(split[0]);
+      this.prescription_form.get('prescription_password')!.setValue(split[1]);
+      this.password_field.nativeElement.focus();
+    }
+  }
 }
