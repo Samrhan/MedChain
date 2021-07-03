@@ -29,13 +29,24 @@
   ],
   "dataGroups": [
     {
-      "name": "posts",
+      "name": "token_metadata",
       "urls": [
-        "https://jsonplaceholder.typicode.com/posts"
+        "https://medchain.sbader.fr/api"
       ],
       "cacheConfig": {
-        "maxSize": 5,
-        "maxAge": "6h",
+        "maxSize": 20,
+        "maxAge": "30d",
+        "timeout": "3s",
+        "strategy": "freshness"
+      }
+    }, {
+      "name": "local_token_metadata",
+      "urls": [
+        "http://localhost:3000/api"
+      ],
+      "cacheConfig": {
+        "maxSize": 20,
+        "maxAge": "30d",
         "timeout": "3s",
         "strategy": "freshness"
       }
