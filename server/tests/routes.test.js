@@ -1,9 +1,27 @@
 const request = require('supertest')
 const app = require('../server/app.js')
+const fs = require('fs');
+const express = require('express')
+const router = express.Router()
+const mysql = require("mysql2/promise")
+
+const dotenv = require('dotenv')
+dotenv.config()
+
+const client = mysql.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    database: "medchain",
+    password: process.env.DB_PASSWORD,
+    multipleStatements: true
+});
+
+// On netoie la bases de donnée
+let sqlreset = fs.readFileSync('../sql/Default values.sql').toString();
+client.query(sqlreset)
 
 
-// npm test pour lancer les test unitaire. Il neccessite une db propre
-
+// npm test pour lancer les test unitaire.
 // on cree un agent qui restera connecter entre les tests
 let agent = request.agent(app);
 

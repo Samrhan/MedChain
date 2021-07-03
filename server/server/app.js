@@ -43,3 +43,5 @@ app.use('/pictures', express.static(__dirname.slice(0,-7) + '/uploads')); // Che
 app.use('/api/', apiRouter)
 
 module.exports = app
+
+
