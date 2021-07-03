@@ -114,6 +114,7 @@ Pour ce faire, placez vous dans chaque sous-dossier, ouvrez un terminal, et entr
 - `npm test` pour le serveur
 
 Ces commandes génèrent également des rapports de *code coverage*. Ils indiquent quelle surface de notre code est couverte par des tests. Comme vous pourrez le constater en ouvrant le fichier index.html contenu dans les dossiers `coverage` ayant fait leur appartition, chaque application est couverte à 100% par des tests. Ainsi, nous pouvons avoir une confiance importante en la qualité de notre code et le fait qu'il réponde correctement au cahier des charges sans négliger de cas limite.
+ATTENTION: Le test du serveur resetera votre base de donné.
 
 ## Delivery 
 Voici nos documents de réponse à l'appel d'offre
