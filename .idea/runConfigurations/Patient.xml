@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Client" type="js.build_tools.npm">
-    <package-json value="$PROJECT_DIR$/client/package.json" />
+  <configuration default="false" name="Patient" type="js.build_tools.npm">
+    <package-json value="$PROJECT_DIR$/patient/package.json" />
     <command value="start" />
     <node-interpreter value="project" />
     <envs />

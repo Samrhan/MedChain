@@ -1,0 +1,27 @@
+<div *ngIf="showInstallGuide; else router">
+  <div *ngIf="platform.IOS">
+    <div class="d-flex flex-column align-items-center justify-content-center mt-5" id="ios-install">
+      <h1 class="text-center">Veuillez suivre les instructions ci-dessous pour installer l'application</h1>
+      <ol class="mt-3 me-4">
+        <li>Appuyez sur le bouton "partager" en bas de l'écran<br><img class="mt-1 img-fluid border border-2 rounded shadow" src="../assets/iOS1.png" alt="Appuyez sur le bouton &quot;partager&quot; en bas de l'écran"/></li>
+        <li class="mt-3">Appuyez ensuite sur "Sur l'écran d'accueil" dans la liste<br><img class="mt-1 img-fluid border border-2 rounded shadow" src="../assets/iOS2.png" alt="Appuyez ensuite sur &quot;Sur l'écran d'accueil&quot; dans la liste"/></li>
+        <li class="mt-3">Enfin, validez l'ajout<br><img class="mt-1 img-fluid border border-2 rounded shadow" src="../assets/iOS3.png" alt="Enfin, validez l'ajout"/></li>
+      </ol>
+    </div>
+  </div>
+  <div *ngIf="platform.ANDROID">
+    <div class="d-flex flex-column align-items-center justify-content-center mt-5" id="android-install">
+      <h1 class="text-center">Veuillez installer l'application en utilisant le bouton ci-dessous</h1>
+      <button (click)="addToHomeScreen()" class="btn btn-primary rounded-pill mt-3">Ajouter à l'écran d'accueil</button>
+    </div>
+  </div>
+  <div *ngIf="!platform.IOS && !platform.ANDROID">
+    <div class="d-flex align-items-center justify-content-center" id="no-install">
+      <h1 class="p-5 alert-danger">Cette application est faite pour être consultée sur mobile.</h1>
+    </div>
+  </div>
+</div>
+
+<ng-template #router>
+  <router-outlet id="router-outlet"></router-outlet>
+</ng-template>

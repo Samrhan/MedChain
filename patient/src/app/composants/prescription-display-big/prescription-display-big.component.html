@@ -1,0 +1,11 @@
+<div class="px-2 d-flex mt-2" [routerLink]="['/']">
+  <fa-icon [icon]="faArrowLeft"></fa-icon>
+  <h5 class="ms-2">Fermer</h5>
+</div>
+
+<app-barcode [code]="code" [password]="password" *ngIf="code && password; else error" [scale]="5"></app-barcode>
+<ng-template #error>
+  <h1 class="text-danger">Une erreur est survenue, impossible d'afficher cette ordonnance.</h1>
+</ng-template>
+
+<p class="text-muted fst-italic position-absolute bottom-0 text-center pb-3">Veuillez penser à augmenter au maximum la luminosité de votre écran</p>

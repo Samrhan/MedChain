@@ -1,0 +1,26 @@
+<div class="mt-3 mx-2 d-flex flex-column">
+  <h1 class="text-center">Veuillez entrer votre numéro de sécurité sociale</h1>
+  <h4 class="text-center">Votre numéro est utilisé pour confirmer que les ordonnances vous concernent bien</h4>
+  <p class="text-center" (click)="openModal(help)">Vous pourrez trouver ce numéro sur votre carte vitale, sous votre nom <fa-icon [icon]="faQuestionCircle"></fa-icon></p>
+</div>
+
+<form [formGroup]="social_form" (ngSubmit)="saveSocial()" class="mx-4 mt-3">
+  <input type="text" class="form-control" placeholder="Numéro de sécurité sociale" formControlName="patient_social_security">
+  <div *ngFor="let validation of validation_messages.patient_social_security">
+    <p *ngIf="invalid_input('patient_social_security', validation.type)" class="validation-alert" id="patient_social_security_error">{{validation.message}}</p>
+  </div>
+
+  <button type="submit" class="btn btn-primary position-absolute bottom-0 start-50 translate-middle w-75 rounded-pill mb-3" [disabled]="!social_form.valid">Enregistrer le numéro</button>
+</form>
+
+<ng-template #help>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Le numéro se trouve ici</h4>
+    <button type="button" class="btn btn-outline-secondary close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <img class="w-100" src="assets/carte%20vitale.png" alt="Le numéro de sécurité sociale se trouve sous votre nom. C'est la dernière ligne lorsque la carte est lue depuis le côté long.">
+  </div>
+</ng-template>
