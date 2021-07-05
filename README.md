@@ -18,6 +18,8 @@ Notre système propose aux médecins de remplir une ordonnance numérique qui se
 
 ## Installation
 
+Commencez par cloner le repository GitHub disponible à [cette adresse](https://github.com/Samrhan/MedChain).
+
 #### Dépendances
 
 - [NodeJS 14](https://nodejs.org/fr/)
@@ -28,11 +30,8 @@ Notre système propose aux médecins de remplir une ordonnance numérique qui se
 
 - [MySQL 8](https://dev.mysql.com/downloads/installer/)
 
-#### Installation
-
-Commencez par cloner le repository GitHub disponible à [cette adresse](https://github.com/Samrhan/MedChain).
-
 #### Librairies
+
 Placez vous à la racine du projet, puis exécutez les commandes suivantes (cela peut prendre un moment en fonction de votre connexion internet et de la rapidité de votre disque dur) :
 ```Bash
 $ cd server
@@ -45,7 +44,25 @@ $ cd ../patient
 $ npm install
 ```
 #### Base de données
+
 Veuillez exécuter le script `Database Initialize.sql` situé dans "MedChain\sql" pour recréer la base de données. Par la suite, si vous souhaitez rétablir les valeurs par défaut, veuillez exécuter le script `Default values.sql` situé dans "MedChain\sql\other scripts"
+
+#### Données d'environnement
+
+Afin de pouvoir fonctionner correctement, le serveur nécéssite certaines informations à la fois sensibles et dépendantes de la machine sur lequel il est exécuté. Ainsi, un fichier `.env` doit être créé dans le dossier "server". Ce fichier n'est pas stocké sur git afin d'éviter de publier des informations sensibles et pour ne pas que les informations de chaque membre du projet soient en conflit.
+
+Voici le contenu de ce fichier, à personnaliser avec vos informations lorsque les consignes entre crochets l'indiquent :
+
+```
+SECRET= [une suite de caractères aléatoires]
+DB_PASSWORD= [le mot de passe de l'utilisateur MySQL ayant tous les droits sur la base de données medchain]
+DB_USER = [l'utilisateur MySQL ayant tous les droits sur la base de données medchain]
+DOMAIN= mg.myvirtue.fr
+APIKEY= 093be3ac8b44d0e3d68c8db255120b49-ea44b6dc-d369bef6
+DB_HOST = localhost
+```
+
+Pour les autres applications, les variables d'environnement sont stockées dans `.../src/environments/`, cependant celles-ci sont les mêmes pour tous et n'ont donc pas à changer. Notez cependant que le serveur doit être exécuté sur le port 3000 (ce qui est le cas par défaut). De plus, en lançant les applications en mode production, le backend distant hébergé sur notre serveur cloud sera utilisé.
 
 ## Exécution
 
