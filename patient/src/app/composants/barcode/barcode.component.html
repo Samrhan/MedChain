@@ -1,0 +1,6 @@
+<div class="d-flex flex-column align-items-center justify-content-center">
+  <canvas #barcode [ngClass]="{'m-5': scale > 3, 'm-2': scale <= 3}"></canvas>
+  <b>{{code}}</b>
+  <b>{{password}}</b>
+</div>
+
