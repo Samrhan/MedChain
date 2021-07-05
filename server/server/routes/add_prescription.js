@@ -65,7 +65,7 @@ module.exports = async (req, res, client) => {
         from: `noreply@myvirtue.fr`,
         to: email,
         subject: "Telecharger votre ordonnance",
-        text: "lien in  app",
+        text: "https://medchain.sbader.fr/add/"+password,
         attachment: attch
     })
     res.status(200).json({message: "ok"});
