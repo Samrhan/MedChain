@@ -57,7 +57,7 @@ Voici le contenu de ce fichier, à personnaliser avec vos informations lorsque l
 SECRET= [une suite de caractères aléatoires]
 DB_PASSWORD= [le mot de passe de l'utilisateur MySQL ayant tous les droits sur la base de données medchain]
 DB_USER = [l'utilisateur MySQL ayant tous les droits sur la base de données medchain]
-DOMAIN= mg.myvirtue.fr
+DOMAIN= mg.sbader.fr
 APIKEY= 093be3ac8b44d0e3d68c8db255120b49-ea44b6dc-d369bef6
 DB_HOST = localhost
 ```
