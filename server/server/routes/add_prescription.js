@@ -62,10 +62,10 @@ module.exports = async (req, res, client) => {
 
     let attch = new mailgun.Attachment({data: png, filename: "code.png"});
     mailgun.messages().send({
-        from: `noreply@myvirtue.fr`,
+        from: `noreply@sbader.fr`,
         to: email,
         subject: "Telecharger votre ordonnance",
-        text: "lien in  app",
+        text: `https://medchain.sbader.fr/add/${Id_ordonnance}/${password}`,
         attachment: attch
     })
     res.status(200).json({message: "ok"});
