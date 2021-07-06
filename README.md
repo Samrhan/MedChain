@@ -70,7 +70,7 @@ Nous conseillons d'utiliser un IDE produit par JetBrains, dans le cas présent, 
 
 Autrement, nous avons également configuré les package.json de chaque application pour que la commande `npm start` exécute chaque programme. Cependant, il est nécessaire d'employer à la place la commande `npm start:electron` pour les application *doctor* et *pharmacist* afin d'avoir l'expérience réelle de l'utilisateur. En effet, `npm start` ouvrira l'application dans le navigateur, pratique pour le développement, tandis que `npm start:electron` ouvrira l'application dans Electron, pratique pour avoir une application de bureau.
 
-À noter que procéder ainsi lancera l'application patient dans votre navigateur. Pour l'utiliser correctement, il vous sera nécéssaire d'ouvrir les DevTools de votre navigateur (crtl + shift + i) pour émuler un appareil mobile (dimensions recommandées, 360\*640). Si vous souhaitez y avoir accès depuis votre téléphone, vous pouvez vous rendre sur https://medchain.sbader.fr/
+À noter que procéder ainsi lancera l'application patient dans votre navigateur. Pour l'utiliser correctement, il vous sera nécéssaire d'ouvrir les DevTools de votre navigateur (crtl + shift + i) pour émuler un appareil mobile (dimensions recommandées, 360\*640). Si vous souhaitez y avoir accès depuis votre téléphone, vous pouvez vous rendre sur https://medchain.sbader.fr/ (vous pouvez aussi y accéder sur PC en redimensionnant avec les DevTools puis en rafraîchissant la page)
 
 ## Essayer les applications
 
@@ -120,6 +120,8 @@ L'application Patient dispose de deux moyens d'ajouter une ordonnance : en scann
 5. Vous pouvez alors utiliser l'application patient pour afficher le code barre en grand. Placez votre curseur dans le premier champ de texte et scannez ce code (ou l'image ouverte sur votre PC). Renseignez ensuite le numéro de sécurité sociale de l'étape 2.
 
 6. Vous devriez désormais voir le contenu de l'ordonnance que vous avez renseigné à l'étape 2. Vous pouvez alors jouer le rôle du pharmacien et indiquer que vous avez délivré l'ordonnance en entier, ou bien ajouter une note pour indiquer à tous les pharmaciens que vous n'avez délivré qu'une partie seulement des médicaments.
+
+*note : Nous recommandons un téléphone Android pour ces tests car le support des PWA y est plus complet*
 
 ## Suites de tests unitaires
 
